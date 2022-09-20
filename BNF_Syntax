@@ -1,0 +1,95 @@
+
+<SPLProgram>            ::= ((<function definitions>))* <program definition> EOPC  
+						end potato.
+						
+<datatype>              ::= ( int | flt | bool | char )
+
+<literal>               ::= <integer> | <float> | <character> | <boolean> | <string>
+
+<integer>               ::= <digit> { <digit> }*
+
+<float>                 ::= <digit> { <digit> }* . <digit> { <digit> }* [ E [ - ] <digit> { <digit> }* ]
+
+<character>             ::= '<ASCIICharacter>' 
+
+<boolean>               ::= true | false | TRUE | FALSE
+
+<identifier>            ::= <letter> { (( <letter> | <digit> | _ )) }*
+
+<UB>                    ::= [ (( + | - )) ] <integer>
+
+<variable definitions>  ::= <datatype> <identifier> [ <UB> ]  {, {<datatype> <identifier>  [ <UB> ]}* .
+
+<constant definitions>  ::= <datatype> <identifier> [ <UB> ] CONST .
+												
+<ASCIICharacter>        ::= || Every printable ASCII character in range [ ' ','~' ]
+						 
+<string>                ::= "{<ASCIICharacter>}*" | '{<ASCIICharacter>}*'
+
+<letter>                ::= A | B | ... | Z | a | b | ... | z
+
+<digit>                 ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+
+<negation>              ::= [ NOT ] <comparison>
+
+<conjunction>           ::= <negation> { (( AND | NAND )) <negation> }*
+
+<expression>            ::= <conjunction> { (( OR | NOR | XOR )) <conjunction> }
+
+<comparison>            ::= <comparator> [ (( < | <= | == | > | >= | (( != | <> )) )) <comparator> ]
+
+<comparator>            ::= <term> { (( + | - )) <term> }*
+						  
+<comment>               ::= || { <ASCIICharacter> }* EOLC                || single-line comment
+                             | /* { (( <ASCIICharacter> | EOLC )) }* */    || multi-line (block) comment
+
+<formalParameter>       ::= [ (( IN | OUT | IO | REF )) ] <identifier> : <datatype> [ [ { , }* ] ]
+
+<program definition>    ::= <datatype> main potato [<datatype> : <indentifier>]                                
+                             { <statement> }*
+							              cooked potato .
+							
+<function definition>   ::= <datatype> <identifier> [<datatype> : <indentifier>]                              
+                             { <statement> }*
+							              cooked potato .
+							
+<handler definition>    ::= <datatype> <identifier> [<datatype> : <indentifier>]                              
+                             { <statement> }*
+							              cooked potato .
+
+<exit statement>		    ::= cooked potato .
+
+<assertion>             :: { <expression> }
+
+
+<statement>           ::= <print statement> | <expression> | <comment> | <input statment>
+						                | <if statement> | <do while statement> | <for statement>
+						                | <assignment statement> | <assertion>
+
+<assignment statement> ::= <indentifier> { , <idnetifier> }* = <expression> .
+
+<print statement>      ::= outpotato (( <string> | <expression> | \n | \t )) { , {( <string> | <expression> | \n | \t )) }* .
+
+<input statement>      ::= inpotato [ <string> ] <variable> .
+
+<if statement>         ::= if ( <expression> )
+                              { <statement> }*
+                            { elif ( <expression> )
+                                             { <statement> }* }*
+                              else
+                                             { <statement> }*
+                                          cooked potato .
+                            | if ( <expression> )
+                              { <statement> }*
+                              cooked potato .
+
+<dowhile statement>    ::= dowhile ( <expression> )
+                            { <statement> }*
+                             cooked potato .
+
+<for statement>        ::= for ((<datatype>)) <indentifier> = <expression> . <expression> . <increment expression>
+                             { <statement> }* 
+                          cooked potato .
+
+<return statement>     ::= return potato [ ( <expression> ) ] .
+
