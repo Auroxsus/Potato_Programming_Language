@@ -1,5 +1,5 @@
 //-----------------------------------------------------------
-// Dr. Art Hanna
+// Auroxsus
 // POTATO compiler "global" definitions and the common classes
 //    POTATOEXCEPTION, LISTER, READER, CODE, and IDENTIFIERTABLE
 //
@@ -115,7 +115,7 @@ void LISTER::OpenFile(const char sourceFileName[])
    char fullFileName[80+1];
 
    strcpy(this->sourceFileName,sourceFileName);
-   strcat(this->sourceFileName,".POTATO");
+   strcat(this->sourceFileName,".p");
    strcpy(fullFileName,sourceFileName);
    strcat(fullFileName,".list");
    LIST.open(fullFileName,ios::out);
@@ -244,7 +244,7 @@ void READER<CALLBACKSALLOWED>::OpenFile(const char sourceFileName[])
    char fullFileName[80+1];
 
    strcpy(fullFileName,sourceFileName);
-   strcat(fullFileName,".POTATO");
+   strcat(fullFileName,".p");
    SOURCE.open(fullFileName,ios::in);
    if ( !SOURCE.is_open() ) throw( POTATOEXCEPTION("Unable to open source file") );
 
