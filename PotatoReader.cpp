@@ -1,7 +1,7 @@
 //-----------------------------------------------------------
-// Dr. Art Hanna
-// SPL Reader "driver" program
-// SPLReader.cpp
+// Auroxsus
+// POTATO Reader "driver" program
+// POTATOReader.cpp
 //-----------------------------------------------------------
 #include <iostream>
 #include <iomanip>
@@ -17,7 +17,7 @@ using namespace std;
 
 #define TRACEREADER
 
-#include "..\SPL.h"
+#include "Potato.h"
 
 //-----------------------------------------------------------
 int main()
@@ -51,12 +51,12 @@ int main()
       } while ( nextCharacter.character != READER<CALLBACKSUSED>::EOPC );
 //      } while ( nextCharacter.character != READER::EOPC );
    }
-   catch (SPLEXCEPTION splException)
+   catch (POTATOEXCEPTION POTATOException)
    {
-      cout << "SPL exception: " << splException.GetDescription() << endl;
+      cout << "POTATO exception: " << POTATOException.GetDescription() << endl;
    }
-   lister.ListInformationLine("******* SPL reader ending");
-   cout << "SPL reader ending\n";
+   lister.ListInformationLine("******* POTATO reader ending");
+   cout << "POTATO reader ending\n";
 
    system("PAUSE");
    return( 0 );
