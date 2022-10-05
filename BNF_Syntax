@@ -47,49 +47,47 @@
 
 <program definition>    ::= <datatype> main potato [<datatype> : <indentifier>]                                
                              { <statement> }*
-							              cooked potato .
+							              cookedpotato.
 							
 <function definition>   ::= <datatype> <identifier> [<datatype> : <indentifier>]                              
                              { <statement> }*
-							              cooked potato .
+							              cookedpotato.
 							
 <handler definition>    ::= <datatype> <identifier> [<datatype> : <indentifier>]                              
                              { <statement> }*
-							              cooked potato .
+							              cookedpotato.
 
-<exit statement>		    ::= cooked potato .
+<exit statement>		::= cookedpotato.
 
-<assertion>             :: { <expression> }
+<assertion>				:: { <expression> }
 
-
-<statement>           ::= <print statement> | <expression> | <comment> | <input statment>
+<statement>             ::= <print statement> | <expression> | <comment> | <input statment>
 						                | <if statement> | <do while statement> | <for statement>
 						                | <assignment statement> | <assertion>
 
-<assignment statement> ::= <indentifier> { , <idnetifier> }* = <expression> .
+<assignment statement> 	::= <indentifier> { , <idnetifier> }* = <expression> .
 
-<print statement>      ::= outpotato (( <string> | <expression> | \n | \t )) { , {( <string> | <expression> | \n | \t )) }* .
+<print statement>      	::= outpotato (( <string> | <expression> | \n | \t )) { , {( <string> | <expression> | \n | \t )) }* .
 
-<input statement>      ::= inpotato [ <string> ] <variable> .
+<input statement>      	::= inpotato [ <string> ] <variable> .
 
-<if statement>         ::= if ( <expression> )
-                              { <statement> }*
-                            { elif ( <expression> )
-                                             { <statement> }* }*
-                              else
-                                             { <statement> }*
-                                          cooked potato .
-                            | if ( <expression> )
-                              { <statement> }*
-                              cooked potato .
+<if statement>         	::= if ( <expression> )
+								{ <statement> }*
+                            {elif ( <expression> )
+                                { <statement> }* }*
+                            else
+                                { <statement> }*
+                            cookedpotato.		| 
+							if ( <expression> )
+								{ <statement> }*
+                            cookedpotato.
 
-<dowhile statement>    ::= dowhile ( <expression> )
-                            { <statement> }*
-                             cooked potato .
+<dowhile statement>    	::= dowhile ( <expression> )
+								{ <statement> }*
+                            cookedpotato.
 
-<for statement>        ::= for ((<datatype>)) <indentifier> = <expression> . <expression> . <increment expression>
-                             { <statement> }* 
-                          cooked potato .
+<for statement>        	::= for ((<datatype>)) <indentifier> = <expression> . <expression> . <increment expression>
+								{ <statement> }* 
+							cookedpotato.
 
-<return statement>     ::= return potato [ ( <expression> ) ] .
-
+<return statement>     	::= return potato [ ( <expression> ) ] .
