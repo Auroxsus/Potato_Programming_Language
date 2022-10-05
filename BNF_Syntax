@@ -1,6 +1,6 @@
 
 <SPLProgram>            ::= ((<function definitions>))* <program definition> EOPC  
-						end potato.
+						endpotato.
 						
 <datatype>              ::= ( int | flt | bool | char )
 
