@@ -3,7 +3,7 @@
 /// Description: Hello world program
 ///\
 
-void main potato void                               
+void main potato void
     potato 'Ello, see you later tater!\n'
 cooked potato .
 
