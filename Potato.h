@@ -12,6 +12,11 @@
 
 #define CALLBACKSUSED 2
 
+/* for asctime */
+#include <stdio.h>      /* printf */
+#include <time.h>       /* time_t, struct tm, time, localtime, asctime */
+
+
 const int SOURCELINELENGTH        = 512;
 const int LOOKAHEAD               =   2;
 const int LINESPERPAGE            =  60;
@@ -79,11 +84,13 @@ private:
    char sourceFileName[80+1];
 
 public:
-   LISTER(const int LINESPERPAGE = 55);
+   LISTER(const int LINESPERPAGE = 42);  // the answer to everything. Hichthiker's Guide to the Galaxy
    ~LISTER();
    void OpenFile(const char sourceFileName[]);
    void ListSourceLine(int sourceLineNumber,const char sourceLine[]);
    void ListInformationLine(const char information[]);
+   char* asctime (const struct tm * timeptr); // date-and-time of compilation
+   
 
 private:
    void ListTopOfPageHeader();
@@ -132,7 +139,7 @@ void LISTER::ListSourceLine(int sourceLineNumber,const char sourceLine[])
       ListTopOfPageHeader();
       linesOnPage = 0;
    }
-   LIST << setw(4) << sourceLineNumber << " " << sourceLine << endl;
+   LIST << setw(4) << sourceLineNumber << " " << sourceLine << endl; // output the result to whats being read, on the next line
    linesOnPage++;
 }
 
@@ -149,19 +156,45 @@ void LISTER::ListInformationLine(const char information[])
    linesOnPage++;
 }
 
+// FROM http://www.cplusplus.com/reference/ctime/asctime/
+char* LISTER::asctime(const struct tm *timeptr)
+{
+  static const char wday_name[][4] = {
+    "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
+  };
+  static const char mon_name[][4] = {
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+  };
+  static char result[26];
+  sprintf(result, "%.3s %.3s%3d %.2d:%.2d:%.2d %d\n",
+    wday_name[timeptr->tm_wday],
+    mon_name[timeptr->tm_mon],
+    timeptr->tm_mday, timeptr->tm_hour,
+    timeptr->tm_min, timeptr->tm_sec,
+    1900 + timeptr->tm_year);
+  return result;
+}
+
 //-----------------------------------------------------------
 void LISTER::ListTopOfPageHeader()
 //-----------------------------------------------------------
 {
 /*
-"Source file name" Page XXXX
+"Source file name"  DAY MONTH DAY# HR:MIN:SEC YEAR  Page XXXX
 Line Source Line
 ---- -------------------------------------------------------------------------------
 */
-   const char FF = 0X0C;
+   const char FF = 0X0C; // Form Feed: diregard current page, print at next page
+   
+   time_t rawtime;
+   struct tm * timeinfo;
+
+   time ( &rawtime );
+   timeinfo = localtime ( &rawtime );
 
    pageNumber++;
-   LIST << FF << '"' << sourceFileName << "\" Page " << setw(4) << pageNumber << endl;
+   LIST << FF  << setw(2) << '"' << sourceFileName << setw(4) << asctime(timeinfo) << setw(4) << "\" Page " << setw(2) << pageNumber << endl;
    LIST << "Line Source Line" << endl;
    LIST << "---- -------------------------------------------------------------------------------" << endl;
 }
@@ -385,7 +418,7 @@ void READER<CALLBACKSALLOWED>::ReadSourceLine()
       if ( SOURCE.fail() && !SOURCE.eof() )
       {
          lister->ListInformationLine("******* Source line too long!");
-         SOURCE.clear();
+         SOURCE.clear(); // erases entire list
       }
    // Erase *ALL* control characters at end of source line (if any)
       while ( (0 <= (int) strlen(sourceLine)-1) && 
@@ -530,10 +563,11 @@ IDENTIFIERTABLE::IDENTIFIERTABLE(LISTER *lister,int capacity)
    scopes = 0;
 }
 
+// "guards" the close() function reference
 //-----------------------------------------------------------
 IDENTIFIERTABLE::~IDENTIFIERTABLE()
 //-----------------------------------------------------------
-{
+{ 
    delete [] identifierTable;
    delete [] scopeTable;
 }
