@@ -15,7 +15,8 @@
 
 using namespace std;
 
-#define TRACEREADER
+// comment out the macro's definition when no longer need "clutter" in your .list file
+#define TRACEREADER 
 
 #include "Potato.h"
 
@@ -34,7 +35,7 @@ int main()
    LISTER lister(LINESPERPAGE);
 //   READER<CALLBACKSUSED> reader(SOURCELINELENGTH,LOOKAHEAD);
 
-   cout << "Source filename? ";
+   cout << "POTATO source filename? ";
    cin >> sourceFileName;
 
    try
