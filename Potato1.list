@@ -1,4 +1,4 @@
-"Potato1.p" Page    1
+ "Potato1.p" Tue Oct 11 16:27:02 2022 Page 1
 Line Source Line
 ---- -------------------------------------------------------------------------------
    1 /// Potato1.p by Auroxsus
@@ -61,7 +61,7 @@ At (   3:  0) 2F = /
 At (   3:  1) 2F = /
 At (   3:  2) 2F = /
 At (   3:  3) 20 =  
-"Potato1.p" Page    2
+ "Potato1.p" Tue Oct 11 16:27:02 2022 Page 2
 Line Source Line
 ---- -------------------------------------------------------------------------------
 At (   3:  4) 44 = D
@@ -124,7 +124,7 @@ At (   6: 14) 74 = t
 At (   6: 15) 6F = o
 At (   6: 16) 20 =  
 At (   6: 17) 76 = v
-"Potato1.p" Page    3
+ "Potato1.p" Tue Oct 11 16:27:02 2022 Page 3
 Line Source Line
 ---- -------------------------------------------------------------------------------
 At (   6: 18) 6F = o
@@ -173,7 +173,7 @@ At (   7: 37) 21 = !
 At (   7: 38) 5C = \
 At (   7: 39) 6E = n
 At (   7: 40) 27 = '
-   8 cooked potato .
+   8 cookedpotato.
 At (   7: 41) 0A = EOLC
 At (   8:  0) 63 = c
 At (   8:  1) 6F = o
@@ -181,24 +181,18 @@ At (   8:  2) 6F = o
 At (   8:  3) 6B = k
 At (   8:  4) 65 = e
 At (   8:  5) 64 = d
-At (   8:  6) 20 =  
-At (   8:  7) 70 = p
-At (   8:  8) 6F = o
-At (   8:  9) 74 = t
-At (   8: 10) 61 = a
-At (   8: 11) 74 = t
-"Potato1.p" Page    4
+At (   8:  6) 70 = p
+At (   8:  7) 6F = o
+At (   8:  8) 74 = t
+At (   8:  9) 61 = a
+At (   8: 10) 74 = t
+At (   8: 11) 6F = o
+ "Potato1.p" Tue Oct 11 16:27:02 2022 Page 4
 Line Source Line
 ---- -------------------------------------------------------------------------------
-At (   8: 12) 6F = o
-At (   8: 13) 20 =  
-At (   8: 14) 2E = .
-   9 
-At (   8: 15) 0A = EOLC
-  10 
-At (   9:  0) 0A = EOLC
-At (  10:  0) 0A = EOLC
-At (  10:  0) 00 = EOPC
-At (  10:  0) 00 = EOPC
-At (  10:  0) 00 = EOPC
+At (   8: 12) 2E = .
+At (   8: 13) 0A = EOLC
+At (   8: 13) 00 = EOPC
+At (   8: 13) 00 = EOPC
+At (   8: 13) 00 = EOPC
 ******* POTATO reader ending

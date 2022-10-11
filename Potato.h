@@ -12,11 +12,6 @@
 
 #define CALLBACKSUSED 2
 
-/* for asctime */
-#include <stdio.h>      /* printf */
-#include <time.h>       /* time_t, struct tm, time, localtime, asctime */
-
-
 const int SOURCELINELENGTH        = 512;
 const int LOOKAHEAD               =   2;
 const int LINESPERPAGE            =  60;
@@ -90,7 +85,6 @@ public:
    void ListSourceLine(int sourceLineNumber,const char sourceLine[]);
    void ListInformationLine(const char information[]);
    char* asctime (const struct tm * timeptr); // date-and-time of compilation
-   
 
 private:
    void ListTopOfPageHeader();
@@ -167,7 +161,7 @@ char* LISTER::asctime(const struct tm *timeptr)
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
   };
   static char result[26];
-  sprintf(result, "%.3s %.3s%3d %.2d:%.2d:%.2d %d\n",
+  sprintf(result, " %.3s %.3s%3d %.2d:%.2d:%.2d %d",
     wday_name[timeptr->tm_wday],
     mon_name[timeptr->tm_mon],
     timeptr->tm_mday, timeptr->tm_hour,
@@ -194,7 +188,7 @@ Line Source Line
    timeinfo = localtime ( &rawtime );
 
    pageNumber++;
-   LIST << FF  << setw(2) << '"' << sourceFileName << setw(4) << asctime(timeinfo) << setw(4) << "\" Page " << setw(2) << pageNumber << endl;
+   LIST << FF  << setw(2) << '"' << sourceFileName << '"' << asctime(timeinfo) << " Page " << pageNumber << endl;
    LIST << "Line Source Line" << endl;
    LIST << "---- -------------------------------------------------------------------------------" << endl;
 }

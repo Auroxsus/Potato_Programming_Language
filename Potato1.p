@@ -5,5 +5,4 @@
 
 void main potato void
     potato 'Ello, see you later tater!\n'
-cooked potato .
-
+cookedpotato.

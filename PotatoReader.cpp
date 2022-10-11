@@ -11,6 +11,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <cctype>
+#include <ctime>	// For time stamp header
 #include <vector>
 
 using namespace std;
