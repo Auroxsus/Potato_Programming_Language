@@ -179,16 +179,17 @@ void GetNextToken(TOKEN tokens[])
    do
    {
 //    "Eat" any white-space (blanks and EOLCs and TABCs) 
-      while ( (nextCharacter == ' ')
+      while ( (nextCharacter == ' ') 
            || (nextCharacter == READER<CALLBACKSUSED>::EOLC)
-           || (nextCharacter == READER<CALLBACKSUSED>::TABC) )
+           || (nextCharacter == READER<CALLBACKSUSED>::TABC) ) 
          nextCharacter = reader.GetNextCharacter().character;
 
 //    "Eat" line comment
        if ( (nextCharacter == '|') && (reader.GetLookAheadCharacter(1).character == '|') )
       {
-
-#ifdef TRACESCANNER
+		  
+// Displaying trace information
+#ifdef TRACESCANNER 
    sprintf(information,"At (%4d:%3d) begin line comment",
       reader.GetLookAheadCharacter(0).sourceLineNumber,
       reader.GetLookAheadCharacter(0).sourceLineIndex);
@@ -211,6 +212,7 @@ void GetNextToken(TOKEN tokens[])
             {
                depth++;
 
+// Displaying trace information
 #ifdef TRACESCANNER
    sprintf(information,"At (%4d:%3d) begin block comment depth = %d",
       reader.GetLookAheadCharacter(0).sourceLineNumber,
@@ -225,6 +227,7 @@ void GetNextToken(TOKEN tokens[])
 		 else if ( (nextCharacter == ']') && (reader.GetLookAheadCharacter(1).character == '|') )
             {
 
+// Displaying trace information
 #ifdef TRACESCANNER
    sprintf(information,"At (%4d:%3d)   end block comment depth = %d",
       reader.GetLookAheadCharacter(0).sourceLineNumber,
@@ -246,6 +249,8 @@ void GetNextToken(TOKEN tokens[])
                                  reader.GetLookAheadCharacter(0).sourceLineIndex,
                                  "Unexpected end-of-program");
       }
+	  /* WHILE ( (nextCharacter is not a white-space character)
+        or (nextCharacter is not beginning-of-comment character) ) */
    } while ( (nextCharacter == ' ')
           || (nextCharacter == READER<CALLBACKSUSED>::EOLC)
           || (nextCharacter == READER<CALLBACKSUSED>::TABC)
@@ -259,10 +264,11 @@ void GetNextToken(TOKEN tokens[])
    sourceLineNumber = reader.GetLookAheadCharacter(0).sourceLineNumber;
    sourceLineIndex = reader.GetLookAheadCharacter(0).sourceLineIndex;
 
-// reserved words (and <identifier> ***BUT NOT YET***)
+   // IF ( nextCharacter begins a reserved word or an <identifier> ) THEN
    if ( isalpha(nextCharacter) )
    {
-      char UCLexeme[SOURCELINELENGTH+1];
+	   // Build lexeme
+	  char UCLexeme[SOURCELINELENGTH+1];
 
       i = 0;
       lexeme[i++] = nextCharacter;
@@ -276,6 +282,7 @@ void GetNextToken(TOKEN tokens[])
       for (i = 0; i <= (int) strlen(lexeme); i++)
          UCLexeme[i] = toupper(lexeme[i]);
 
+	  // Try to find the lexeme in the table of reserved words.
       bool isFound = false;
 
       i = 0;
@@ -288,11 +295,12 @@ void GetNextToken(TOKEN tokens[])
       }
       if ( isFound )
          type = TOKENTABLE[i].type;
-      else
+      else // Not a reserved word, must be an <identifier>.
          type = IDENTIFIER;
    }
-   else
+   else  
    {
+	// Determine both the type and the lexeme of the next token
       switch ( nextCharacter )
       {
 // <string>
@@ -359,6 +367,7 @@ void GetNextToken(TOKEN tokens[])
    tokens[LOOKAHEAD].sourceLineNumber = sourceLineNumber;
    tokens[LOOKAHEAD].sourceLineIndex = sourceLineIndex;
 
+// Displaying trace information and return
 #ifdef TRACESCANNER
    sprintf(information,"At (%4d:%3d) token = %12s lexeme = |%s|",
       tokens[LOOKAHEAD].sourceLineNumber,
