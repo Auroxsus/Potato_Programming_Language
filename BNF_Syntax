@@ -63,7 +63,7 @@
 
 <statement>             ::= <print statement> | <expression> | <comment> | <input statment>
 						                | <if statement> | <do while statement> | <for statement>
-						                | <assignment statement> | <assertion> 
+						                | <assignment statement> | <assertion> .
 
 <assignment statement> 	::= <indentifier> { , <idnetifier> }* = <expression> 
 
