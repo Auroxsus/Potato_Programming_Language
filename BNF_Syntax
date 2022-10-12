@@ -1,6 +1,6 @@
 
 <SPLProgram>            ::= ((<function definitions>))* <program definition> EOPC  
-						cookedpotato.
+						cookedpotato
 						
 <datatype>              ::= ( int | flt | bool | char )
 
@@ -8,7 +8,7 @@
 
 <integer>               ::= <digit> { <digit> }*
 
-<float>                 ::= <digit> { <digit> }* . <digit> { <digit> }* [ E [ - ] <digit> { <digit> }* ]
+<float>                 ::= <digit> { <digit> }*  <digit> { <digit> }* [ E [ - ] <digit> { <digit> }* ]
 
 <character>             ::= '<ASCIICharacter>' 
 
@@ -18,15 +18,15 @@
 
 <UB>                    ::= [ (( + | - )) ] <integer>
 
-<variable definitions>  ::= <datatype> <identifier> [ <UB> ]  {, {<datatype> <identifier>  [ <UB> ]}* .
+<variable definitions>  ::= <datatype> <identifier> [ <UB> ]  {, {<datatype> <identifier>  [ <UB> ]}* 
 
-<constant definitions>  ::= <datatype> <identifier> [ <UB> ] CONST .
+<constant definitions>  ::= <datatype> <identifier> [ <UB> ] CONST 
 												
 <ASCIICharacter>        ::= || Every printable ASCII character in range [ ' ','~' ]
 						 
 <string>                ::= "{<ASCIICharacter>}*" | '{<ASCIICharacter>}*'
 
-<letter>                ::= A | B | ... | Z | a | b | ... | z
+<letter>                ::= A | B |  | Z | a | b |  | z
 
 <digit>                 ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 
@@ -47,29 +47,29 @@
 
 <program definition>    ::= <datatype> main potato [<datatype> : <indentifier>]                                
                              { <statement> }*
-							              cookedpotato.
+							              cookedpotato
 							
 <function definition>   ::= <datatype> <identifier> [<datatype> : <indentifier>]                              
                              { <statement> }*
-							              cookedpotato.
+							              cookedpotato
 							
 <handler definition>    ::= <datatype> <identifier> [<datatype> : <indentifier>]                              
                              { <statement> }*
-							              cookedpotato.
+							              cookedpotato
 
-<exit statement>		::= cookedpotato.
+<exit statement>		::= cookedpotato
 
 <assertion>				:: { <expression> }
 
 <statement>             ::= <print statement> | <expression> | <comment> | <input statment>
 						                | <if statement> | <do while statement> | <for statement>
-						                | <assignment statement> | <assertion>
+						                | <assignment statement> | <assertion> 
 
-<assignment statement> 	::= <indentifier> { , <idnetifier> }* = <expression> .
+<assignment statement> 	::= <indentifier> { , <idnetifier> }* = <expression> 
 
-<print statement>      	::= outpotato (( <string> | <expression> | \n | \t )) { , {( <string> | <expression> | \n | \t )) }* .
+<print statement>      	::= outpotato (( <string> | <expression> | \n | \t )) { , {( <string> | <expression> | \n | \t )) }* 
 
-<input statement>      	::= inpotato [ <string> ] <variable> .
+<input statement>      	::= inpotato [ <string> ] <variable> 
 
 <if statement>         	::= if ( <expression> )
 								{ <statement> }*
@@ -77,17 +77,17 @@
                                 { <statement> }* }*
                             else
                                 { <statement> }*
-                            cookedpotato.		| 
+                            cookedpotato		| 
 							if ( <expression> )
 								{ <statement> }*
-                            cookedpotato.
+                            cookedpotato
 
 <dowhile statement>    	::= dowhile ( <expression> )
 								{ <statement> }*
-                            cookedpotato.
+                            cookedpotato
 
-<for statement>        	::= for ((<datatype>)) <indentifier> = <expression> . <expression> . <increment expression>
+<for statement>        	::= for ((<datatype>)) <indentifier> = <expression>  <expression>  <increment expression>
 								{ <statement> }* 
-							cookedpotato.
+							cookedpotato
 
-<return statement>     	::= return potato [ ( <expression> ) ] .
+<return statement>     	::= return potato [ ( <expression> ) ] 
