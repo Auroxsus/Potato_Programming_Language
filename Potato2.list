@@ -1,0 +1,114 @@
+ "Potato2.p" Tue Oct 11 19:29:39 2022 Page 1
+Line Source Line
+---- -------------------------------------------------------------------------------
+   1 || Potato1.p by Auroxsus
+At (   1:  0) begin line comment
+   2 || French Fry Productions
+At (   2:  0) begin line comment
+   3 || Description: test-and-debug
+At (   3:  0) begin line comment
+   4 || -------------------------------
+At (   4:  0) begin line comment
+   5 
+   6 |[|[
+At (   6:  0) begin block comment depth = 1
+   7    |[ "eat" these |[ quadruply nested ]| block comments ]|
+At (   6:  2) begin block comment depth = 2
+At (   7:  3) begin block comment depth = 3
+At (   7: 18) begin block comment depth = 4
+At (   7: 38)   end block comment depth = 4
+   8 ]|]|
+At (   7: 56)   end block comment depth = 3
+At (   8:  0)   end block comment depth = 2
+   9 
+At (   8:  2)   end block comment depth = 1
+  10 || "eat" the empty block comment on the next line
+At (  10:  0) begin line comment
+  11 |[]|
+At (  11:  0) begin block comment depth = 1
+  12 
+At (  11:  2)   end block comment depth = 1
+  13 || "eat" this "interesting" sequence of comments
+At (  13:  0) begin line comment
+  14 |[ block comment #1 ]||[ followed by block comment #2 ]||| followed by line comment #3
+At (  14:  0) begin block comment depth = 1
+At (  14: 20)   end block comment depth = 1
+At (  14: 22) begin block comment depth = 1
+At (  14: 54)   end block comment depth = 1
+At (  14: 56) begin line comment
+  15 
+  16 |[ "eat" the 4 tabs characters on the next line ]|
+At (  16:  0) begin block comment depth = 1
+  17 
+At (  16: 48)   end block comment depth = 1
+  18 || reserved-word terminals
+At (  18:  0) begin line comment
+  19 mainpotato cookedpotato
+At (  19:  0) token =   MAINPOTATO lexeme = |mainpotato|
+  20 MAINPOTATO COOKEDPOTATO
+At (  19: 11) token = COOKEDPOTATO lexeme = |cookedpotato|
+At (  20:  0) token =   MAINPOTATO lexeme = |MAINPOTATO|
+  21 outpotato endl
+At (  20: 11) token = COOKEDPOTATO lexeme = |COOKEDPOTATO|
+At (  21:  0) token =    OUTPOTATO lexeme = |outpotato|
+  22 
+  23 || identifier pseudo-terminal (a little before its time)
+At (  21: 10) token =         ENDL lexeme = |endl|
+At (  23:  0) begin line comment
+  24  a  ab  ab1  ab1c A2Z A_B_2
+At (  24:  1) token =   IDENTIFIER lexeme = |a|
+At (  24:  4) token =   IDENTIFIER lexeme = |ab|
+At (  24:  8) token =   IDENTIFIER lexeme = |ab1|
+At (  24: 13) token =   IDENTIFIER lexeme = |ab1c|
+At (  24: 18) token =   IDENTIFIER lexeme = |A2Z|
+ "Potato2.p" Tue Oct 11 19:29:39 2022 Page 2
+Line Source Line
+---- -------------------------------------------------------------------------------
+  25 
+  26 || punctuation terminals
+At (  24: 22) token =   IDENTIFIER lexeme = |A_B_2|
+At (  26:  0) begin line comment
+  27 ,. , .
+At (  27:  0) token =        COMMA lexeme = |,|
+At (  27:  1) token =       PERIOD lexeme = |.|
+  28 
+At (  27:  3) token =        COMMA lexeme = |,|
+  29 || string pseudo-terminal
+At (  27:  5) token =       PERIOD lexeme = |.|
+At (  29:  0) begin line comment
+  30 "" "a" "ab" "abc"
+At (  30:  0) token =       STRING lexeme = ||
+At (  30:  3) token =       STRING lexeme = |a|
+At (  30:  7) token =       STRING lexeme = |ab|
+  31 
+  32 || string pseudo-terminal with escape characters
+At (  30: 12) token =       STRING lexeme = |abc|
+At (  32:  0) begin line comment
+  33 "ab\"c" 
+  34 "\\abc\"" 
+At (  33:  0) token =       STRING lexeme = |ab\"c|
+  35 "newLine \n (LF)" 
+At (  34:  0) token =       STRING lexeme = |\\abc\"|
+  36 "horizontalTab \t (HT)"
+At (  35:  0) token =       STRING lexeme = |newLine \n (LF)|
+  37 "verticalTab \v (VT)"
+At (  36:  0) token =       STRING lexeme = |horizontalTab \t (HT)|
+  38 "backSpace \b (BS)"
+At (  37:  0) token =       STRING lexeme = |verticalTab \v (VT)|
+  39 "carriage return \r (CR)"
+At (  38:  0) token =       STRING lexeme = |backSpace \b (BS)|
+  40 "alert \a (BEL)"
+At (  39:  0) token =       STRING lexeme = |carriage return \r (CR)|
+  41 "\"\\\n\t\v\b\r\a"
+At (  40:  0) token =       STRING lexeme = |alert \a (BEL)|
+  42 
+  43 || *ERROR* un-terminated string pseudo-terminal 
+At (  41:  0) token =       STRING lexeme = |\"\\\n\t\v\b\r\a|
+At (  43:  0) begin line comment
+  44 "unterminated\\
+  45 
+  46 
+     At (  44:  0) Invalid string literal
+POTATO compiler ending with compiler error!
+
+******* POTATO scanner ending
