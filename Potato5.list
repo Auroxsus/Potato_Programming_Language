@@ -1,0 +1,62 @@
+ "Potato5.p" Tue Oct 11 23:44:30 2022 Page 1
+Line Source Line
+---- -------------------------------------------------------------------------------
+   1 || Potato5.p by Auroxsus
+At (   1:  0) begin line comment
+   2 || French Fry Productions
+At (   2:  0) begin line comment
+   3 || Description: "Hello, world!" program 3
+At (   3:  0) begin line comment
+   4 || -------------------------------
+At (   4:  0) begin line comment
+   5 
+   6 mainpotato
+   7 	outpotato "Hello".
+At (   6:  0) token =   MAINPOTATO lexeme = |mainpotato|
+At (   7:  1) token =    OUTPOTATO lexeme = |outpotato|
+   8 	outpotato ",", " ", "I got off to a bad", " starch \n".
+At (   7: 11) token =       STRING lexeme = |Hello|
+     >POTATOProgram
+       >PROGRAMDefinition
+At (   7: 18) token =       PERIOD lexeme = |.|
+         >Statement
+           >PRINTStatement
+At (   8:  1) token =    OUTPOTATO lexeme = |outpotato|
+At (   8: 11) token =       STRING lexeme = |,|
+At (   8: 14) token =        COMMA lexeme = |,|
+           <PRINTStatement
+         <Statement
+         >Statement
+           >PRINTStatement
+At (   8: 16) token =       STRING lexeme = | |
+At (   8: 19) token =        COMMA lexeme = |,|
+At (   8: 21) token =       STRING lexeme = |I got off to a bad|
+At (   8: 41) token =        COMMA lexeme = |,|
+   9 	outpotato "It hash come and gone".
+At (   8: 43) token =       STRING lexeme = | starch \n|
+At (   8: 55) token =       PERIOD lexeme = |.|
+At (   9:  1) token =    OUTPOTATO lexeme = |outpotato|
+  10 	outpotato endl.
+At (   9: 11) token =       STRING lexeme = |It hash come and gone|
+At (   9: 34) token =       PERIOD lexeme = |.|
+           <PRINTStatement
+         <Statement
+         >Statement
+           >PRINTStatement
+At (  10:  1) token =    OUTPOTATO lexeme = |outpotato|
+  11 cookedpotato
+At (  10: 11) token =         ENDL lexeme = |endl|
+At (  10: 15) token =       PERIOD lexeme = |.|
+           <PRINTStatement
+         <Statement
+         >Statement
+           >PRINTStatement
+At (  11:  0) token = COOKEDPOTATO lexeme = |cookedpotato|
+At (  11: 12) token =     EOPTOKEN lexeme = ||
+At (  11: 12) token =     EOPTOKEN lexeme = ||
+           <PRINTStatement
+         <Statement
+At (  11: 12) token =     EOPTOKEN lexeme = ||
+       <PROGRAMDefinition
+     <POTATOProgram
+******* POTATO parser ending
