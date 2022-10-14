@@ -65,6 +65,8 @@
 						                | <if statement> | <do while statement> | <for statement>
 						                | <assignment statement> | <assertion> .
 
+NOTE: <expression> is conceptually-big POTATO non-terminal symbol that “deserves” its own parsing function, ParseExpression(). ParseExpression() will be introduced in POTATOCompiler.cpp.
+
 <assignment statement> 	::= <indentifier> { , <idnetifier> }* = <expression> 
 
 <print statement>      	::= outpotato (( <string> | <expression> | \n | \t )) { , {( <string> | <expression> | \n | \t )) }* 

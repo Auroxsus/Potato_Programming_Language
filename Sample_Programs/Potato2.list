@@ -1,4 +1,4 @@
- "Potato2.p" Tue Oct 11 19:29:39 2022 Page 1
+ "Potato2.p" Wed Oct 12 14:16:56 2022 Page 1
 Line Source Line
 ---- -------------------------------------------------------------------------------
    1 || Potato1.p by Auroxsus
@@ -61,7 +61,7 @@ At (  24:  4) token =   IDENTIFIER lexeme = |ab|
 At (  24:  8) token =   IDENTIFIER lexeme = |ab1|
 At (  24: 13) token =   IDENTIFIER lexeme = |ab1c|
 At (  24: 18) token =   IDENTIFIER lexeme = |A2Z|
- "Potato2.p" Tue Oct 11 19:29:39 2022 Page 2
+ "Potato2.p" Wed Oct 12 14:16:56 2022 Page 2
 Line Source Line
 ---- -------------------------------------------------------------------------------
   25 

@@ -168,7 +168,7 @@ void ParsePOTATOProgram(TOKEN tokens[])
 	else
 		ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,
                            "Expecting MAINPOTATO");
-
+	// Makes sure last token is EOPTOKEN
 	if ( tokens[0].type != EOPTOKEN )
 		ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,
                            "Expecting end-of-program");
@@ -222,6 +222,7 @@ void ParsePRINTStatement(TOKEN tokens[])
 
 	do
 	{
+		// Necessary to discard the token-and-lexeme
 		GetNextToken(tokens);
 
 		switch ( tokens[0].type )
