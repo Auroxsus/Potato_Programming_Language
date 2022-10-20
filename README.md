@@ -1,9 +1,11 @@
 # Potato_Programming_Language
-Each addition to POTATO requires new scanning logic because new tokens are added, new parsing logic because new rules are added and/or exsisting rules are changed, and newcode generation logic because syntax implies semantics (ALWAYS).
+Ultimatly, there are only slight changes made from the reader to scanner and scanner to parser. Parser to compilier will start off with _light_ changes as well but I hope it will spiral into a complex compiler that will be ale to translate the entire POTATO language, or at least as much as I can develop.
+
+As I am continously improving and adding new features, it will be updated in the compiler code. Previous versions, steps, and executable files will stay in the repository and in the "Previous Versions" folder for historical purposes. To get a 'deeper look' into the logic of each feel free to browse the attached wiki where I attempt to explain additions and new functions introduced in the source code.
 
 ## File Decriptions
 
-Potato.h is the core of our project, the **reader-and-lister** classes 
+Potato.h is the core of our project, the **reader-and-lister** classes and grows along with the compilier.
 
 ### Executable Files
 **PotatoReader.exe** is a verison of the "driver" program file as a combination of PotatoReader.cpp + Potato.h. It's a single-pass compiler (language translator) that reads source code line-by-line from a source file and processes a .list file. 
