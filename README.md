@@ -1,5 +1,5 @@
 # Potato_Programming_Language
-Ultimatly, there are only slight changes made from the reader to scanner and scanner to parser. Parser to compilier will start off with _light_ changes as well but I hope it will spiral into a complex compiler that will be ale to translate the entire POTATO language, or at least as much as I can develop.
+Ultimatly, there are only slight changes made from the reader to scanner and scanner to parser. Parser to compilier will start off with _light_ changes as well but I hope it will spiral into a complex compiler that will be able to translate the entire POTATO language, or at least as much as I can develop.
 
 As I am continously improving and adding new features, it will be updated in the compiler code. Previous versions, steps, and executable files will stay in the repository and in the "Previous Versions" folder for historical purposes. To get a 'deeper look' into the logic of each feel free to browse the attached wiki where I attempt to explain additions and new functions introduced in the source code.
 
