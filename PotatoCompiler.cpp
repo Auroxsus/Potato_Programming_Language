@@ -18,6 +18,7 @@ using namespace std;
 //#define TRACEREADER
 //#define TRACESCANNER
 //#define TRACEPARSER
+#define TRACECOMPILER
 
 #include "Potato.h"
 
@@ -228,7 +229,7 @@ void ParsePROGRAMDefinition(TOKEN tokens[])
 // ENDCODEGENERATION
 
 	GetNextToken(tokens);
-	while ( tokens[0].type != END )
+	while ( tokens[0].type != COOKEDPOTATO )
 		ParseStatement(tokens);
 
 // CODEGENERATION
