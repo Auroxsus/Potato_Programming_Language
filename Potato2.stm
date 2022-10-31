@@ -1,0 +1,111 @@
+;--------------------------------------------------------------
+; Potato2.stm
+;--------------------------------------------------------------
+; SVC numbers
+SVC_DONOTHING          EQU       0D0                  ; force context switch
+SVC_TERMINATE          EQU       0D1
+SVC_READ_INTEGER       EQU       0D10
+SVC_WRITE_INTEGER      EQU       0D11
+SVC_READ_FLOAT         EQU       0D20
+SVC_WRITE_FLOAT        EQU       0D21
+SVC_READ_BOOLEAN       EQU       0D30
+SVC_WRITE_BOOLEAN      EQU       0D31
+SVC_READ_CHARACTER     EQU       0D40
+SVC_WRITE_CHARACTER    EQU       0D41
+SVC_WRITE_ENDL         EQU       0D42
+SVC_READ_STRING        EQU       0D50
+SVC_WRITE_STRING       EQU       0D51
+SVC_INITIALIZE_HEAP    EQU       0D90
+SVC_ALLOCATE_BLOCK     EQU       0D91
+SVC_DEALLOCATE_BLOCK   EQU       0D92
+
+                       ORG       0X0000
+
+                       JMP       PROGRAMMAIN
+;    1 || Potato2.p by Auroxsus
+;    2 || French Fry Productions
+;    3 || Description: Alternative "Hello, world!" program 
+;    4 |[ ------------------------------- ]|
+;    5 
+;    6 mainpotato
+;    7 	outpotato "Hello".
+;    8 	outpotato ",", " ", "I got off to a bad starch", "\n".
+; **** =========
+; **** PROGRAM module (   6)
+; **** =========
+PROGRAMMAIN            EQU       *
+                       PUSH      #RUNTIMESTACK        ; set SP
+                       POPSP     
+                       PUSHA     STATICDATA           ; set SB
+                       POPSB     
+                       PUSH      #HEAPBASE            ; initialize heap
+                       PUSH      #HEAPSIZE
+                       SVC       #SVC_INITIALIZE_HEAP
+                       CALL      PROGRAMBODY0010
+                       PUSHA     SB:0D0
+                       SVC       #SVC_WRITE_STRING
+                       SVC       #SVC_WRITE_ENDL
+                       PUSH      #0D0                 ; terminate with status = 0
+                       SVC       #SVC_TERMINATE
+
+PROGRAMBODY0010        EQU       *
+; **** PRINT statement (   7)
+                       PUSHA     SB:0D28
+                       SVC       #SVC_WRITE_STRING
+; **** PRINT statement (   8)
+                       PUSHA     SB:0D35
+                       SVC       #SVC_WRITE_STRING
+                       PUSHA     SB:0D38
+                       SVC       #SVC_WRITE_STRING
+;    9 	outpotato endl.
+                       PUSHA     SB:0D41
+                       SVC       #SVC_WRITE_STRING
+                       PUSHA     SB:0D68
+                       SVC       #SVC_WRITE_STRING
+;   10 cookedpotato
+; **** PRINT statement (   9)
+;   11 
+                       SVC       #SVC_WRITE_ENDL
+                       RETURN    
+; **** =========
+; **** END (  10)
+; **** =========
+
+;------------------------------------------------------------
+; Issue "Run-time error #X..X near line #X..X" to handle run-time errors
+;------------------------------------------------------------
+HANDLERUNTIMEERROR     EQU       *
+                       SVC       #SVC_WRITE_ENDL
+                       PUSHA     SB:0D72
+                       SVC       #SVC_WRITE_STRING
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D90
+                       SVC       #SVC_WRITE_STRING
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+                       PUSH      #0D1
+                       SVC       #SVC_TERMINATE
+
+;------------------------------------------------------------
+; Static allocation of global data and PROGRAM module data
+;------------------------------------------------------------
+STATICDATA             EQU       *
+                       DS        "Normal program termination"
+                       DS        "Hello"
+                       DS        ","
+                       DS        " "
+                       DS        "I got off to a bad starch"
+                       DS        "\n"
+                       DS        "Run-time error #"
+                       DS        " near line #"
+
+;------------------------------------------------------------
+; Heap space for dynamic memory allocation (to support future POTATO syntax)
+;------------------------------------------------------------
+HEAPBASE               EQU       *
+HEAPSIZE               EQU       0B0001000000000000   ; 8K bytes = 4K words
+
+;------------------------------------------------------------
+; Run-time stack
+;------------------------------------------------------------
+RUNTIMESTACK           EQU       0XFFFE
