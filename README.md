@@ -1,14 +1,17 @@
 # Potato_Programming_Language
 Ultimatly, there are only slight changes made from the reader to scanner and scanner to parser. Parser to compilier will start off with _light_ changes as well but I hope it will spiral into a complex compiler that will be able to translate the entire POTATO language, or at least as much as I can develop.
 
-As I am continously improving and adding new features, it will be updated in the compiler code. Previous versions, steps, and executable files will stay in the repository and in the "Previous Versions" folder for historical purposes. To get a 'deeper look' into the logic of each feel free to browse the attached wiki where I attempt to explain additions and new functions introduced in the source code.
+As I am continously improving and adding new features, it will be updated in the compiler code. There are no plans to create a sperate updated PotatoXScanner.cpp, PotatoXParcer.cpp, PotatoXCompilier.cpp. The previous versions and executable files will stay in the repository and in the "Previous_Versions" folder for historical purposes. 
+
+These are for **MY** understanding of how my compilier works but to get a 'deeper look' into the logic of each, feel free to browse the attached wiki where I attempt to explain additions and new functions introduced in the source code. 
 
 ## File Decriptions
-
 Potato.h is the core of our project, the **reader-and-lister** classes and grows along with the compilier.
 
 ### Executable Files
-**PotatoReader.exe** is a verison of the "driver" program file as a combination of PotatoReader.cpp + Potato.h. It's a single-pass compiler (language translator) that reads source code line-by-line from a source file and processes a .list file. 
+**PotatoCompilier.exe** is the current and continously updated version of the official "compilier" for the POTATO programming language. It is a combination of PotatoComplier.cpp + Potato.h.
+
+**PotatoParser.exe** is a beginnning verison of the "parcer" program file as a combination of PotatoParser.cpp + Potato.h. It's built on the PotatoScanner.cpp as a basis and also processes a .list file.
 
 **PotatoScanner.exe** is a starter verison of the "lexical analysis" program file as a combination of PotatoScanner.cpp + Potato.h. It's built on the PotatoReader.cpp as a basis and also processes a .list file. The purpose is for it to:
 1. “Eat” white-space characters.
@@ -16,9 +19,7 @@ Potato.h is the core of our project, the **reader-and-lister** classes and grows
 3. Recognize the POTATO token types
 4. Provide the capability to look-ahead “future” pairs of token-and-lexeme to aid subsequent parsing (syntax analysis).
 
-**PotatoParser.exe** is a beginnning verison of the "parcer" program file as a combination of PotatoParser.cpp + Potato.h. It's built on the PotatoScanner.cpp as a basis and also processes a .list file.
-
-**PotatoCompilier.exe** is the current and continously updated version of the official "compilier" for the POTATO programming language. It is a combination of PotatoComplier.cpp + Potato.h.
+**PotatoReader.exe** is a verison of the "driver" program file as a combination of PotatoReader.cpp + Potato.h. It's a single-pass compiler (language translator) that reads source code line-by-line from a source file and processes a .list file. 
 
 ### Sample Programs
 **Potato1.p** is a source file that we can "compile" to test our "driver" program. The source file is a text file that contains program components written in a specific programming language, ours being the POTATO programming language and ending with the extention _.p_.
