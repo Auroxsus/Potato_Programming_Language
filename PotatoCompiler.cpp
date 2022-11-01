@@ -37,6 +37,7 @@ typedef enum
 	ENDL,
 	OR,
 	NOR,
+	XOR,
 	AND,
 	NAND,
 	NOT,
