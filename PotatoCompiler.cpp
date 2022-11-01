@@ -1,6 +1,6 @@
 // PotatoCompiler.cpp by Auroxsus
 // French Fry Productions
-// Description: POTATO Compiler program Version 2
+// Description: POTATO Compiler Program Ver. 2
 //-----------------------------------------------------------
 #include <iostream>
 #include <iomanip>
@@ -46,8 +46,8 @@ typedef enum
 	// punctuation
 	COMMA,
 	PERIOD,
-    OPENPARENTHESIS,
-    CLOSEPARENTHESIS,
+    OPARENTHESIS,
+    CPARENTHESIS,
 	// operators
 	LT,
 	LTEQ,
@@ -92,8 +92,8 @@ const TOKENTABLERECORD TOKENTABLE[] =
     { FALSE       ,"FALSE"       ,true  },
 	{ COMMA       ,"COMMA"       ,false },
 	{ PERIOD      ,"PERIOD"      ,false },
-	{ OPENPARENTHESIS	,"OPENPARENTHESIS"	,false },
-	{ CLOSEPARENTHESIS	,"CLOSEPARENTHESIS"	,false },
+	{ OPARENTHESIS,"OPARENTHESIS",false }, // OPENPARENTHESIS is too long
+	{ CPARENTHESIS,"CPARENTHESIS",false }, // CLOSEPARENTHESIS is too long
 	{ LT          ,"LT"          ,false },
 	{ LTEQ        ,"LTEQ"        ,false },
 	{ EQ          ,"EQ"          ,false },
@@ -1028,12 +1028,12 @@ void GetNextToken(TOKEN tokens[])
 				lexeme[0] = nextCharacter; lexeme[1] = '\0';
 				reader.GetNextCharacter();
 			case '(': 
-				type = OPENPARENTHESIS;
+				type = OPARENTHESIS;
 				lexeme[0] = nextCharacter; lexeme[1] = '\0';
 				reader.GetNextCharacter();
 				break;
 			case ')': 
-				type = CLOSEPARENTHESIS;
+				type = CPARENTHESIS;
 				lexeme[0] = nextCharacter; lexeme[1] = '\0';
 				reader.GetNextCharacter();
 				break;
