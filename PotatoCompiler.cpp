@@ -31,9 +31,9 @@ typedef enum
 	EOPTOKEN,
 	UNKTOKEN,
 	// reserved words
-	MAINPOTATO,	
-	COOKEDPOTATO,
-	OUTPOTATO,
+	PROGRAM,	
+	END,
+	PRINT,
 	ENDL,
 	OR,
 	NOR,
@@ -73,15 +73,15 @@ struct TOKENTABLERECORD
 
 const TOKENTABLERECORD TOKENTABLE[] =
 {
-	{ IDENTIFIER  ,"IDENTIFIER"  ,false },
-	{ INTEGER     ,"INTEGER"     ,false },
+	{ IDENTIFIER  ,"IDENTOTY"    ,false }, 
+	{ INTEGER     ,"INTEGROOT"   ,false },
 	{ STRING      ,"STRING"      ,false },
 	{ EOPTOKEN    ,"EOPTOKEN"    ,false },
 	{ UNKTOKEN    ,"UNKTOKEN"    ,false },
-	{ MAINPOTATO  ,"MAINPOTATO"  ,true  },
-	{ COOKEDPOTATO,"COOKEDPOTATO",true  },
-	{ OUTPOTATO   ,"OUTPOTATO"   ,true  },
-	{ ENDL        ,"ENDL"        ,true  },
+	{ PROGRAM  	  ,"POTATO"      ,true  },
+	{ END 		  ,"COOKEDPOTATO",true  }, // steamed, baked, or boilded?
+	{ PRINT   	  ,"FRY"   		 ,true  },
+	{ ENDL        ,"PEEL"        ,true  },
     { OR          ,"OR"          ,true  },
     { NOR         ,"NOR"         ,true  },
     { XOR         ,"XOR"         ,true  },
@@ -92,8 +92,8 @@ const TOKENTABLERECORD TOKENTABLE[] =
     { FALSE       ,"FALSE"       ,true  },
 	{ COMMA       ,"COMMA"       ,false },
 	{ PERIOD      ,"PERIOD"      ,false },
-	{ OPARENTHESIS,"OPARENTHESIS",false }, // OPENPARENTHESIS is too long
-	{ CPARENTHESIS,"CPARENTHESIS",false }, // CLOSEPARENTHESIS is too long
+	{ OPARENTHESIS,"OPARENTHESIS",false },
+	{ CPARENTHESIS,"CPARENTHESIS",false },
 	{ LT          ,"LT"          ,false },
 	{ LTEQ        ,"LTEQ"        ,false },
 	{ EQ          ,"EQ"          ,false },
@@ -122,7 +122,6 @@ struct TOKEN
 //--------------------------------------------------
 READER<CALLBACKSUSED> reader(SOURCELINELENGTH,LOOKAHEAD);
 LISTER lister(LINESPERPAGE);
-
 
 // CODEGENERATION
 CODE code;
@@ -160,9 +159,9 @@ void ProcessCompilerError(int sourceLineNumber,int sourceLineIndex,const char er
 
 	// Use "panic mode" error recovery technique: report error message and terminate compilation!
 	sprintf(information,"     At (%4d:%3d) %s",sourceLineNumber,sourceLineIndex,errorMessage);
-	lister.ListInformationLine(information);
-	lister.ListInformationLine("POTATO compiler ending with compiler error!\n");
-	throw( POTATOEXCEPTION("POTATO compiler ending with compiler error!") );
+	lister.ListInformationLine(information); 
+	lister.ListInformationLine("POTATO compiler ending with a potato famine!\n");
+	throw( POTATOEXCEPTION("POTATO compiler ending with a potato famine!") );
 }
 
 //-----------------------------------------------------------
@@ -177,8 +176,7 @@ int main()
 	char sourceFileName[80+1];
 	TOKEN tokens[LOOKAHEAD+1];
    
-	cout << "Source filename? ";
-	cin >> sourceFileName;
+	cout << "Source filename? "; cin >> sourceFileName;
 
 	try
 	{
@@ -198,7 +196,6 @@ int main()
 		for (int i = 0; i <= LOOKAHEAD; i++)
 			GetNextToken(tokens);  
 		
-		
 #ifdef TRACEPARSER
 	level = 0;
 #endif
@@ -214,8 +211,8 @@ int main()
 	{
 		cout << "POTATO exception: " << POTATOException.GetDescription() << endl;
 	}
-	lister.ListInformationLine("******* POTATO parser ending");
-	cout << "POTATO compiler ending\n";
+	lister.ListInformationLine("******* POTATO was cooked thoroughly");
+	cout << "POTATO was cooked thoroughly\n";
 
 	system("PAUSE");
 	return( 0 );
@@ -229,11 +226,11 @@ void ParsePOTATOProgram(TOKEN tokens[])
 
 	EnterModule("POTATOProgram");
 
-	if ( tokens[0].type == MAINPOTATO )
+	if ( tokens[0].type == PROGRAM )
 		ParsePROGRAMDefinition(tokens);
 	else
 		ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,
-                           "Expecting MAINPOTATO");
+                           "Expecting PROGRAM");
 	// Makes sure last token is EOPTOKEN
 	if ( tokens[0].type != EOPTOKEN )
 		ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,
@@ -244,8 +241,8 @@ void ParsePOTATOProgram(TOKEN tokens[])
 
 void ParsePROGRAMDefinition(TOKEN tokens[])
 {
-	void GetNextToken(TOKEN tokens[]);
 	void ParseStatement(TOKEN tokens[]);
+	void GetNextToken(TOKEN tokens[]);
 
 	char line[SOURCELINELENGTH+1];
 	char label[SOURCELINELENGTH+1];
@@ -259,7 +256,6 @@ void ParsePROGRAMDefinition(TOKEN tokens[])
 	code.EmitUnformattedLine(line);
 	code.EmitUnformattedLine("; **** =========");
 	code.EmitFormattedLine("PROGRAMMAIN","EQU"  ,"*");
-
 	code.EmitFormattedLine("","PUSH" ,"#RUNTIMESTACK","set SP");
 	code.EmitFormattedLine("","POPSP");
 	code.EmitFormattedLine("","PUSHA","STATICDATA","set SB");
@@ -280,7 +276,7 @@ void ParsePROGRAMDefinition(TOKEN tokens[])
 // ENDCODEGENERATION
 
 	GetNextToken(tokens);
-	while ( tokens[0].type != COOKEDPOTATO )
+	while ( tokens[0].type != END )
 		ParseStatement(tokens);
 
 // CODEGENERATION
@@ -297,14 +293,14 @@ void ParsePROGRAMDefinition(TOKEN tokens[])
 
 void ParseStatement(TOKEN tokens[])
 {
-	void GetNextToken(TOKEN tokens[]);
 	void ParsePRINTStatement(TOKEN tokens[]);
+	void GetNextToken(TOKEN tokens[]);
 
 	EnterModule("Statement");
 
 	switch ( tokens[0].type )
 	{
-		case OUTPOTATO:
+		case PRINT:
 			ParsePRINTStatement(tokens);
 			break;
 		default:
@@ -376,14 +372,11 @@ void ParsePRINTStatement(TOKEN tokens[])
                            "Expecting '.'");
 
 	GetNextToken(tokens);
-
 	ExitModule("PRINTStatement");
 }
 
 void ParseExpression(TOKEN tokens[],DATATYPE &datatype)
 {
-// CODEGENERATION
-// ENDCODEGENERATION
 
 	void ParseConjunction(TOKEN tokens[],DATATYPE &datatype);
 	void GetNextToken(TOKEN tokens[]);
@@ -1027,6 +1020,7 @@ void GetNextToken(TOKEN tokens[])
 				type = PERIOD;
 				lexeme[0] = nextCharacter; lexeme[1] = '\0';
 				reader.GetNextCharacter();
+				break;
 			case '(': 
 				type = OPARENTHESIS;
 				lexeme[0] = nextCharacter; lexeme[1] = '\0';
