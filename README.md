@@ -1,4 +1,6 @@
 # Potato_Programming_Language
+Also known as PotatoC, or rather Potato Chip, as it takes a majority of the syntax from the C programming language.
+
 Ultimatly, there are only slight changes made from the reader to scanner and scanner to parser. Parser to compilier will start off with _light_ changes as well but I hope it will spiral into a complex compiler that will be able to translate the entire POTATO language, or at least as much as I can develop.
 
 As I am continously improving and adding new features, it will be updated in the compiler code. There are no plans to create a sperate updated PotatoXScanner.cpp, PotatoXParcer.cpp, PotatoXCompilier.cpp. The previous versions and executable files will stay in the repository and in the "Previous_Versions" folder for historical purposes. 
