@@ -1,95 +1,33 @@
 
-<SPLProgram>            ::= ((<function definitions>))* <program definition> EOPC  
-						cookedpotato
-						
-<datatype>              ::= ( int | flt | bool | char )
-
-<literal>               ::= <integer> | <float> | <character> | <boolean> | <string>
-
-<integer>               ::= <digit> { <digit> }*
-
-<float>                 ::= <digit> { <digit> }*  <digit> { <digit> }* [ E [ - ] <digit> { <digit> }* ]
-
-<character>             ::= '<ASCIICharacter>' 
-
-<boolean>               ::= true | false | TRUE | FALSE
-
-<identifier>            ::= <letter> { (( <letter> | <digit> | _ )) }*
-
-<UB>                    ::= [ (( + | - )) ] <integer>
-
-<variable definitions>  ::= <datatype> <identifier> [ <UB> ]  {, {<datatype> <identifier>  [ <UB> ]}* 
-
-<constant definitions>  ::= <datatype> <identifier> [ <UB> ] CONST 
-												
-<ASCIICharacter>        ::= || Every printable ASCII character in range [ ' ','~' ]
-						 
-<string>                ::= "{<ASCIICharacter>}*" | '{<ASCIICharacter>}*'
-
-<letter>                ::= A | B | ... | Z | a | b | ... | z
-
-<digit>                 ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
-
-<negation>              ::= [ NOT ] <comparison>
-
+<potato program>        ::= <program definition> EOPC                           	|| ***SIMPLIFIED***
+<program definition>    ::= potato                                            		|| ***SIMPLIFIED***           
+								{ <statement> } .*
+							cookedpotato		
+<statemnent>			::= <print statement>  .                         			|| ***SIMPLIFIED***
+<print statement>       ::= fry (( <string> | <expression> | \n | \t )) 
+							{ , {( <string> | <expression> | \n | \t )) }* 
+<string>	            ::= "{<ascii character>}*"
+<expression>		    ::= <conjunction> { (( OR | NOR | XOR )) <conjunction> }
 <conjunction>           ::= <negation> { (( AND | NAND )) <negation> }*
-
-<expression>            ::= <conjunction> { (( OR | NOR | XOR )) <conjunction> }
-
-<comparison>            ::= <comparator> [ (( < | <= | == | > | >= | (( != | <> )) )) <comparator> ]
-
+<negation>              ::= [ NOT ] <comparison>			
+<comparison>            ::= <comparator> [ (( < | <= | = | > | >= | (( <> | != )) )) <comparator> ]
 <comparator>            ::= <term> { (( + | - )) <term> }*
-						  
-<comment>               ::= || { <ASCIICharacter> }* EOLC                || single-line comment
-                             | /* { (( <ASCIICharacter> | EOLC )) }* */    || multi-line (block) comment
+<term>                  ::= <factor> { (( * | / | % )) <factor> }*
+<factor>                ::= [ (( ABS | + | - )) ] <secondary>          				|| ***SIMPLIFIED***
+<secondary>             ::= <primary> [ (( ^ | ** )) <primary> ]
+<primary>               ::= ( <expression> ) | <literal>               				|| ***SIMPLIFIED***
+<identifier>            ::= <letter> { (( <letter> | <digit> | _ )) }* 				|| ***SIMPLIFIED***
+<literal>             	::= <integer> | <boolean> | <string>           				|| ***SIMPLIFIED***
+<integer>             	::= <digit> { <digit> }*
+<boolean>             	::= true | false | TRUE | FALSE
+<string>              	::= "{ <ASCIICharacter> }*"                    				|| *Note* escape both \ and " with \
+<digit>               	::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+<acsii haracter>      	::= || Every printable ASCII character in range [ ' ','~' ]
+<comment>             	::= || { <ASCIICharacter> }* EOLC               			|| single-line comment
+					        |[ { (( <ASCIICharacter> | EOLC )) }* ]|   				|| multi-line (block) comment
 
-<formalParameter>       ::= [ (( IN | OUT | IO | REF )) ] <identifier> : <datatype> [ [ { , }* ] ]
 
-<program definition>    ::= <datatype> main potato [<datatype> : <indentifier>]                                
-                             { <statement> }*
-							              cookedpotato
-							
-<function definition>   ::= <datatype> <identifier> [<datatype> : <indentifier>]                              
-                             { <statement> }*
-							              cookedpotato
-							
-<handler definition>    ::= <datatype> <identifier> [<datatype> : <indentifier>]                              
-                             { <statement> }*
-							              cookedpotato
-
-<exit statement>		::= cookedpotato
-
-<assertion>				:: { <expression> }
-
-<statement>             ::= <print statement> | <expression> | <comment> | <input statment>
-						                | <if statement> | <do while statement> | <for statement>
-						                | <assignment statement> | <assertion> .
-
-NOTE: <expression> is conceptually-big POTATO non-terminal symbol that “deserves” its own parsing function, ParseExpression(). ParseExpression() will be introduced in POTATOCompiler.cpp.
-
-<assignment statement> 	::= <indentifier> { , <idnetifier> }* = <expression> 
-
-<print statement>      	::= outpotato (( <string> | <expression> | \n | \t )) { , {( <string> | <expression> | \n | \t )) }* 
-
-<input statement>      	::= inpotato [ <string> ] <variable> 
-
-<if statement>         	::= if ( <expression> )
-								{ <statement> }*
-                            {elif ( <expression> )
-                                { <statement> }* }*
-                            else
-                                { <statement> }*
-                            cookedpotato		| 
-							if ( <expression> )
-								{ <statement> }*
-                            cookedpotato
-
-<dowhile statement>    	::= dowhile ( <expression> )
-								{ <statement> }*
-                            cookedpotato
-
-<for statement>        	::= for ((<datatype>)) <indentifier> = <expression> . <expression> . <increment expression>
-								{ <statement> }* 
-							cookedpotato
-
-<return statement>     	::= return potato [ ( <expression> ) ] 
+NOTE: ***SIMPLIFIED*** means that the syntax is completed for the current version
+	of the compiler and could be built on further in the development
+	<primary> is simplified because there is no < variable> syntactic entry in SPL2
+	
