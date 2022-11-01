@@ -1,0 +1,15 @@
+ "potato2.p" Tue Nov  1 15:59:23 2022 Page 1
+Line Source Line
+---- -------------------------------------------------------------------------------
+   1 || Potato2.p by Auroxsus
+   2 || French Fry Productions
+   3 || Description: Alternative "Hello, world!" program 
+   4 |[ ------------------------------- ]|
+   5 
+   6 potato
+   7 	fry "Hello".
+   8 	fry ",", " ", "I got off to a bad starch", "\n".
+   9 	fry peel.
+  10 cookedpotato
+  11 
+******* POTATO compiler ending

@@ -1,0 +1,463 @@
+;--------------------------------------------------------------
+; Potato3.stm
+;--------------------------------------------------------------
+; SVC numbers
+SVC_DONOTHING          EQU       0D0                  ; force context switch
+SVC_TERMINATE          EQU       0D1
+SVC_READ_INTEGER       EQU       0D10
+SVC_WRITE_INTEGER      EQU       0D11
+SVC_READ_FLOAT         EQU       0D20
+SVC_WRITE_FLOAT        EQU       0D21
+SVC_READ_BOOLEAN       EQU       0D30
+SVC_WRITE_BOOLEAN      EQU       0D31
+SVC_READ_CHARACTER     EQU       0D40
+SVC_WRITE_CHARACTER    EQU       0D41
+SVC_WRITE_ENDL         EQU       0D42
+SVC_READ_STRING        EQU       0D50
+SVC_WRITE_STRING       EQU       0D51
+SVC_INITIALIZE_HEAP    EQU       0D90
+SVC_ALLOCATE_BLOCK     EQU       0D91
+SVC_DEALLOCATE_BLOCK   EQU       0D92
+
+                       ORG       0X0000
+
+                       JMP       PROGRAMMAIN
+;    1 || Potato4.p by Auroxsus
+;    2 || French Fry Productions
+;    3 || Description: Test NEW Operators
+;    4 |[ ------------------------------- ]|
+;    5 
+;    6 
+;    7 POTATO
+;    8 
+;    9 |[ -------------------- ]|
+;   10 || Arithmetic operators ||
+;   11 |[ -------------------- ]|
+;   12    FRY " 1 = ",1,PEEL.
+; **** =========
+; **** PROGRAM module (   7)
+; **** =========
+PROGRAMMAIN            EQU       *
+                       PUSH      #RUNTIMESTACK        ; set SP
+                       POPSP     
+                       PUSHA     STATICDATA           ; set SB
+                       POPSB     
+                       PUSH      #HEAPBASE            ; initialize heap
+                       PUSH      #HEAPSIZE
+                       SVC       #SVC_INITIALIZE_HEAP
+                       CALL      PROGRAMBODY0010
+                       PUSHA     SB:0D0
+                       SVC       #SVC_WRITE_STRING
+                       SVC       #SVC_WRITE_ENDL
+                       PUSH      #0D0                 ; terminate with status = 0
+                       SVC       #SVC_TERMINATE
+
+PROGRAMBODY0010        EQU       *
+; **** PRINT statement (  12)
+                       PUSHA     SB:0D28
+                       SVC       #SVC_WRITE_STRING
+;   13    FRY "+2 = ",+2,PEEL.
+                       PUSH      #0D1
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  13)
+                       PUSHA     SB:0D35
+                       SVC       #SVC_WRITE_STRING
+;   14    FRY "-3 = ",-3,PEEL.
+                       PUSH      #0D2
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  14)
+                       PUSHA     SB:0D42
+                       SVC       #SVC_WRITE_STRING
+;   15    FRY "ABS 2 = ",ABS 2,PEEL.
+                       PUSH      #0D3
+                       NEGI      
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  15)
+                       PUSHA     SB:0D49
+                       SVC       #SVC_WRITE_STRING
+;   16    FRY "ABS(-3) = ",ABS(-3),PEEL.
+                       PUSH      #0D2
+                       SETNZPI   
+                       JMPNN     E0020
+                       NEGI      
+E0020                  EQU       *
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  16)
+                       PUSHA     SB:0D59
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D3
+;   17    FRY "4+5 = ",(4+5),PEEL.
+                       NEGI      
+                       SETNZPI   
+                       JMPNN     E0030
+                       NEGI      
+E0030                  EQU       *
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  17)
+                       PUSHA     SB:0D71
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D4
+                       PUSH      #0D5
+;   18    FRY "5-4 = ",5-4,PEEL.
+                       ADDI      
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  18)
+                       PUSHA     SB:0D79
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D5
+;   19    FRY "6*7 = ",6*7,PEEL.
+                       PUSH      #0D4
+                       SUBI      
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  19)
+                       PUSHA     SB:0D87
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D6
+;   20    FRY "7/4 = ",7/4,PEEL.
+                       PUSH      #0D7
+                       MULI      
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  20)
+                       PUSHA     SB:0D95
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D7
+;   21    FRY "7%4 = ",7%4,PEEL.
+                       PUSH      #0D4
+                       DIVI      
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  21)
+                       PUSHA     SB:0D103
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D7
+;   22    FRY "2^3 = ",2^3,PEEL.
+                       PUSH      #0D4
+                       REMI      
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  22)
+                       PUSHA     SB:0D111
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D2
+;   23    FRY "2^(3**2) = ",2^(3**2),PEEL.
+                       PUSH      #0D3
+                       POWI      
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  23)
+                       PUSHA     SB:0D119
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D2
+                       PUSH      #0D3
+                       PUSH      #0D2
+;   24    FRY "(2**3)^2 = ",(2**3)^2,PEEL.
+                       POWI      
+                       POWI      
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  24)
+                       PUSHA     SB:0D132
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D2
+                       PUSH      #0D3
+                       POWI      
+;   25 
+;   26 |[ -------------------- ]|
+                       PUSH      #0D2
+                       POWI      
+                       SVC       #SVC_WRITE_INTEGER
+;   27 || Comparison operators ||
+;   28 |[ -------------------- ]|
+;   29    FRY "1  < 2 = ",1  < 2,PEEL.
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  29)
+                       PUSHA     SB:0D145
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D1
+;   30    FRY "1  = 2 = ",1  = 2,PEEL.
+                       PUSH      #0D2
+                       CMPI      
+                       JMPL      T0040
+                       PUSH      #0X0000
+                       JMP       E0050
+T0040                  PUSH      #0XFFFF
+E0050                  EQU       *
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  30)
+                       PUSHA     SB:0D156
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D1
+;   31    FRY "1 <= 2 = ",1 <= 2,PEEL.
+                       PUSH      #0D2
+                       CMPI      
+                       JMPE      T0060
+                       PUSH      #0X0000
+                       JMP       E0070
+T0060                  PUSH      #0XFFFF
+E0070                  EQU       *
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  31)
+                       PUSHA     SB:0D167
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D1
+;   32    FRY "1  > 2 = ",1  > 2,PEEL.
+                       PUSH      #0D2
+                       CMPI      
+                       JMPLE     T0080
+                       PUSH      #0X0000
+                       JMP       E0090
+T0080                  PUSH      #0XFFFF
+E0090                  EQU       *
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  32)
+                       PUSHA     SB:0D178
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D1
+;   33    FRY "1 != 2 = ",1 != 2,PEEL.
+                       PUSH      #0D2
+                       CMPI      
+                       JMPG      T0100
+                       PUSH      #0X0000
+                       JMP       E0110
+T0100                  PUSH      #0XFFFF
+E0110                  EQU       *
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  33)
+                       PUSHA     SB:0D189
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D1
+;   34    FRY "1 <> 2 = ",1 <> 2,PEEL.
+                       PUSH      #0D2
+                       CMPI      
+                       JMPNE     T0120
+                       PUSH      #0X0000
+                       JMP       E0130
+T0120                  PUSH      #0XFFFF
+E0130                  EQU       *
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  34)
+                       PUSHA     SB:0D200
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D1
+;   35    FRY "1 >= 2 = ",1 >= 2,PEEL.
+                       PUSH      #0D2
+                       CMPI      
+                       JMPNE     T0140
+                       PUSH      #0X0000
+                       JMP       E0150
+T0140                  PUSH      #0XFFFF
+E0150                  EQU       *
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  35)
+                       PUSHA     SB:0D211
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D1
+;   36 
+;   37 |[ -------------------- ]|
+                       PUSH      #0D2
+                       CMPI      
+                       JMPGE     T0160
+                       PUSH      #0X0000
+                       JMP       E0170
+T0160                  PUSH      #0XFFFF
+E0170                  EQU       *
+                       SVC       #SVC_WRITE_BOOLEAN
+;   38 || Logical operators    ||
+;   39 |[ -------------------- ]|
+;   40    FRY " true   OR  true = ", true   OR  true,PEEL.
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  40)
+                       PUSHA     SB:0D222
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0XFFFF
+;   41    FRY " true   OR false = ", true   OR false,PEEL.
+                       PUSH      #0XFFFF
+                       OR        
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  41)
+                       PUSHA     SB:0D243
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0XFFFF
+;   42    FRY "false  NOR  true = ",false  NOR  true,PEEL.
+                       PUSH      #0X0000
+                       OR        
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  42)
+                       PUSHA     SB:0D264
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0X0000
+;   43    FRY "false  NOR false = ",false  NOR false,PEEL.
+                       PUSH      #0XFFFF
+                       NOR       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  43)
+                       PUSHA     SB:0D285
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0X0000
+;   44    FRY " true  XOR  true = ", true  XOR  true,PEEL.
+                       PUSH      #0X0000
+                       NOR       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  44)
+                       PUSHA     SB:0D306
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0XFFFF
+;   45    FRY "false  XOR false = ",false  XOR false,PEEL.
+                       PUSH      #0XFFFF
+                       XOR       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  45)
+                       PUSHA     SB:0D327
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0X0000
+;   46 
+;   47    FRY " true  AND  true = ", true  AND  true,PEEL.
+                       PUSH      #0X0000
+                       XOR       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  47)
+                       PUSHA     SB:0D348
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0XFFFF
+;   48    FRY " true  AND false = ", true  AND false,PEEL.
+                       PUSH      #0XFFFF
+                       AND       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  48)
+                       PUSHA     SB:0D369
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0XFFFF
+;   49    FRY "false NAND  true = ",false NAND  true,PEEL.
+                       PUSH      #0X0000
+                       AND       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  49)
+                       PUSHA     SB:0D390
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0X0000
+;   50    FRY "false NAND false = ",false NAND false,PEEL.
+                       PUSH      #0XFFFF
+                       NAND      
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  50)
+                       PUSHA     SB:0D411
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0X0000
+;   51 
+;   52    FRY "NOT false = ",NOT false,PEEL.
+                       PUSH      #0X0000
+                       NAND      
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  52)
+                       PUSHA     SB:0D432
+                       SVC       #SVC_WRITE_STRING
+;   53    FRY "NOT  true = ",NOT  true,PEEL.
+                       PUSH      #0X0000
+                       NOT       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  53)
+                       PUSHA     SB:0D446
+                       SVC       #SVC_WRITE_STRING
+;   54 
+;   55 COOKEDPOTATO
+                       PUSH      #0XFFFF
+                       NOT       
+                       SVC       #SVC_WRITE_BOOLEAN
+;   56 
+;   57 
+                       SVC       #SVC_WRITE_ENDL
+                       RETURN    
+; **** =========
+; **** END (  55)
+; **** =========
+
+;------------------------------------------------------------
+; Issue "Run-time error #X..X near line #X..X" to handle run-time errors
+;------------------------------------------------------------
+HANDLERUNTIMEERROR     EQU       *
+                       SVC       #SVC_WRITE_ENDL
+                       PUSHA     SB:0D460
+                       SVC       #SVC_WRITE_STRING
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D478
+                       SVC       #SVC_WRITE_STRING
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+                       PUSH      #0D1
+                       SVC       #SVC_TERMINATE
+
+;------------------------------------------------------------
+; Static allocation of global data and PROGRAM module data
+;------------------------------------------------------------
+STATICDATA             EQU       *
+                       DS        "Normal program termination"
+                       DS        " 1 = "
+                       DS        "+2 = "
+                       DS        "-3 = "
+                       DS        "ABS 2 = "
+                       DS        "ABS(-3) = "
+                       DS        "4+5 = "
+                       DS        "5-4 = "
+                       DS        "6*7 = "
+                       DS        "7/4 = "
+                       DS        "7%4 = "
+                       DS        "2^3 = "
+                       DS        "2^(3**2) = "
+                       DS        "(2**3)^2 = "
+                       DS        "1  < 2 = "
+                       DS        "1  = 2 = "
+                       DS        "1 <= 2 = "
+                       DS        "1  > 2 = "
+                       DS        "1 != 2 = "
+                       DS        "1 <> 2 = "
+                       DS        "1 >= 2 = "
+                       DS        " true   OR  true = "
+                       DS        " true   OR false = "
+                       DS        "false  NOR  true = "
+                       DS        "false  NOR false = "
+                       DS        " true  XOR  true = "
+                       DS        "false  XOR false = "
+                       DS        " true  AND  true = "
+                       DS        " true  AND false = "
+                       DS        "false NAND  true = "
+                       DS        "false NAND false = "
+                       DS        "NOT false = "
+                       DS        "NOT  true = "
+                       DS        "Run-time error #"
+                       DS        " near line #"
+
+;------------------------------------------------------------
+; Heap space for dynamic memory allocation (to support future POTATO syntax)
+;------------------------------------------------------------
+HEAPBASE               EQU       *
+HEAPSIZE               EQU       0B0001000000000000   ; 8K bytes = 4K words
+
+;------------------------------------------------------------
+; Run-time stack
+;------------------------------------------------------------
+RUNTIMESTACK           EQU       0XFFFE
