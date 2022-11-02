@@ -19,10 +19,16 @@
 <identifier>            ::= <letter> { (( <letter> | <digit> | _ )) }* 				|| ***SIMPLIFIED***
 <literal>             	::= <integer> | <boolean> | <string>           				|| ***SIMPLIFIED***
 <integer>             	::= <digit> { <digit> }*
+<binary>             	::= 0B <digit>| { <digit> }* | 0b
+<octal>             	::= 0O <digit> { <digit> }* | 0o
+<hexadecimal>           ::= 0X <digit> | <ascii character> in range [ 'A', 'F' ] | <ascii character> in range [ 'a', 'f' ] 
+					      { 0X <digit> | <ascii character> in range [ 'A', 'F' ] | <ascii character> in range [ 'a', 'f' ] }* 
+						  | 0x <digit> | <ascii character> in range [ 'A', 'F' ] | <ascii character> in range [ 'a', 'f' ] 
+					      { 0x <digit> | <ascii character> in range [ 'A', 'F' ] | <ascii character> in range [ 'a', 'f' ] }*   
 <boolean>             	::= true | false | TRUE | FALSE
 <string>              	::= "{ <ASCIICharacter> }*"                    				|| *Note* escape both \ and " with \
 <digit>               	::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
-<acsii haracter>      	::= || Every printable ASCII character in range [ ' ','~' ]
+<acsii character>      	::= || Every printable ASCII character in range [ ' ','~' ]
 <comment>             	::= || { <ASCIICharacter> }* EOLC               			|| single-line comment
 					        |[ { (( <ASCIICharacter> | EOLC )) }* ]|   				|| multi-line (block) comment
 
