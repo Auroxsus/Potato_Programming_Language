@@ -12,7 +12,7 @@ These are for **MY** understanding of how my compilier works but to get a 'deepe
 
 **PotatoCompiler.cpp** is the source file of our project and is updated as additional features and functions are added to the POTATO programming language.
 
-**PotatoCompilier.exe** is the current version of the official "compilier" for the POTATO programming language. It is a combination of PotatoComplier.cpp + Potato.h
+**PotatoCompilier.exe** is the current version of the "compilier" for the POTATO programming language that is in use. It is a combination of PotatoComplier.cpp + Potato.h
 
 ## Language Capabilities
 * specify unnamed literal constants with data types integer, boolean, and string (strings are usually used to label output);
