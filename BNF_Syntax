@@ -6,7 +6,7 @@
 <statemnent>			::= <print statement>  .                         			|| ***SIMPLIFIED***
 <print statement>       ::= fry (( <string> | <expression> | \n | \t )) 
 							{ , {( <string> | <expression> | \n | \t )) }* 
-<string>	            ::= "{<ascii character>}*"
+<string>	            ::= "{<ascii character>}*" | '{<ascii character>}*'
 <expression>		    ::= <conjunction> { (( OR | NOR | XOR )) <conjunction> }
 <conjunction>           ::= <negation> { (( AND | NAND )) <negation> }*
 <negation>              ::= [ NOT ] <comparison>			
