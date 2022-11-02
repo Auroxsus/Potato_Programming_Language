@@ -49,19 +49,19 @@ typedef enum
     OPARENTHESIS,
     CPARENTHESIS,
 	// operators
-	LT,
-	LTEQ,
-	EQ,
-	GT,
-	GTEQ,
-	NOTEQ, // <> and !=
-	PLUS,
-	MINUS,
-	MULTIPLY,
-	DIVIDE,
-	MODULUS,
-	ABS,
-	POWER  // ^ and **
+	LT, 		// <
+	LTEQ, 		// <=
+	EQ, 		// ==
+	GT, 		// >
+	GTEQ, 		// >=
+	NOTEQ, 		// <> and !=
+	PLUS, 		// +
+	MINUS,		// -
+	MULTIPLY, 	// *
+	DIVIDE, 	// /
+	MODULUS, 	// %
+	ABS,	
+	POWER  		// ^ and **
 } TOKENTYPE;
 
 struct TOKENTABLERECORD
@@ -979,6 +979,31 @@ void GetNextToken(TOKEN tokens[])
 				while ( (nextCharacter != '"') && (nextCharacter != READER<CALLBACKSUSED>::EOLC) )
 				{
 					if      ( (nextCharacter == '\\') && (reader.GetLookAheadCharacter(1).character == '"') )
+					{
+						lexeme[i++] = nextCharacter;
+						nextCharacter = reader.GetNextCharacter().character;
+					}
+					else if ( (nextCharacter == '\\') && (reader.GetLookAheadCharacter(1).character == '\\') )
+					{
+						lexeme[i++] = nextCharacter;
+						nextCharacter = reader.GetNextCharacter().character;
+					}	
+					lexeme[i++] = nextCharacter;
+					nextCharacter = reader.GetNextCharacter().character;
+				}
+				if ( nextCharacter == READER<CALLBACKSUSED>::EOLC )
+					ProcessCompilerError(sourceLineNumber,sourceLineIndex,
+                                    "Invalid string literal");
+				lexeme[i] = '\0';
+				type = STRING;
+				reader.GetNextCharacter();
+				break;
+			case '\'': 
+				i = 0;
+				nextCharacter = reader.GetNextCharacter().character;
+				while ( (nextCharacter != '\'') && (nextCharacter != READER<CALLBACKSUSED>::EOLC) )
+				{
+					if      ( (nextCharacter == '\\') && (reader.GetLookAheadCharacter(1).character == '\'') )
 					{
 						lexeme[i++] = nextCharacter;
 						nextCharacter = reader.GetNextCharacter().character;
