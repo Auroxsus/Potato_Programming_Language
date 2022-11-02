@@ -26,7 +26,10 @@ typedef enum
 {
 	// pseudo-terminals
 	IDENTIFIER,
-	INTEGER,
+	DECIMAL,
+	BINARY,	
+	OCTAL,   
+	HEXADECIMAL, 
 	STRING,
 	EOPTOKEN,
 	UNKTOKEN,
@@ -74,7 +77,10 @@ struct TOKENTABLERECORD
 const TOKENTABLERECORD TOKENTABLE[] =
 {
 	{ IDENTIFIER  ,"IDENTOTY"    ,false }, 
-	{ INTEGER     ,"INTEGROOT"   ,false },
+	{ DECIMAL     ,"INTEGROOT"   ,false },
+	{ BINARY      ,"BINJE"       ,false }, // a common potato variation
+    { OCTAL       ,"OCTAL"       ,false },	
+	{ HEXADECIMAL ,"HEXADECIMAL" ,false },										   
 	{ STRING      ,"STRING"      ,false },
 	{ EOPTOKEN    ,"EOPTOKEN"    ,false },
 	{ UNKTOKEN    ,"UNKTOKEN"    ,false },
@@ -123,6 +129,7 @@ struct TOKEN
 READER<CALLBACKSUSED> reader(SOURCELINELENGTH,LOOKAHEAD);
 LISTER lister(LINESPERPAGE);
 
+// PUT POSSIBLE NUMBER VALUES IN AN ARRAY TO REFENCE SETS INSTEAD OF REDEFINING THEM EVERY TIME				
 // CODEGENERATION
 CODE code;
 // ENDCODEGENERATION
@@ -355,8 +362,17 @@ void ParsePRINTStatement(TOKEN tokens[])
 // CODEGENERATION
 				switch ( datatype )
 				{
-					case INTEGERTYPE:
-						code.EmitFormattedLine("","SVC","#SVC_WRITE_INTEGER");
+					case BINARYTYPE:
+						code.EmitFormattedLine("","SVC","#SVC_WRITE_BINARY");
+						break;
+					case OCTALTYPE:
+						code.EmitFormattedLine("","SVC","#SVC_WRITE_OCTAL");
+						break;
+					case DECIMALTYPE:
+						code.EmitFormattedLine("","SVC","#SVC_WRITE_DECIMAL");
+						break;
+					case HEXADECIMALTYPE:
+						code.EmitFormattedLine("","SVC","#SVC_WRITE_HEXADECIMAL");
 						break;
 					case BOOLEANTYPE:
 						code.EmitFormattedLine("","SVC","#SVC_WRITE_BOOLEAN");
@@ -530,8 +546,16 @@ void ParseComparison(TOKEN tokens[],DATATYPE &datatype)
 		GetNextToken(tokens);
       ParseComparator(tokens,datatypeRHS);
 
-		if ( (datatypeLHS != INTEGERTYPE) || (datatypeRHS != INTEGERTYPE) )
-			ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting integer operands");
+		if ( (datatypeLHS != BINARYTYPE) || (datatypeRHS != BINARYTYPE) )
+			ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting binary operands");
+		else if ( (datatypeLHS != OCTALTYPE) || (datatypeRHS != OCTALTYPE) )
+			ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting octal operands");
+		else if ( (datatypeLHS != DECIMALTYPE) || (datatypeRHS != DECIMALTYPE) )
+			ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting decimal operands");
+		else if ( (datatypeLHS != HEXADECIMALTYPE) || (datatypeRHS != HEXADECIMALTYPE) )
+			ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting hexadecimal operands");
+			
+		// FUTURE GROWTH TO CHANGE TYPES TO SAME TYPE-------------------------------------------------------------------------
 /*
       CMPI
       JMPXX     T????         ; XX = L,E,G,LE,NE,GE (as required)
@@ -600,9 +624,15 @@ void ParseComparator(TOKEN tokens[],DATATYPE &datatype)
 			GetNextToken(tokens);
 			ParseTerm(tokens,datatypeRHS);
 
-			if ( (datatypeLHS != INTEGERTYPE) || (datatypeRHS != INTEGERTYPE) )
-				ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting integer operands");
-
+			if ( (datatypeLHS != BINARYTYPE) || (datatypeRHS != BINARYTYPE) )
+				ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting binary operands");
+			else if ( (datatypeLHS != OCTALTYPE) || (datatypeRHS != OCTALTYPE) )
+				ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting octal operands");
+			else if ( (datatypeLHS != DECIMALTYPE) || (datatypeRHS != DECIMALTYPE) )
+				ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting decimal operands");
+			else if ( (datatypeLHS != HEXADECIMALTYPE) || (datatypeRHS != HEXADECIMALTYPE) )
+				ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting hexadecimal operands");
+				
 			switch ( operation )
 			{
 				case PLUS:
@@ -612,7 +642,7 @@ void ParseComparator(TOKEN tokens[],DATATYPE &datatype)
 					code.EmitFormattedLine("","SUBI");
 					break;
 			}
-			datatype = INTEGERTYPE;
+			datatype = datatypeLHS;
 		}
 	}
 	else
@@ -644,9 +674,15 @@ void ParseTerm(TOKEN tokens[],DATATYPE &datatype)
 			GetNextToken(tokens);
 			ParseFactor(tokens,datatypeRHS);
 
-			if ( (datatypeLHS != INTEGERTYPE) || (datatypeRHS != INTEGERTYPE) )
-				ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting integer operands");
-
+			if ( (datatypeLHS != BINARYTYPE) || (datatypeRHS != BINARYTYPE) )
+				ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting binary operands");
+			else if ( (datatypeLHS != OCTALTYPE) || (datatypeRHS != OCTALTYPE) )
+				ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting octal operands");
+			else if ( (datatypeLHS != DECIMALTYPE) || (datatypeRHS != DECIMALTYPE) )
+				ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting decimal operands");
+			else if ( (datatypeLHS != HEXADECIMALTYPE) || (datatypeRHS != HEXADECIMALTYPE) )
+				ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting hexadecimal operands");
+				
 			switch ( operation )
 			{
 				case MULTIPLY:
@@ -659,7 +695,7 @@ void ParseTerm(TOKEN tokens[],DATATYPE &datatype)
 					code.EmitFormattedLine("","REMI");
 					break;
 			}
-			datatype = INTEGERTYPE;
+			datatype = datatypeLHS;
 		}
 	}
 	else
@@ -685,9 +721,14 @@ void ParseFactor(TOKEN tokens[],DATATYPE &datatype)
 		GetNextToken(tokens);
 		ParseSecondary(tokens,datatypeRHS);
 
-		if ( datatypeRHS != INTEGERTYPE )
-			ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting integer operand");
-
+		if ( (datatypeRHS != BINARYTYPE) )
+			ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting binary operands");
+		else if ( (datatypeRHS != OCTALTYPE) )
+			ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting octal operands");
+		else if ( (datatypeRHS != DECIMALTYPE) )
+			ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting decimal operands");
+		else if ( (datatypeRHS != HEXADECIMALTYPE) )
+			ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting hexadecimal operands");
 		switch ( operation )
 		{
 			case ABS:
@@ -714,7 +755,7 @@ E???? EQU       *
 				code.EmitFormattedLine("","NEGI");
 				break;
 		}
-		datatype = INTEGERTYPE;
+		datatype = datatypeRHS;
 	}
 	else
 		ParseSecondary(tokens,datatype);
@@ -738,12 +779,12 @@ void ParseSecondary(TOKEN tokens[],DATATYPE &datatype)
 		GetNextToken(tokens);
 
 		ParsePrimary(tokens,datatypeRHS);
-
-		if ( (datatypeLHS != INTEGERTYPE) || (datatypeRHS != INTEGERTYPE) )
+		// ADD OTHER BASE TYPES TOO -----------------------------------------------
+		if ( (datatypeLHS != DECIMALTYPE) || (datatypeRHS != DECIMALTYPE) )
 			ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting integer operands");
 
 		code.EmitFormattedLine("","POWI");
-		datatype = INTEGERTYPE;
+		datatype = DECIMALTYPE;
 	}
 	else
 		datatype = datatypeLHS;
@@ -760,13 +801,42 @@ void ParsePrimary(TOKEN tokens[],DATATYPE &datatype)
 
 	switch ( tokens[0].type )
 	{
-		case INTEGER:
+		case BINARY:
+            {
+			char operand[SOURCELINELENGTH+1];
+            
+            sprintf(operand,"#0B%s",tokens[0].lexeme);
+            code.EmitFormattedLine("","PUSH",operand);
+            datatype = BINARYTYPE;
+            GetNextToken(tokens);
+			}
+			break;
+		case OCTAL:
 			{
             char operand[SOURCELINELENGTH+1];
             
+            sprintf(operand,"#0O%s",tokens[0].lexeme);
+            code.EmitFormattedLine("","PUSH",operand);
+            datatype = OCTALTYPE;
+            GetNextToken(tokens);
+        	}
+			break;
+		case DECIMAL:
+            {
+			char operand[SOURCELINELENGTH+1];
             sprintf(operand,"#0D%s",tokens[0].lexeme);
             code.EmitFormattedLine("","PUSH",operand);
-            datatype = INTEGERTYPE;
+            datatype = DECIMALTYPE;
+            GetNextToken(tokens);
+			}
+			break;
+		case HEXADECIMAL:
+            {
+			char operand[SOURCELINELENGTH+1];
+            
+			sprintf(operand,"#0X%s",tokens[0].lexeme);
+            code.EmitFormattedLine("","PUSH",operand);
+            datatype = HEXADECIMALTYPE;
             GetNextToken(tokens);
 			}
 			break;
@@ -956,16 +1026,54 @@ void GetNextToken(TOKEN tokens[])
 	// <integer>
 	else if ( isdigit(nextCharacter) )
 	{
+		char hex[14] = { 'A','B','C','D','E','F','G','a','b','c','d','e','f' };
+		bool ishex;
+		
 		i = 0;
 		lexeme[i++] = nextCharacter;
 		nextCharacter = reader.GetNextCharacter().character;
-		while ( isdigit(nextCharacter) )
+		
+		if ( nextCharacter == 'B' ||  nextCharacter == 'b' )
 		{
-			lexeme[i++] = nextCharacter;
-			nextCharacter = reader.GetNextCharacter().character;
+			type = BINARY;
+			while ( isdigit(nextCharacter) && (nextCharacter == 0 || nextCharacter == 1) )
+			{
+				lexeme[i++] = nextCharacter;
+				nextCharacter = reader.GetNextCharacter().character;
+			}
+		}
+		else if ( nextCharacter == 'O' ||  nextCharacter == 'o' )
+		{
+			type = OCTAL;
+			while ( isdigit(nextCharacter) || (nextCharacter != 8 && nextCharacter != 9) )
+			{
+				lexeme[i++] = nextCharacter;
+				nextCharacter = reader.GetNextCharacter().character;
+			}
+		}
+		else if ( nextCharacter == 'X' ||  nextCharacter == 'x' )
+		{
+			type = HEXADECIMAL;
+			for ( int x = 0 ; x < 14 ; x++) 
+			{
+				nextCharacter == hex[x] ? ishex = true : ishex = false;
+			}
+			while ( isdigit(nextCharacter) || ishex )
+			{
+				lexeme[i++] = nextCharacter;
+				nextCharacter = reader.GetNextCharacter().character;
+			}
+		}
+		else
+		{
+			type = DECIMAL;
+			while ( isdigit(nextCharacter) )
+			{
+				lexeme[i++] = nextCharacter;
+				nextCharacter = reader.GetNextCharacter().character;
+			}
 		}
 		lexeme[i] = '\0';
-		type = INTEGER;
 	}
 	else  
 	{
