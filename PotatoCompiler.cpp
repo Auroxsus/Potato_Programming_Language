@@ -69,7 +69,7 @@ typedef enum
 	MULTIPLY, 	// *
 	DIVIDE, 	// /
 	MODULUS, 	// %
-	POWER,  		// ^ and **
+	POWER,  	// ^ and **
 	INC,   
 	DEC  
 } TOKENTYPE;
@@ -291,10 +291,6 @@ void ParseDataDefinitions(TOKEN tokens[],IDENTIFIERSCOPE identifierScope)
 					strcpy(identifier,tokens[0].lexeme);
 					GetNextToken(tokens);
          
-					if ( tokens[0].type != COLON )
-						ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting ':'");
-					GetNextToken(tokens);
-         
 					switch ( tokens[0].type )
 					{
 						case INT:
@@ -306,6 +302,11 @@ void ParseDataDefinitions(TOKEN tokens[],IDENTIFIERSCOPE identifierScope)
 						default:
 							ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting INT or BOOL");
 					}
+					
+					/*if ( tokens[0].type != COLON )
+						ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting ':'");
+					GetNextToken(tokens);*/
+					
 					GetNextToken(tokens);
          
 					index = identifierTable.GetIndex(identifier,isInTable);
@@ -350,9 +351,9 @@ void ParseDataDefinitions(TOKEN tokens[],IDENTIFIERSCOPE identifierScope)
 				    strcpy(identifier,tokens[0].lexeme);
 				    GetNextToken(tokens);
 			  
-				    if ( tokens[0].type != COLON )
+				    /*if ( tokens[0].type != COLON )
 						ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting ':'");
-				    GetNextToken(tokens);
+				    GetNextToken(tokens);*/
 			 
 					switch ( tokens[0].type )
 				    {
@@ -367,8 +368,8 @@ void ParseDataDefinitions(TOKEN tokens[],IDENTIFIERSCOPE identifierScope)
 					}
 					GetNextToken(tokens);
 			 
-					if ( tokens[0].type != COLONEQ )
-						ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting ':='");
+					if ( tokens[0].type != EQ)
+						ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting '='");
 					GetNextToken(tokens);
 			 
 					if      ( (datatype == INTEGERTYPE) && (tokens[0].type == INTEGER) )
@@ -494,6 +495,7 @@ void ParseStatement(TOKEN tokens[])
 			break;
 		case IDENTIFIER:
 			ParseAssignmentStatement(tokens);
+			break;
 		default:
 			ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,
                               "Expecting beginning-of-statement");
@@ -634,7 +636,7 @@ void ParseAssignmentStatement(TOKEN tokens[])
 	ParseVariable(tokens,true,datatypeLHS);
 	n = 1;
 
-	while ( tokens[0].type == COMMA )
+	while ( tokens[0].type == COLON )
 	{
 		DATATYPE datatype;
 
@@ -645,7 +647,7 @@ void ParseAssignmentStatement(TOKEN tokens[])
 		if ( datatype != datatypeLHS )
 			ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Mixed-mode variables not allowed");
 	}
-	if ( tokens[0].type != COLONEQ )
+	if ( tokens[0].type != EQ )
 		ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting ':='");
 	GetNextToken(tokens);
 
@@ -1495,7 +1497,7 @@ void GetNextToken(TOKEN tokens[])
 					lexeme[1] = '\0';
 				}
 				break;
-			case '=': 
+			case '=':  
 				type = EQ;
 				lexeme[0] = nextCharacter; lexeme[1] = '\0';
 				reader.GetNextCharacter();
