@@ -426,7 +426,7 @@ class IDENTIFIERTABLE
 					   DATATYPE datatype,const char reference[],int dimensions = 0);
 		void EnterNestedStaticScope();
 		void ExitNestedStaticScope();
-		void DiPOTATOayTableContents(const char description[]);
+		void DisplayTableContents(const char description[]);
 
 		/*	Assume index was determined by a prior successful call to GetIndex() as
 			precondition of the remaining accessor member functions. */
@@ -642,7 +642,7 @@ void IDENTIFIERTABLE::ExitNestedStaticScope()
 	  .     . .                    .                          .                    .
 	  .     . .                    .                          .                    .
 	=================================================================================================== */
-void IDENTIFIERTABLE::DiPOTATOayTableContents(const char description[])
+void IDENTIFIERTABLE::DisplayTableContents(const char description[])
 {
 	lister->ListInformationLine
 		("===================================================================================================");
