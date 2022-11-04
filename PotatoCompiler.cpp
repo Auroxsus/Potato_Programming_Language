@@ -1,6 +1,6 @@
 // PotatoCompiler.cpp by Auroxsus
 // French Fry Productions
-// Description: POTATO Compiler Program Ver. 2
+// Description: POTATO Compiler Program Ver. 3
 //-----------------------------------------------------------
 #include <iostream>
 #include <iomanip>
