@@ -350,10 +350,6 @@ void ParseDataDefinitions(TOKEN tokens[],IDENTIFIERSCOPE identifierScope)
 						ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting identifier");
 				    strcpy(identifier,tokens[0].lexeme);
 				    GetNextToken(tokens);
-			  
-				    /*if ( tokens[0].type != COLON )
-						ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting ':'");
-				    GetNextToken(tokens);*/
 			 
 					switch ( tokens[0].type )
 				    {
