@@ -24,15 +24,15 @@ SVC_DEALLOCATE_BLOCK   EQU       0D92
                        JMP       PROGRAMMAIN
 ;    1 || Potato4.p by Auroxsus
 ;    2 || French Fry Productions
-;    3 || Description: 
+;    3 || Description: Test variable assignments, inc/dec-rementation, 
 ;    4 |[ ------------------------------- ]|
 ;    5 
-;    6 VAR x1: INT.
-;    7 CON c1: INT := 1,c2: BOOL := true.
-;    8 VAR x2: INT,x3: INT.
+;    6 VAR x1 INT.
+;    7 CON c1 INT = 1,c2 BOOL = true.
+;    8 VAR x2 INT,x3 INT.
 ;    9 
 ;   10 POTATO
-;   11    VAR sum: INT, x1: INT.
+;   11 	VAR sum INT, x1 INT.
 ; **** =========
 ; **** PROGRAM module (  10)
 ; **** =========
@@ -52,28 +52,28 @@ PROGRAMMAIN            EQU       *
                        SVC       #SVC_TERMINATE
 
 PROGRAMBODY0010        EQU       *
-;   12    VAR b1: BOOL,b2: BOOL.
-;   13    CON c3: INT := 3,c4: BOOL := false.
+;   12 	VAR b1 BOOL,b2 BOOL.
+;   13 	CON c3 INT = 3,c4 BOOL = false.
 ;   14 
-;   15    FRY "c1 = ",c1,PEEL.
+;   15 	FRY "c1 = ",c1,PEEL.
 ; **** PRINT statement (  15)
                        PUSHA     SB:0D39
                        SVC       #SVC_WRITE_STRING
-;   16    FRY "c2 = ",c2,PEEL.
+;   16 	FRY "c2 = ",c2,PEEL.
                        PUSH      SB:0D1
                        SVC       #SVC_WRITE_INTEGER
                        SVC       #SVC_WRITE_ENDL
 ; **** PRINT statement (  16)
                        PUSHA     SB:0D46
                        SVC       #SVC_WRITE_STRING
-;   17    FRY "c3 = ",c3,PEEL.
+;   17 	FRY "c3 = ",c3,PEEL.
                        PUSH      SB:0D2
                        SVC       #SVC_WRITE_BOOLEAN
                        SVC       #SVC_WRITE_ENDL
 ; **** PRINT statement (  17)
                        PUSHA     SB:0D53
                        SVC       #SVC_WRITE_STRING
-;   18    FRY "c4 = ",c4,PEEL.
+;   18 	FRY "c4 = ",c4,PEEL.
                        PUSH      SB:0D37
                        SVC       #SVC_WRITE_INTEGER
                        SVC       #SVC_WRITE_ENDL
@@ -81,7 +81,190 @@ PROGRAMBODY0010        EQU       *
                        PUSHA     SB:0D60
                        SVC       #SVC_WRITE_STRING
 ;   19 
-;   20 /* Generates a static semantic (context-dependent) 
+;   20 |[ Generates a static semantic (context-dependent) ||
                        PUSH      SB:0D38
                        SVC       #SVC_WRITE_BOOLEAN
+;   21 ||    error when un-commmented. Try it and see!    ]|
+;   22 ||   c1 = 2.
+;   23 	x1 = 0.
                        SVC       #SVC_WRITE_ENDL
+;   24 	INPUT "x1? " x1.
+; **** assignment statement (  23)
+                       PUSHA     SB:0D34
+                       PUSH      #0D0
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+;   25 	INPUT x2.
+; **** INPUT statement (  24)
+                       PUSHA     SB:0D67
+                       SVC       #SVC_WRITE_STRING
+                       PUSHA     SB:0D34
+;   26 	sum = x1+x2+c1.
+                       SVC       #SVC_READ_INTEGER
+                       POP       @SP:0D1
+                       DISCARD   #0D1
+; **** INPUT statement (  25)
+                       PUSHA     SB:0D3
+                       SVC       #SVC_READ_INTEGER
+                       POP       @SP:0D1
+                       DISCARD   #0D1
+; **** assignment statement (  26)
+                       PUSHA     SB:0D33
+                       PUSH      SB:0D34
+;   27 	FRY "x1+x2+c1 = ",sum,PEEL.
+                       PUSH      SB:0D3
+                       ADDI      
+                       PUSH      SB:0D1
+                       ADDI      
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+; **** PRINT statement (  27)
+                       PUSHA     SB:0D73
+                       SVC       #SVC_WRITE_STRING
+;   28 
+;   29 || test new increment and decrement operators   
+                       PUSH      SB:0D33
+                       SVC       #SVC_WRITE_INTEGER
+;   30 	FRY "x1 = ",x1,", ++x1 = ",++x1,PEEL.
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  30)
+                       PUSHA     SB:0D86
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      SB:0D34
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D93
+                       SVC       #SVC_WRITE_STRING
+;   31 	FRY "x1 = ",x1,", --x1 = ",--x1,PEEL.  
+                       PUSHA     SB:0D34
+                       PUSH      @SP:0D0
+                       PUSH      #0D1
+                       ADDI      
+                       POP       @SP:0D1
+                       PUSH      @SP:0D0
+                       SWAP      
+                       DISCARD   #0D1
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  31)
+                       PUSHA     SB:0D104
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      SB:0D34
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D111
+                       SVC       #SVC_WRITE_STRING
+                       PUSHA     SB:0D34
+;   32 ||	FRY "x1 = ",x1,", x1++ = ",x1++,PEEL. || Add postfix parsing to implement
+                       PUSH      @SP:0D0
+                       PUSH      #0D1
+                       SUBI      
+                       POP       @SP:0D1
+                       PUSH      @SP:0D0
+                       SWAP      
+                       DISCARD   #0D1
+                       SVC       #SVC_WRITE_INTEGER
+;   33 ||	FRY "x1 = ",x1,", x1-- = ",x1--,PEEL.
+;   34 
+;   35 	INPUT "b1? " b1.
+                       SVC       #SVC_WRITE_ENDL
+;   36 	b2 = NOT(b1) OR (c2 XOR c4).
+; **** INPUT statement (  35)
+                       PUSHA     SB:0D122
+                       SVC       #SVC_WRITE_STRING
+                       PUSHA     SB:0D35
+                       SVC       #SVC_READ_BOOLEAN
+                       POP       @SP:0D1
+                       DISCARD   #0D1
+; **** assignment statement (  36)
+                       PUSHA     SB:0D36
+                       PUSH      SB:0D35
+                       NOT       
+;   37 	FRY "b1 = ",b1,", b2 = ",b2,PEEL.
+                       PUSH      SB:0D2
+                       PUSH      SB:0D38
+                       XOR       
+                       OR        
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+; **** PRINT statement (  37)
+                       PUSHA     SB:0D128
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      SB:0D35
+                       SVC       #SVC_WRITE_BOOLEAN
+                       PUSHA     SB:0D135
+                       SVC       #SVC_WRITE_STRING
+;   38 COOKEDPOTATO
+                       PUSH      SB:0D36
+                       SVC       #SVC_WRITE_BOOLEAN
+;   39 
+                       SVC       #SVC_WRITE_ENDL
+                       RETURN    
+; **** =========
+; **** END (  38)
+; **** =========
+
+;------------------------------------------------------------
+; Issue "Run-time error #X..X near line #X..X" to handle run-time errors
+;------------------------------------------------------------
+HANDLERUNTIMEERROR     EQU       *
+                       SVC       #SVC_WRITE_ENDL
+                       PUSHA     SB:0D144
+                       SVC       #SVC_WRITE_STRING
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D162
+                       SVC       #SVC_WRITE_STRING
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+                       PUSH      #0D1
+                       SVC       #SVC_TERMINATE
+
+;------------------------------------------------------------
+; Static allocation of global data and PROGRAM module data
+;------------------------------------------------------------
+STATICDATA             EQU       *
+                       RW        0D1                  ; x1
+                       DW        0D1                  ; c1
+                       DW        true                 ; c2
+                       RW        0D1                  ; x2
+                       RW        0D1                  ; x3
+                       DS        "Normal program termination"
+                       RW        0D1                  ; sum
+                       RW        0D1                  ; x1
+                       RW        0D1                  ; b1
+                       RW        0D1                  ; b2
+                       DW        0D3                  ; c3
+                       DW        false                ; c4
+                       DS        "c1 = "
+                       DS        "c2 = "
+                       DS        "c3 = "
+                       DS        "c4 = "
+                       DS        "x1? "
+                       DS        "x1+x2+c1 = "
+                       DS        "x1 = "
+                       DS        ", ++x1 = "
+                       DS        "x1 = "
+                       DS        ", --x1 = "
+                       DS        "b1? "
+                       DS        "b1 = "
+                       DS        ", b2 = "
+                       DS        "Run-time error #"
+                       DS        " near line #"
+
+;------------------------------------------------------------
+; Heap space for dynamic memory allocation (to support future POTATO syntax)
+;------------------------------------------------------------
+HEAPBASE               EQU       *
+HEAPSIZE               EQU       0B0001000000000000   ; 8K bytes = 4K words
+
+;------------------------------------------------------------
+; Run-time stack
+;------------------------------------------------------------
+RUNTIMESTACK           EQU       0XFFFE
