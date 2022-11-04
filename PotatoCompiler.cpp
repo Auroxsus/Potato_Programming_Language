@@ -303,10 +303,6 @@ void ParseDataDefinitions(TOKEN tokens[],IDENTIFIERSCOPE identifierScope)
 							ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting INT or BOOL");
 					}
 					
-					/*if ( tokens[0].type != COLON )
-						ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting ':'");
-					GetNextToken(tokens);*/
-					
 					GetNextToken(tokens);
          
 					index = identifierTable.GetIndex(identifier,isInTable);
@@ -1175,9 +1171,9 @@ void ParseVariable(TOKEN tokens[],bool asLValue,DATATYPE &datatype)
 	datatype = identifierTable.GetDatatype(index);
 
 	if ( !((identifierType ==        GLOBAL_VARIABLE) ||
-          (identifierType ==        GLOBAL_CONSTANT) ||
-          (identifierType == PROGRAMMODULE_VARIABLE) ||
-          (identifierType == PROGRAMMODULE_CONSTANT)) )
+           (identifierType ==        GLOBAL_CONSTANT) ||
+           (identifierType == PROGRAMMODULE_VARIABLE) ||
+           (identifierType == PROGRAMMODULE_CONSTANT)) )
 		ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting variable or constant identifier");
       
 	if ( asLValue && ((identifierType == GLOBAL_CONSTANT) || (identifierType == PROGRAMMODULE_CONSTANT)) )
