@@ -1,4 +1,4 @@
- "Potato4.p" Fri Nov  4 14:22:21 2022 Page 1
+ "Potato4.p" Fri Nov  4 17:02:23 2022 Page 1
 Line Source Line
 ---- -------------------------------------------------------------------------------
    1 || Potato4.p by Auroxsus
@@ -61,7 +61,7 @@ Found identifier "c4" at index = 11 (is in current scope)
   21 ||    error when un-commmented. Try it and see!    ]|
   22 ||   c1 = 2.
   23 	x1 = 0.
- "Potato4.p" Fri Nov  4 14:22:21 2022 Page 2
+ "Potato4.p" Fri Nov  4 17:02:23 2022 Page 2
 Line Source Line
 ---- -------------------------------------------------------------------------------
   24 	INPUT "x1? " x1.
