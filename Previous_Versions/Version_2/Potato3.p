@@ -1,8 +1,7 @@
-|| Potato4.p by Auroxsus
+|| Potato3.p by Auroxsus
 || French Fry Productions
 || Description: Test NEW Operators
 |[ ------------------------------- ]|
-
 
 POTATO
 
