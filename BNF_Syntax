@@ -7,6 +7,8 @@
 <print statement>       ::= fry (( <string> | <expression> | \n | \t )) 
 							{ , {( <string> | <expression> | \n | \t )) }* 
 <string>	            ::= "{<ascii character>}*" | '{<ascii character>}*'
+<input statement>       ::= input [ <string> ] <variable>.
+<assignment statement>  ::= <variable> {, <variable> }* = <expression>
 <expression>		    ::= <conjunction> { (( OR | NOR | XOR )) <conjunction> }
 <conjunction>           ::= <negation> { (( AND | NAND )) <negation> }*
 <negation>              ::= [ NOT ] <comparison>			
@@ -14,8 +16,10 @@
 <comparator>            ::= <term> { (( + | - )) <term> }*
 <term>                  ::= <factor> { (( * | / | % )) <factor> }*
 <factor>                ::= [ (( ABS | + | - )) ] <secondary>          				|| ***SIMPLIFIED***
-<secondary>             ::= <primary> [ (( ^ | ** )) <primary> ]
-<primary>               ::= ( <expression> ) | <literal>               				|| ***SIMPLIFIED***
+<secondary>             ::= <prefix> [ (( ^ | ** )) <prefix> ]
+<prefix>                ::= <primary> | (( ++ | -- )) <variable>
+<primary>               ::= <variable> ( <expression> ) | <literal>              	|| ***SIMPLIFIED***
+<variable>				::= <identifier>          							    	|| ***SIMPLIFIED***
 <identifier>            ::= <letter> { (( <letter> | <digit> | _ )) }* 				|| ***SIMPLIFIED***
 <literal>             	::= <integer> | <boolean> | <string>           				|| ***SIMPLIFIED***
 <integer>             	::= <digit> { <digit> }*
