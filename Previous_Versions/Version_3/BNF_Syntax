@@ -1,0 +1,37 @@
+
+<potato program>        ::= <program definition> EOPC                           	|| ***SIMPLIFIED***
+<program definition>    ::= potato                                            		|| ***SIMPLIFIED***           
+								{ <statement> } .*
+							cookedpotato		
+<statemnent>			::= <print statement>  .                         			|| ***SIMPLIFIED***
+<print statement>       ::= fry (( <string> | <expression> | \n | \t )) 
+							{ , {( <string> | <expression> | \n | \t )) }* 
+<string>	            ::= "{<ascii character>}*" | '{<ascii character>}*'
+<input statement>       ::= input [ <string> ] <variable>.
+<assignment statement>  ::= <variable> {, <variable> }* = <expression>
+<expression>		    ::= <conjunction> { (( OR | NOR | XOR )) <conjunction> }
+<conjunction>           ::= <negation> { (( AND | NAND )) <negation> }*
+<negation>              ::= [ NOT ] <comparison>			
+<comparison>            ::= <comparator> [ (( < | <= | = | > | >= | (( <> | != )) )) <comparator> ]
+<comparator>            ::= <term> { (( + | - )) <term> }*
+<term>                  ::= <factor> { (( * | / | % )) <factor> }*
+<factor>                ::= [ (( ABS | + | - )) ] <secondary>          				|| ***SIMPLIFIED***
+<secondary>             ::= <prefix> [ (( ^ | ** )) <prefix> ]
+<prefix>                ::= <primary> | (( ++ | -- )) <variable>
+<primary>               ::= <variable> ( <expression> ) | <literal>              	|| ***SIMPLIFIED***
+<variable>				::= <identifier>          							    	|| ***SIMPLIFIED***
+<identifier>            ::= <letter> { (( <letter> | <digit> | _ )) }* 				|| ***SIMPLIFIED***
+<literal>             	::= <integer> | <boolean> | <string>           				|| ***SIMPLIFIED***
+<integer>             	::= <digit> { <digit> }*
+<boolean>             	::= true | false
+<string>              	::= "{ <ASCIICharacter> }*"                    				|| *Note* escape both \ and " with \
+<digit>               	::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+<acsii haracter>      	::= || Every printable ASCII character in range [ ' ','~' ]
+<comment>             	::= || { <ASCIICharacter> }* EOLC               			|| single-line comment
+					        |[ { (( <ASCIICharacter> | EOLC )) }* ]|   				|| multi-line (block) comment
+
+
+NOTE: ***SIMPLIFIED*** means that the syntax is completed for the current version
+	of the compiler and could be built on further in the development
+	<primary> is simplified because there is no < variable> syntactic entry in SPL2
+	

@@ -1,61 +1,60 @@
- "Potato3.p" Tue Nov  1 16:08:21 2022 Page 1
+ "Potato3.p" Fri Nov  4 17:17:35 2022 Page 1
 Line Source Line
 ---- -------------------------------------------------------------------------------
-   1 || Potato4.p by Auroxsus
+   1 || Potato3.p by Auroxsus
    2 || French Fry Productions
    3 || Description: Test NEW Operators
    4 |[ ------------------------------- ]|
    5 
-   6 
-   7 POTATO
-   8 
-   9 |[ -------------------- ]|
-  10 || Arithmetic operators ||
-  11 |[ -------------------- ]|
-  12    FRY " 1 = ",1,PEEL.
-  13    FRY "+2 = ",+2,PEEL.
-  14    FRY "-3 = ",-3,PEEL.
-  15    FRY "ABS 2 = ",ABS 2,PEEL.
-  16    FRY "ABS(-3) = ",ABS(-3),PEEL.
-  17    FRY "4+5 = ",(4+5),PEEL.
-  18    FRY "5-4 = ",5-4,PEEL.
-  19    FRY "6*7 = ",6*7,PEEL.
-  20    FRY "7/4 = ",7/4,PEEL.
-  21    FRY "7%4 = ",7%4,PEEL.
-  22    FRY "2^3 = ",2^3,PEEL.
-  23    FRY "2^(3**2) = ",2^(3**2),PEEL.
-  24    FRY "(2**3)^2 = ",(2**3)^2,PEEL.
-  25 
-  26 |[ -------------------- ]|
-  27 || Comparison operators ||
-  28 |[ -------------------- ]|
-  29    FRY "1  < 2 = ",1  < 2,PEEL.
-  30    FRY "1  = 2 = ",1  = 2,PEEL.
-  31    FRY "1 <= 2 = ",1 <= 2,PEEL.
-  32    FRY "1  > 2 = ",1  > 2,PEEL.
-  33    FRY "1 != 2 = ",1 != 2,PEEL.
-  34    FRY "1 <> 2 = ",1 <> 2,PEEL.
-  35    FRY "1 >= 2 = ",1 >= 2,PEEL.
-  36 
-  37 |[ -------------------- ]|
-  38 || Logical operators    ||
-  39 |[ -------------------- ]|
-  40    FRY " true   OR  true = ", true   OR  true,PEEL.
-  41    FRY " true   OR false = ", true   OR false,PEEL.
-  42    FRY "false  NOR  true = ",false  NOR  true,PEEL.
-  43    FRY "false  NOR false = ",false  NOR false,PEEL.
-  44    FRY " true  XOR  true = ", true  XOR  true,PEEL.
-  45    FRY "false  XOR false = ",false  XOR false,PEEL.
-  46 
-  47    FRY " true  AND  true = ", true  AND  true,PEEL.
-  48    FRY " true  AND false = ", true  AND false,PEEL.
-  49    FRY "false NAND  true = ",false NAND  true,PEEL.
-  50    FRY "false NAND false = ",false NAND false,PEEL.
-  51 
-  52    FRY "NOT false = ",NOT false,PEEL.
-  53    FRY "NOT  true = ",NOT  true,PEEL.
-  54 
-  55 COOKEDPOTATO
+   6 POTATO
+   7 
+   8 |[ -------------------- ]|
+   9 || Arithmetic operators ||
+  10 |[ -------------------- ]|
+  11    FRY " 1 = ",1,PEEL.
+  12    FRY "+2 = ",+2,PEEL.
+  13    FRY "-3 = ",-3,PEEL.
+  14    FRY "ABS 2 = ",ABS 2,PEEL.
+  15    FRY "ABS(-3) = ",ABS(-3),PEEL.
+  16    FRY "4+5 = ",(4+5),PEEL.
+  17    FRY "5-4 = ",5-4,PEEL.
+  18    FRY "6*7 = ",6*7,PEEL.
+  19    FRY "7/4 = ",7/4,PEEL.
+  20    FRY "7%4 = ",7%4,PEEL.
+  21    FRY "2^3 = ",2^3,PEEL.
+  22    FRY "2^(3**2) = ",2^(3**2),PEEL.
+  23    FRY "(2**3)^2 = ",(2**3)^2,PEEL.
+  24 
+  25 |[ -------------------- ]|
+  26 || Comparison operators ||
+  27 |[ -------------------- ]|
+  28    FRY "1  < 2 = ",1  < 2,PEEL.
+  29    FRY "1  = 2 = ",1  = 2,PEEL.
+  30    FRY "1 <= 2 = ",1 <= 2,PEEL.
+  31    FRY "1  > 2 = ",1  > 2,PEEL.
+  32    FRY "1 != 2 = ",1 != 2,PEEL.
+  33    FRY "1 <> 2 = ",1 <> 2,PEEL.
+  34    FRY "1 >= 2 = ",1 >= 2,PEEL.
+  35 
+  36 |[ -------------------- ]|
+  37 || Logical operators    ||
+  38 |[ -------------------- ]|
+  39    FRY " true   OR  true = ", true   OR  true,PEEL.
+  40    FRY " true   OR false = ", true   OR false,PEEL.
+  41    FRY "false  NOR  true = ",false  NOR  true,PEEL.
+  42    FRY "false  NOR false = ",false  NOR false,PEEL.
+  43    FRY " true  XOR  true = ", true  XOR  true,PEEL.
+  44    FRY "false  XOR false = ",false  XOR false,PEEL.
+  45 
+  46    FRY " true  AND  true = ", true  AND  true,PEEL.
+  47    FRY " true  AND false = ", true  AND false,PEEL.
+  48    FRY "false NAND  true = ",false NAND  true,PEEL.
+  49    FRY "false NAND false = ",false NAND false,PEEL.
+  50 
+  51    FRY "NOT false = ",NOT false,PEEL.
+  52    FRY "NOT  true = ",NOT  true,PEEL.
+  53 
+  54 COOKEDPOTATO
+  55 
   56 
-  57 
 ******* POTATO was cooked thoroughly

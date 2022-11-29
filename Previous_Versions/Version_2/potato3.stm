@@ -22,20 +22,19 @@ SVC_DEALLOCATE_BLOCK   EQU       0D92
                        ORG       0X0000
 
                        JMP       PROGRAMMAIN
-;    1 || Potato4.p by Auroxsus
+;    1 || Potato3.p by Auroxsus
 ;    2 || French Fry Productions
 ;    3 || Description: Test NEW Operators
 ;    4 |[ ------------------------------- ]|
 ;    5 
-;    6 
-;    7 POTATO
-;    8 
-;    9 |[ -------------------- ]|
-;   10 || Arithmetic operators ||
-;   11 |[ -------------------- ]|
-;   12    FRY " 1 = ",1,PEEL.
+;    6 POTATO
+;    7 
+;    8 |[ -------------------- ]|
+;    9 || Arithmetic operators ||
+;   10 |[ -------------------- ]|
+;   11    FRY " 1 = ",1,PEEL.
 ; **** =========
-; **** PROGRAM module (   7)
+; **** PROGRAM module (   6)
 ; **** =========
 PROGRAMMAIN            EQU       *
                        PUSH      #RUNTIMESTACK        ; set SP
@@ -53,32 +52,32 @@ PROGRAMMAIN            EQU       *
                        SVC       #SVC_TERMINATE
 
 PROGRAMBODY0010        EQU       *
-; **** PRINT statement (  12)
+; **** PRINT statement (  11)
                        PUSHA     SB:0D28
                        SVC       #SVC_WRITE_STRING
-;   13    FRY "+2 = ",+2,PEEL.
+;   12    FRY "+2 = ",+2,PEEL.
                        PUSH      #0D1
                        SVC       #SVC_WRITE_INTEGER
                        SVC       #SVC_WRITE_ENDL
-; **** PRINT statement (  13)
+; **** PRINT statement (  12)
                        PUSHA     SB:0D35
                        SVC       #SVC_WRITE_STRING
-;   14    FRY "-3 = ",-3,PEEL.
+;   13    FRY "-3 = ",-3,PEEL.
                        PUSH      #0D2
                        SVC       #SVC_WRITE_INTEGER
                        SVC       #SVC_WRITE_ENDL
-; **** PRINT statement (  14)
+; **** PRINT statement (  13)
                        PUSHA     SB:0D42
                        SVC       #SVC_WRITE_STRING
-;   15    FRY "ABS 2 = ",ABS 2,PEEL.
+;   14    FRY "ABS 2 = ",ABS 2,PEEL.
                        PUSH      #0D3
                        NEGI      
                        SVC       #SVC_WRITE_INTEGER
                        SVC       #SVC_WRITE_ENDL
-; **** PRINT statement (  15)
+; **** PRINT statement (  14)
                        PUSHA     SB:0D49
                        SVC       #SVC_WRITE_STRING
-;   16    FRY "ABS(-3) = ",ABS(-3),PEEL.
+;   15    FRY "ABS(-3) = ",ABS(-3),PEEL.
                        PUSH      #0D2
                        SETNZPI   
                        JMPNN     E0020
@@ -86,11 +85,11 @@ PROGRAMBODY0010        EQU       *
 E0020                  EQU       *
                        SVC       #SVC_WRITE_INTEGER
                        SVC       #SVC_WRITE_ENDL
-; **** PRINT statement (  16)
+; **** PRINT statement (  15)
                        PUSHA     SB:0D59
                        SVC       #SVC_WRITE_STRING
                        PUSH      #0D3
-;   17    FRY "4+5 = ",(4+5),PEEL.
+;   16    FRY "4+5 = ",(4+5),PEEL.
                        NEGI      
                        SETNZPI   
                        JMPNN     E0030
@@ -98,91 +97,91 @@ E0020                  EQU       *
 E0030                  EQU       *
                        SVC       #SVC_WRITE_INTEGER
                        SVC       #SVC_WRITE_ENDL
-; **** PRINT statement (  17)
+; **** PRINT statement (  16)
                        PUSHA     SB:0D71
                        SVC       #SVC_WRITE_STRING
                        PUSH      #0D4
                        PUSH      #0D5
-;   18    FRY "5-4 = ",5-4,PEEL.
+;   17    FRY "5-4 = ",5-4,PEEL.
                        ADDI      
                        SVC       #SVC_WRITE_INTEGER
                        SVC       #SVC_WRITE_ENDL
-; **** PRINT statement (  18)
+; **** PRINT statement (  17)
                        PUSHA     SB:0D79
                        SVC       #SVC_WRITE_STRING
                        PUSH      #0D5
-;   19    FRY "6*7 = ",6*7,PEEL.
+;   18    FRY "6*7 = ",6*7,PEEL.
                        PUSH      #0D4
                        SUBI      
                        SVC       #SVC_WRITE_INTEGER
                        SVC       #SVC_WRITE_ENDL
-; **** PRINT statement (  19)
+; **** PRINT statement (  18)
                        PUSHA     SB:0D87
                        SVC       #SVC_WRITE_STRING
                        PUSH      #0D6
-;   20    FRY "7/4 = ",7/4,PEEL.
+;   19    FRY "7/4 = ",7/4,PEEL.
                        PUSH      #0D7
                        MULI      
                        SVC       #SVC_WRITE_INTEGER
                        SVC       #SVC_WRITE_ENDL
-; **** PRINT statement (  20)
+; **** PRINT statement (  19)
                        PUSHA     SB:0D95
                        SVC       #SVC_WRITE_STRING
                        PUSH      #0D7
-;   21    FRY "7%4 = ",7%4,PEEL.
+;   20    FRY "7%4 = ",7%4,PEEL.
                        PUSH      #0D4
                        DIVI      
                        SVC       #SVC_WRITE_INTEGER
                        SVC       #SVC_WRITE_ENDL
-; **** PRINT statement (  21)
+; **** PRINT statement (  20)
                        PUSHA     SB:0D103
                        SVC       #SVC_WRITE_STRING
                        PUSH      #0D7
-;   22    FRY "2^3 = ",2^3,PEEL.
+;   21    FRY "2^3 = ",2^3,PEEL.
                        PUSH      #0D4
                        REMI      
                        SVC       #SVC_WRITE_INTEGER
                        SVC       #SVC_WRITE_ENDL
-; **** PRINT statement (  22)
+; **** PRINT statement (  21)
                        PUSHA     SB:0D111
                        SVC       #SVC_WRITE_STRING
                        PUSH      #0D2
-;   23    FRY "2^(3**2) = ",2^(3**2),PEEL.
+;   22    FRY "2^(3**2) = ",2^(3**2),PEEL.
                        PUSH      #0D3
                        POWI      
                        SVC       #SVC_WRITE_INTEGER
                        SVC       #SVC_WRITE_ENDL
-; **** PRINT statement (  23)
+; **** PRINT statement (  22)
                        PUSHA     SB:0D119
                        SVC       #SVC_WRITE_STRING
                        PUSH      #0D2
                        PUSH      #0D3
                        PUSH      #0D2
-;   24    FRY "(2**3)^2 = ",(2**3)^2,PEEL.
+;   23    FRY "(2**3)^2 = ",(2**3)^2,PEEL.
                        POWI      
                        POWI      
                        SVC       #SVC_WRITE_INTEGER
                        SVC       #SVC_WRITE_ENDL
-; **** PRINT statement (  24)
+; **** PRINT statement (  23)
                        PUSHA     SB:0D132
                        SVC       #SVC_WRITE_STRING
                        PUSH      #0D2
                        PUSH      #0D3
                        POWI      
-;   25 
-;   26 |[ -------------------- ]|
+;   24 
+;   25 |[ -------------------- ]|
                        PUSH      #0D2
                        POWI      
                        SVC       #SVC_WRITE_INTEGER
-;   27 || Comparison operators ||
-;   28 |[ -------------------- ]|
-;   29    FRY "1  < 2 = ",1  < 2,PEEL.
+;   26 || Comparison operators ||
+;   27 |[ -------------------- ]|
+;   28    FRY "1  < 2 = ",1  < 2,PEEL.
                        SVC       #SVC_WRITE_ENDL
-; **** PRINT statement (  29)
+; **** PRINT statement (  28)
                        PUSHA     SB:0D145
                        SVC       #SVC_WRITE_STRING
                        PUSH      #0D1
-;   30    FRY "1  = 2 = ",1  = 2,PEEL.
+;   29    FRY "1  = 2 = ",1  = 2,PEEL.
                        PUSH      #0D2
                        CMPI      
                        JMPL      T0040
@@ -192,11 +191,11 @@ T0040                  PUSH      #0XFFFF
 E0050                  EQU       *
                        SVC       #SVC_WRITE_BOOLEAN
                        SVC       #SVC_WRITE_ENDL
-; **** PRINT statement (  30)
+; **** PRINT statement (  29)
                        PUSHA     SB:0D156
                        SVC       #SVC_WRITE_STRING
                        PUSH      #0D1
-;   31    FRY "1 <= 2 = ",1 <= 2,PEEL.
+;   30    FRY "1 <= 2 = ",1 <= 2,PEEL.
                        PUSH      #0D2
                        CMPI      
                        JMPE      T0060
@@ -206,11 +205,11 @@ T0060                  PUSH      #0XFFFF
 E0070                  EQU       *
                        SVC       #SVC_WRITE_BOOLEAN
                        SVC       #SVC_WRITE_ENDL
-; **** PRINT statement (  31)
+; **** PRINT statement (  30)
                        PUSHA     SB:0D167
                        SVC       #SVC_WRITE_STRING
                        PUSH      #0D1
-;   32    FRY "1  > 2 = ",1  > 2,PEEL.
+;   31    FRY "1  > 2 = ",1  > 2,PEEL.
                        PUSH      #0D2
                        CMPI      
                        JMPLE     T0080
@@ -220,11 +219,11 @@ T0080                  PUSH      #0XFFFF
 E0090                  EQU       *
                        SVC       #SVC_WRITE_BOOLEAN
                        SVC       #SVC_WRITE_ENDL
-; **** PRINT statement (  32)
+; **** PRINT statement (  31)
                        PUSHA     SB:0D178
                        SVC       #SVC_WRITE_STRING
                        PUSH      #0D1
-;   33    FRY "1 != 2 = ",1 != 2,PEEL.
+;   32    FRY "1 != 2 = ",1 != 2,PEEL.
                        PUSH      #0D2
                        CMPI      
                        JMPG      T0100
@@ -234,11 +233,11 @@ T0100                  PUSH      #0XFFFF
 E0110                  EQU       *
                        SVC       #SVC_WRITE_BOOLEAN
                        SVC       #SVC_WRITE_ENDL
-; **** PRINT statement (  33)
+; **** PRINT statement (  32)
                        PUSHA     SB:0D189
                        SVC       #SVC_WRITE_STRING
                        PUSH      #0D1
-;   34    FRY "1 <> 2 = ",1 <> 2,PEEL.
+;   33    FRY "1 <> 2 = ",1 <> 2,PEEL.
                        PUSH      #0D2
                        CMPI      
                        JMPNE     T0120
@@ -248,11 +247,11 @@ T0120                  PUSH      #0XFFFF
 E0130                  EQU       *
                        SVC       #SVC_WRITE_BOOLEAN
                        SVC       #SVC_WRITE_ENDL
-; **** PRINT statement (  34)
+; **** PRINT statement (  33)
                        PUSHA     SB:0D200
                        SVC       #SVC_WRITE_STRING
                        PUSH      #0D1
-;   35    FRY "1 >= 2 = ",1 >= 2,PEEL.
+;   34    FRY "1 >= 2 = ",1 >= 2,PEEL.
                        PUSH      #0D2
                        CMPI      
                        JMPNE     T0140
@@ -262,12 +261,12 @@ T0140                  PUSH      #0XFFFF
 E0150                  EQU       *
                        SVC       #SVC_WRITE_BOOLEAN
                        SVC       #SVC_WRITE_ENDL
-; **** PRINT statement (  35)
+; **** PRINT statement (  34)
                        PUSHA     SB:0D211
                        SVC       #SVC_WRITE_STRING
                        PUSH      #0D1
-;   36 
-;   37 |[ -------------------- ]|
+;   35 
+;   36 |[ -------------------- ]|
                        PUSH      #0D2
                        CMPI      
                        JMPGE     T0160
@@ -276,124 +275,124 @@ E0150                  EQU       *
 T0160                  PUSH      #0XFFFF
 E0170                  EQU       *
                        SVC       #SVC_WRITE_BOOLEAN
-;   38 || Logical operators    ||
-;   39 |[ -------------------- ]|
-;   40    FRY " true   OR  true = ", true   OR  true,PEEL.
+;   37 || Logical operators    ||
+;   38 |[ -------------------- ]|
+;   39    FRY " true   OR  true = ", true   OR  true,PEEL.
                        SVC       #SVC_WRITE_ENDL
-; **** PRINT statement (  40)
+; **** PRINT statement (  39)
                        PUSHA     SB:0D222
                        SVC       #SVC_WRITE_STRING
                        PUSH      #0XFFFF
-;   41    FRY " true   OR false = ", true   OR false,PEEL.
+;   40    FRY " true   OR false = ", true   OR false,PEEL.
                        PUSH      #0XFFFF
+                       OR        
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  40)
+                       PUSHA     SB:0D243
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0XFFFF
+;   41    FRY "false  NOR  true = ",false  NOR  true,PEEL.
+                       PUSH      #0X0000
                        OR        
                        SVC       #SVC_WRITE_BOOLEAN
                        SVC       #SVC_WRITE_ENDL
 ; **** PRINT statement (  41)
-                       PUSHA     SB:0D243
-                       SVC       #SVC_WRITE_STRING
-                       PUSH      #0XFFFF
-;   42    FRY "false  NOR  true = ",false  NOR  true,PEEL.
-                       PUSH      #0X0000
-                       OR        
-                       SVC       #SVC_WRITE_BOOLEAN
-                       SVC       #SVC_WRITE_ENDL
-; **** PRINT statement (  42)
                        PUSHA     SB:0D264
                        SVC       #SVC_WRITE_STRING
                        PUSH      #0X0000
-;   43    FRY "false  NOR false = ",false  NOR false,PEEL.
+;   42    FRY "false  NOR false = ",false  NOR false,PEEL.
                        PUSH      #0XFFFF
+                       NOR       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  42)
+                       PUSHA     SB:0D285
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0X0000
+;   43    FRY " true  XOR  true = ", true  XOR  true,PEEL.
+                       PUSH      #0X0000
                        NOR       
                        SVC       #SVC_WRITE_BOOLEAN
                        SVC       #SVC_WRITE_ENDL
 ; **** PRINT statement (  43)
-                       PUSHA     SB:0D285
-                       SVC       #SVC_WRITE_STRING
-                       PUSH      #0X0000
-;   44    FRY " true  XOR  true = ", true  XOR  true,PEEL.
-                       PUSH      #0X0000
-                       NOR       
-                       SVC       #SVC_WRITE_BOOLEAN
-                       SVC       #SVC_WRITE_ENDL
-; **** PRINT statement (  44)
                        PUSHA     SB:0D306
                        SVC       #SVC_WRITE_STRING
                        PUSH      #0XFFFF
-;   45    FRY "false  XOR false = ",false  XOR false,PEEL.
+;   44    FRY "false  XOR false = ",false  XOR false,PEEL.
                        PUSH      #0XFFFF
                        XOR       
                        SVC       #SVC_WRITE_BOOLEAN
                        SVC       #SVC_WRITE_ENDL
-; **** PRINT statement (  45)
+; **** PRINT statement (  44)
                        PUSHA     SB:0D327
                        SVC       #SVC_WRITE_STRING
                        PUSH      #0X0000
-;   46 
-;   47    FRY " true  AND  true = ", true  AND  true,PEEL.
+;   45 
+;   46    FRY " true  AND  true = ", true  AND  true,PEEL.
                        PUSH      #0X0000
                        XOR       
                        SVC       #SVC_WRITE_BOOLEAN
                        SVC       #SVC_WRITE_ENDL
-; **** PRINT statement (  47)
+; **** PRINT statement (  46)
                        PUSHA     SB:0D348
                        SVC       #SVC_WRITE_STRING
                        PUSH      #0XFFFF
-;   48    FRY " true  AND false = ", true  AND false,PEEL.
+;   47    FRY " true  AND false = ", true  AND false,PEEL.
                        PUSH      #0XFFFF
+                       AND       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  47)
+                       PUSHA     SB:0D369
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0XFFFF
+;   48    FRY "false NAND  true = ",false NAND  true,PEEL.
+                       PUSH      #0X0000
                        AND       
                        SVC       #SVC_WRITE_BOOLEAN
                        SVC       #SVC_WRITE_ENDL
 ; **** PRINT statement (  48)
-                       PUSHA     SB:0D369
-                       SVC       #SVC_WRITE_STRING
-                       PUSH      #0XFFFF
-;   49    FRY "false NAND  true = ",false NAND  true,PEEL.
-                       PUSH      #0X0000
-                       AND       
-                       SVC       #SVC_WRITE_BOOLEAN
-                       SVC       #SVC_WRITE_ENDL
-; **** PRINT statement (  49)
                        PUSHA     SB:0D390
                        SVC       #SVC_WRITE_STRING
                        PUSH      #0X0000
-;   50    FRY "false NAND false = ",false NAND false,PEEL.
+;   49    FRY "false NAND false = ",false NAND false,PEEL.
                        PUSH      #0XFFFF
                        NAND      
                        SVC       #SVC_WRITE_BOOLEAN
                        SVC       #SVC_WRITE_ENDL
-; **** PRINT statement (  50)
+; **** PRINT statement (  49)
                        PUSHA     SB:0D411
                        SVC       #SVC_WRITE_STRING
                        PUSH      #0X0000
-;   51 
-;   52    FRY "NOT false = ",NOT false,PEEL.
+;   50 
+;   51    FRY "NOT false = ",NOT false,PEEL.
                        PUSH      #0X0000
                        NAND      
                        SVC       #SVC_WRITE_BOOLEAN
                        SVC       #SVC_WRITE_ENDL
-; **** PRINT statement (  52)
+; **** PRINT statement (  51)
                        PUSHA     SB:0D432
                        SVC       #SVC_WRITE_STRING
-;   53    FRY "NOT  true = ",NOT  true,PEEL.
+;   52    FRY "NOT  true = ",NOT  true,PEEL.
                        PUSH      #0X0000
                        NOT       
                        SVC       #SVC_WRITE_BOOLEAN
                        SVC       #SVC_WRITE_ENDL
-; **** PRINT statement (  53)
+; **** PRINT statement (  52)
                        PUSHA     SB:0D446
                        SVC       #SVC_WRITE_STRING
-;   54 
-;   55 COOKEDPOTATO
+;   53 
+;   54 COOKEDPOTATO
                        PUSH      #0XFFFF
                        NOT       
                        SVC       #SVC_WRITE_BOOLEAN
+;   55 
 ;   56 
-;   57 
                        SVC       #SVC_WRITE_ENDL
                        RETURN    
 ; **** =========
-; **** END (  55)
+; **** END (  54)
 ; **** =========
 
 ;------------------------------------------------------------

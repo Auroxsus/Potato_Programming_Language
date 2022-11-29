@@ -1,6 +1,6 @@
 // PotatoCompiler.cpp by Auroxsus
 // French Fry Productions
-// Description: POTATO Compiler Program Ver. 2
+// Description: POTATO Compiler Program Ver. 3
 //-----------------------------------------------------------
 #include <iostream>
 #include <iomanip>
@@ -18,6 +18,7 @@ using namespace std;
 //#define TRACEREADER
 //#define TRACESCANNER
 //#define TRACEPARSER
+#define TRACEIDENTIFIERTABLE							
 #define TRACECOMPILER
 
 #include "..\..\Potato.h"
@@ -41,13 +42,21 @@ typedef enum
 	AND,
 	NAND,
 	NOT,
+	ABS,		   
 	TRUE,
 	FALSE,
+	VAR,   
+	INT,   
+	BOOL,	
+	CON,   
+	INPUT,	 
 	// punctuation
 	COMMA,
 	PERIOD,
     OPARENTHESIS,
     CPARENTHESIS,
+	COLON,	 
+	COLONEQ,	   
 	// operators
 	LT, 		// <
 	LTEQ, 		// <=
@@ -60,8 +69,9 @@ typedef enum
 	MULTIPLY, 	// *
 	DIVIDE, 	// /
 	MODULUS, 	// %
-	ABS,	
-	POWER  		// ^ and **
+	POWER,  	// ^ and **
+	INC,   
+	DEC  
 } TOKENTYPE;
 
 struct TOKENTABLERECORD
@@ -88,12 +98,20 @@ const TOKENTABLERECORD TOKENTABLE[] =
     { AND         ,"AND"         ,true  },
     { NAND        ,"NAND"        ,true  },
     { NOT         ,"NOT"         ,true  },
+	{ ABS         ,"ABS"         ,true  },
     { TRUE        ,"TRUE"        ,true  },
     { FALSE       ,"FALSE"       ,true  },
+	{ VAR         ,"VAR"         ,true  },
+	{ INT         ,"INT"         ,true  },
+	{ BOOL        ,"BOOL"        ,true  },
+	{ CON         ,"CON"         ,true  },
+	{ INPUT       ,"INPUT"       ,true  },	
 	{ COMMA       ,"COMMA"       ,false },
 	{ PERIOD      ,"PERIOD"      ,false },
 	{ OPARENTHESIS,"OPARENTHESIS",false },
 	{ CPARENTHESIS,"CPARENTHESIS",false },
+	{ COLON       ,"COLON"       ,false },
+	{ COLONEQ     ,"COLONEQ"     ,false },
 	{ LT          ,"LT"          ,false },
 	{ LTEQ        ,"LTEQ"        ,false },
 	{ EQ          ,"EQ"          ,false },
@@ -105,8 +123,9 @@ const TOKENTABLERECORD TOKENTABLE[] =
 	{ MULTIPLY    ,"MULTIPLY"    ,false },
 	{ DIVIDE      ,"DIVIDE"      ,false },
 	{ MODULUS     ,"MODULUS"     ,false },
-	{ ABS         ,"ABS"         ,true  },
-	{ POWER       ,"POWER"       ,false }
+	{ POWER       ,"POWER"       ,false },
+	{ INC         ,"INC"         ,false },
+	{ DEC         ,"DEC"         ,false }										
 };
 
 struct TOKEN
@@ -125,6 +144,7 @@ LISTER lister(LINESPERPAGE);
 
 // CODEGENERATION
 CODE code;
+IDENTIFIERTABLE identifierTable(&lister,MAXIMUMIDENTIFIERS);															
 // ENDCODEGENERATION
 
 #ifdef TRACEPARSER
@@ -223,9 +243,15 @@ void ParsePOTATOProgram(TOKEN tokens[])
 {
 	void GetNextToken(TOKEN tokens[]);
 	void ParsePROGRAMDefinition(TOKEN tokens[]);
-
+	void ParseDataDefinitions(TOKEN tokens[],IDENTIFIERSCOPE identifierScope);
+   
 	EnterModule("POTATOProgram");
+	
+	ParseDataDefinitions(tokens,GLOBALSCOPE);
 
+#ifdef TRACECOMPILER
+	identifierTable.DisplayTableContents("Contents of identifier table after compilation of global data definitions");
+#endif
 	if ( tokens[0].type == PROGRAM )
 		ParsePROGRAMDefinition(tokens);
 	else
@@ -239,10 +265,153 @@ void ParsePOTATOProgram(TOKEN tokens[])
 	ExitModule("POTATOProgram");
 }
 
+void ParseDataDefinitions(TOKEN tokens[],IDENTIFIERSCOPE identifierScope)
+{
+	void GetNextToken(TOKEN tokens[]);
+
+	EnterModule("DataDefinitions");
+
+	while ( (tokens[0].type == VAR) || (tokens[0].type == CON) )
+	{
+		switch ( tokens[0].type )
+		{
+			case VAR:
+				do
+				{
+					char identifier[MAXIMUMLENGTHIDENTIFIER+1];
+					char reference[MAXIMUMLENGTHIDENTIFIER+1];
+					DATATYPE datatype;
+					bool isInTable;
+					int index;
+      
+					GetNextToken(tokens);
+         
+					if ( tokens[0].type != IDENTIFIER )
+						ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting identifier");
+					strcpy(identifier,tokens[0].lexeme);
+					GetNextToken(tokens);
+         
+					switch ( tokens[0].type )
+					{
+						case INT:
+							datatype = INTEGERTYPE;
+							break;
+						case BOOL:
+							datatype = BOOLEANTYPE;
+							break;
+						default:
+							ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting INT or BOOL");
+					}
+					
+					GetNextToken(tokens);
+         
+					index = identifierTable.GetIndex(identifier,isInTable);
+					if ( isInTable && identifierTable.IsInCurrentScope(index) )
+						ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Multiply-defined identifier");
+      
+					switch ( identifierScope )
+					{
+						case GLOBALSCOPE:
+// CODEGENERATION
+							code.AddRWToStaticData(1,identifier,reference);
+// ENDCODEGENERATION
+							identifierTable.AddToTable(identifier,GLOBAL_VARIABLE,datatype,reference);
+							break;
+						case PROGRAMMODULESCOPE:
+// CODEGENERATION
+							code.AddRWToStaticData(1,identifier,reference);
+// ENDCODEGENERATION
+							identifierTable.AddToTable(identifier,PROGRAMMODULE_VARIABLE,datatype,reference);
+							break;
+					}
+				} while ( tokens[0].type == COMMA );
+      
+				if ( tokens[0].type != PERIOD )
+				ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting '.'");
+				GetNextToken(tokens);
+				break;
+			case CON:
+				do
+				{
+					char identifier[MAXIMUMLENGTHIDENTIFIER+1];
+					char literal[MAXIMUMLENGTHIDENTIFIER+1];
+					char reference[MAXIMUMLENGTHIDENTIFIER+1];
+					DATATYPE datatype;
+					bool isInTable;
+					int index;
+      
+					GetNextToken(tokens);
+         
+					if ( tokens[0].type != IDENTIFIER )
+						ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting identifier");
+				    strcpy(identifier,tokens[0].lexeme);
+				    GetNextToken(tokens);
+			 
+					switch ( tokens[0].type )
+				    {
+						case INT:
+							datatype = INTEGERTYPE;
+							break;
+						case BOOL:
+							datatype = BOOLEANTYPE;
+							break;
+						default:
+							ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting INT or BOOL");
+					}
+					GetNextToken(tokens);
+			 
+					if ( tokens[0].type != EQ)
+						ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting '='");
+					GetNextToken(tokens);
+			 
+					if      ( (datatype == INTEGERTYPE) && (tokens[0].type == INTEGER) )
+					{
+						strcpy(literal,"0D");
+						strcat(literal,tokens[0].lexeme);
+					}
+					else if ( ((datatype == BOOLEANTYPE) && (tokens[0].type ==    TRUE))
+						   || ((datatype == BOOLEANTYPE) && (tokens[0].type ==   FALSE))  )
+						strcpy(literal,tokens[0].lexeme);
+					else
+						ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Data type mismatch");
+					GetNextToken(tokens);
+			  
+					index = identifierTable.GetIndex(identifier,isInTable);
+					if ( isInTable && identifierTable.IsInCurrentScope(index) )
+						ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Multiply-defined identifier");
+
+					switch ( identifierScope )
+					{
+						case GLOBALSCOPE:
+	// CODEGENERATION
+							code.AddDWToStaticData(literal,identifier,reference);
+	// ENDCODEGENERATION
+							identifierTable.AddToTable(identifier,GLOBAL_CONSTANT,datatype,reference);
+							break;
+						case PROGRAMMODULESCOPE:
+	// CODEGENERATION
+							code.AddDWToStaticData(literal,identifier,reference);
+	// ENDCODEGENERATION
+							identifierTable.AddToTable(identifier,PROGRAMMODULE_CONSTANT,datatype,reference);
+							break;
+					}
+				} while ( tokens[0].type == COMMA );
+      
+				if ( tokens[0].type != PERIOD )
+					ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting '.'");
+				GetNextToken(tokens);
+				break;
+		}
+	}
+
+   ExitModule("DataDefinitions");
+}
+
 void ParsePROGRAMDefinition(TOKEN tokens[])
 {
 	void ParseStatement(TOKEN tokens[]);
 	void GetNextToken(TOKEN tokens[]);
+	void ParseDataDefinitions(TOKEN tokens[],IDENTIFIERSCOPE identifierScope);
 
 	char line[SOURCELINELENGTH+1];
 	char label[SOURCELINELENGTH+1];
@@ -276,6 +445,9 @@ void ParsePROGRAMDefinition(TOKEN tokens[])
 // ENDCODEGENERATION
 
 	GetNextToken(tokens);
+	
+	identifierTable.EnterNestedStaticScope();
+	ParseDataDefinitions(tokens,PROGRAMMODULESCOPE);											
 	while ( tokens[0].type != END )
 		ParseStatement(tokens);
 
@@ -287,6 +459,11 @@ void ParsePROGRAMDefinition(TOKEN tokens[])
 	code.EmitUnformattedLine("; **** =========");
 // ENDCODEGENERATION
 
+#ifdef TRACECOMPILER
+	identifierTable.DisplayTableContents("Contents of identifier table at end of compilation of PROGRAM module definition");
+#endif
+
+	identifierTable.ExitNestedStaticScope();										   
 	GetNextToken(tokens);
 	ExitModule("PROGRAMDefinition");
 }
@@ -294,6 +471,8 @@ void ParsePROGRAMDefinition(TOKEN tokens[])
 void ParseStatement(TOKEN tokens[])
 {
 	void ParsePRINTStatement(TOKEN tokens[]);
+	void ParseINPUTStatement(TOKEN tokens[]);
+	void ParseAssignmentStatement(TOKEN tokens[]);										
 	void GetNextToken(TOKEN tokens[]);
 
 	EnterModule("Statement");
@@ -302,6 +481,12 @@ void ParseStatement(TOKEN tokens[])
 	{
 		case PRINT:
 			ParsePRINTStatement(tokens);
+			break;
+		case INPUT:
+			ParseINPUTStatement(tokens);
+			break;
+		case IDENTIFIER:
+			ParseAssignmentStatement(tokens);
 			break;
 		default:
 			ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,
@@ -321,10 +506,8 @@ void ParsePRINTStatement(TOKEN tokens[])
 	DATATYPE datatype;					 				 
 	EnterModule("PRINTStatement");
 	
-// CODEGENERATION
 	sprintf(line,"; **** PRINT statement (%4d)",tokens[0].sourceLineNumber);
 	code.EmitUnformattedLine(line);
-// ENDCODEGENERATION
 
 	do
 	{
@@ -373,6 +556,114 @@ void ParsePRINTStatement(TOKEN tokens[])
 
 	GetNextToken(tokens);
 	ExitModule("PRINTStatement");
+}
+
+void ParseINPUTStatement(TOKEN tokens[])
+{
+	void ParseVariable(TOKEN tokens[],bool asLValue,DATATYPE &datatype);
+	void GetNextToken(TOKEN tokens[]);
+
+	char reference[SOURCELINELENGTH+1];
+	char line[SOURCELINELENGTH+1];
+	DATATYPE datatype;
+
+	EnterModule("INPUTStatement");
+
+	sprintf(line,"; **** INPUT statement (%4d)",tokens[0].sourceLineNumber);
+	code.EmitUnformattedLine(line);
+
+	GetNextToken(tokens);
+
+	if ( tokens[0].type == STRING )
+	{
+
+// CODEGENERATION
+		code.AddDSToStaticData(tokens[0].lexeme,"",reference);
+		code.EmitFormattedLine("","PUSHA",reference);
+		code.EmitFormattedLine("","SVC","#SVC_WRITE_STRING");
+// ENDCODEGENERATION
+
+		GetNextToken(tokens);
+	}
+
+	ParseVariable(tokens,true,datatype);
+
+// CODEGENERATION
+	switch ( datatype )
+	{
+		case INTEGERTYPE:
+			code.EmitFormattedLine("","SVC","#SVC_READ_INTEGER");
+			break;
+		case BOOLEANTYPE:
+			code.EmitFormattedLine("","SVC","#SVC_READ_BOOLEAN");
+			break;
+	}
+	code.EmitFormattedLine("","POP","@SP:0D1");
+	code.EmitFormattedLine("","DISCARD","#0D1");
+// ENDCODEGENERATION
+
+	if ( tokens[0].type != PERIOD )
+		ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting '.'");
+
+	GetNextToken(tokens);
+
+	ExitModule("INPUTStatement");
+}
+
+void ParseAssignmentStatement(TOKEN tokens[])
+{
+	void ParseVariable(TOKEN tokens[],bool asLValue,DATATYPE &datatype);
+	void ParseExpression(TOKEN tokens[],DATATYPE &datatype);
+	void GetNextToken(TOKEN tokens[]);
+
+	char line[SOURCELINELENGTH+1];
+	DATATYPE datatypeLHS,datatypeRHS;
+	int n;
+
+	EnterModule("AssignmentStatement");
+
+	sprintf(line,"; **** assignment statement (%4d)",tokens[0].sourceLineNumber);
+	code.EmitUnformattedLine(line);
+
+	ParseVariable(tokens,true,datatypeLHS);
+	n = 1;
+
+	while ( tokens[0].type == COLON )
+	{
+		DATATYPE datatype;
+
+		GetNextToken(tokens);
+		ParseVariable(tokens,true,datatype);
+		n++;
+
+		if ( datatype != datatypeLHS )
+			ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Mixed-mode variables not allowed");
+	}
+	if ( tokens[0].type != EQ )
+		ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting ':='");
+	GetNextToken(tokens);
+
+	ParseExpression(tokens,datatypeRHS);
+
+	if ( datatypeLHS != datatypeRHS )
+		ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Data type mismatch");
+
+// CODEGENERATION
+	for (int i = 1; i <= n; i++)
+	{
+		code.EmitFormattedLine("","MAKEDUP");
+		code.EmitFormattedLine("","POP","@SP:0D2");
+		code.EmitFormattedLine("","SWAP");
+		code.EmitFormattedLine("","DISCARD","#0D1");
+	}
+	code.EmitFormattedLine("","DISCARD","#0D1");
+// ENDCODEGENERATION
+
+	if ( tokens[0].type != PERIOD )
+		ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting '.'");
+	GetNextToken(tokens);
+
+	ExitModule("AssignmentStatement");
 }
 
 void ParseExpression(TOKEN tokens[],DATATYPE &datatype)
@@ -724,20 +1015,20 @@ E???? EQU       *
 
 void ParseSecondary(TOKEN tokens[],DATATYPE &datatype)
 {
-	void ParsePrimary(TOKEN tokens[],DATATYPE &datatype);
+	void ParsePrefix(TOKEN tokens[],DATATYPE &datatype);
 	void GetNextToken(TOKEN tokens[]);
 
 	DATATYPE datatypeLHS,datatypeRHS;
 
 	EnterModule("Secondary");
 
-	ParsePrimary(tokens,datatypeLHS);
+	ParsePrefix(tokens,datatypeLHS);
 
 	if ( tokens[0].type == POWER )
 	{
 		GetNextToken(tokens);
 
-		ParsePrimary(tokens,datatypeRHS);
+		ParsePrefix(tokens,datatypeRHS);
 
 		if ( (datatypeLHS != INTEGERTYPE) || (datatypeRHS != INTEGERTYPE) )
 			ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting integer operands");
@@ -751,8 +1042,57 @@ void ParseSecondary(TOKEN tokens[],DATATYPE &datatype)
 	ExitModule("Secondary");
 }
 
+void ParsePrefix(TOKEN tokens[],DATATYPE &datatype)
+{
+	void ParseVariable(TOKEN tokens[],bool asLValue,DATATYPE &datatype);
+	void ParsePrimary(TOKEN tokens[],DATATYPE &datatype);
+	void GetNextToken(TOKEN tokens[]);
+
+	EnterModule("Prefix");
+
+	if ( (tokens[0].type == INC) || (tokens[0].type == DEC) )
+	{
+		DATATYPE datatypeRHS;
+		TOKENTYPE operation = tokens[0].type;
+
+		GetNextToken(tokens);
+		ParseVariable(tokens,true,datatypeRHS);
+
+		if ( datatypeRHS != INTEGERTYPE )
+			ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting integer operand");
+
+		switch ( operation )
+		{
+			case INC:
+				code.EmitFormattedLine("","PUSH","@SP:0D0");
+				code.EmitFormattedLine("","PUSH","#0D1");
+				code.EmitFormattedLine("","ADDI");
+				code.EmitFormattedLine("","POP","@SP:0D1");       // side-effect
+				code.EmitFormattedLine("","PUSH","@SP:0D0");
+				code.EmitFormattedLine("","SWAP");
+				code.EmitFormattedLine("","DISCARD","#0D1");      // value
+				break;
+			case DEC:
+				code.EmitFormattedLine("","PUSH","@SP:0D0");
+				code.EmitFormattedLine("","PUSH","#0D1");
+				code.EmitFormattedLine("","SUBI");
+				code.EmitFormattedLine("","POP","@SP:0D1");       // side-effect
+				code.EmitFormattedLine("","PUSH","@SP:0D0");
+				code.EmitFormattedLine("","SWAP");
+				code.EmitFormattedLine("","DISCARD","#0D1");      // value
+				break;
+		}
+		datatype = INTEGERTYPE;
+	}
+	else
+		ParsePrimary(tokens,datatype);
+
+	ExitModule("Prefix");
+}
+
 void ParsePrimary(TOKEN tokens[],DATATYPE &datatype)
 {
+	void ParseVariable(TOKEN tokens[],bool asLValue,DATATYPE &datatype);																   
 	void ParseExpression(TOKEN tokens[],DATATYPE &datatype);
 	void GetNextToken(TOKEN tokens[]);
 
@@ -784,17 +1124,74 @@ void ParsePrimary(TOKEN tokens[],DATATYPE &datatype)
 			GetNextToken(tokens);
 			ParseExpression(tokens,datatype);
 			if ( tokens[0].type != CPARENTHESIS )
-				ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting )");
+				ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting ')'");
 			GetNextToken(tokens);
 			break;
+		case IDENTIFIER:
+			ParseVariable(tokens,false,datatype);
+			break;
 		default:
-			ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting integer, true, false, or (");
+			ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,
+			"Expecting integer, true, false, '(', or variable");											   
 			break;
 	}
 
 	ExitModule("Primary");
 }
 
+/*  Syntax "locations"                 l- or r-value
+	---------------------------------  -------------
+	<expression>                       r-value
+	<prefix>                           l-value
+	<INPUTStatement>                   l-value
+	LHS of <assignmentStatement>       l-value
+
+r-value ( read-only): value is pushed on run-time stack
+l-value (read/write): address of value is pushed on run-time stack */														 
+void ParseVariable(TOKEN tokens[],bool asLValue,DATATYPE &datatype)
+{
+
+	void GetNextToken(TOKEN tokens[]);
+
+	bool isInTable;
+	int index;
+	IDENTIFIERTYPE identifierType;
+
+	EnterModule("Variable");
+
+	if ( tokens[0].type != IDENTIFIER )
+		ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting identifier");
+
+// STATICSEMANTICS
+	index = identifierTable.GetIndex(tokens[0].lexeme,isInTable);
+	if ( !isInTable )
+		ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Undefined identifier");
+   
+	identifierType = identifierTable.GetType(index);
+	datatype = identifierTable.GetDatatype(index);
+
+	if ( !((identifierType ==        GLOBAL_VARIABLE) ||
+           (identifierType ==        GLOBAL_CONSTANT) ||
+           (identifierType == PROGRAMMODULE_VARIABLE) ||
+           (identifierType == PROGRAMMODULE_CONSTANT)) )
+		ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting variable or constant identifier");
+      
+	if ( asLValue && ((identifierType == GLOBAL_CONSTANT) || (identifierType == PROGRAMMODULE_CONSTANT)) )
+		ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Constant may not be l-value");
+// ENDSTATICSEMANTICS
+
+// CODEGENERATION
+	if ( asLValue )
+		code.EmitFormattedLine("","PUSHA",identifierTable.GetReference(index));
+	else
+		code.EmitFormattedLine("","PUSH",identifierTable.GetReference(index));
+// ENDCODEGENERATION
+
+	GetNextToken(tokens);
+
+	ExitModule("Variable");
+}
+												 
 void Callback1(int sourceLineNumber,const char sourceLine[])
 {
 	cout << setw(4) << sourceLineNumber << " " << sourceLine << endl;
@@ -1056,6 +1453,21 @@ void GetNextToken(TOKEN tokens[])
 				lexeme[0] = nextCharacter; lexeme[1] = '\0';
 				reader.GetNextCharacter();
 				break;
+			case ':': 
+				lexeme[0] = nextCharacter;
+				nextCharacter = reader.GetNextCharacter().character;
+				if ( nextCharacter == '=' )
+				{
+					type = COLONEQ;
+					lexeme[1] = nextCharacter; lexeme[2] = '\0';
+					reader.GetNextCharacter();
+				}
+				else
+				{
+					type = COLON;
+					lexeme[1] = '\0';
+				}
+				break;
 			case '<': 
 				lexeme[0] = nextCharacter;
 				nextCharacter = reader.GetNextCharacter().character;
@@ -1077,7 +1489,7 @@ void GetNextToken(TOKEN tokens[])
 					lexeme[1] = '\0';
 				}
 				break;
-			case '=': 
+			case '=':  
 				type = EQ;
 				lexeme[0] = nextCharacter; lexeme[1] = '\0';
 				reader.GetNextCharacter();
@@ -1115,13 +1527,33 @@ void GetNextToken(TOKEN tokens[])
 				}
 				break;
 			case '+': 
-				type = PLUS;
-				lexeme[0] = nextCharacter; lexeme[1] = '\0';
+				lexeme[0] = nextCharacter;
+				if ( reader.GetLookAheadCharacter(1).character == '+' )
+				{
+				   nextCharacter = reader.GetNextCharacter().character;
+				   lexeme[1] = nextCharacter; lexeme[2] = '\0';
+				   type = INC;
+				}
+				else
+				{
+					type = PLUS;
+					lexeme[0] = nextCharacter; lexeme[1] = '\0';
+				}
 				reader.GetNextCharacter();
 				break;
-			case '-': 
-				type = MINUS;
-				lexeme[0] = nextCharacter; lexeme[1] = '\0';
+			case '-':	   
+				lexeme[0] = nextCharacter;
+				if ( reader.GetLookAheadCharacter(1).character == '-' )
+				{
+				   nextCharacter = reader.GetNextCharacter().character;
+				   lexeme[1] = nextCharacter; lexeme[2] = '\0';
+				   type = DEC;
+				}
+				else
+				{
+					type = MINUS;
+					lexeme[0] = nextCharacter; lexeme[1] = '\0';
+				}
 				reader.GetNextCharacter();
 				break;
 			// use character look-ahead to "find" other '*'
