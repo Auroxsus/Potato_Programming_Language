@@ -1,0 +1,118 @@
+;--------------------------------------------------------------
+; Potato1.stm
+;--------------------------------------------------------------
+; SVC numbers
+SVC_DONOTHING          EQU       0D0                  ; force context switch
+SVC_TERMINATE          EQU       0D1
+SVC_READ_INTEGER       EQU       0D10
+SVC_WRITE_INTEGER      EQU       0D11
+SVC_READ_FLOAT         EQU       0D20
+SVC_WRITE_FLOAT        EQU       0D21
+SVC_READ_BOOLEAN       EQU       0D30
+SVC_WRITE_BOOLEAN      EQU       0D31
+SVC_READ_CHARACTER     EQU       0D40
+SVC_WRITE_CHARACTER    EQU       0D41
+SVC_WRITE_ENDL         EQU       0D42
+SVC_READ_STRING        EQU       0D50
+SVC_WRITE_STRING       EQU       0D51
+SVC_INITIALIZE_HEAP    EQU       0D90
+SVC_ALLOCATE_BLOCK     EQU       0D91
+SVC_DEALLOCATE_BLOCK   EQU       0D92
+
+                       ORG       0X0000
+
+                       JMP       PROGRAMMAIN
+;    1 || Potato1.cpp by Auroxsus
+;    2 || French Fry Productions
+;    3 || Description: IF ELSE statement test 
+;    4 ||-----------------------------------------------------------
+;    5 
+;    6 POTATO
+;    7    IF   ( 1 < 2 ) 
+; **** =========
+; **** PROGRAM module (   6)
+; **** =========
+PROGRAMMAIN            EQU       *
+                       PUSH      #RUNTIMESTACK        ; set SP
+                       POPSP     
+                       PUSHA     STATICDATA           ; set SB
+                       POPSB     
+                       PUSH      #HEAPBASE            ; initialize heap
+                       PUSH      #HEAPSIZE
+                       SVC       #SVC_INITIALIZE_HEAP
+                       CALL      PROGRAMBODY0010
+                       PUSHA     SB:0D0
+                       SVC       #SVC_WRITE_STRING
+                       SVC       #SVC_WRITE_ENDL
+                       PUSH      #0D0                 ; terminate with status = 0
+                       SVC       #SVC_TERMINATE
+
+PROGRAMBODY0010        EQU       *
+; **** IF statement (   7)
+                       PUSH      #0D1
+;    8       FRY "1 < 2",PEEL.
+                       PUSH      #0D2
+                       CMPI      
+                       JMPL      T0020
+                       PUSH      #0X0000
+                       JMP       E0030
+T0020                  PUSH      #0XFFFF
+E0030                  EQU       *
+                       SETT      
+                       DISCARD   #0D1
+                       JMPNT     I0050
+; **** PRINT statement (   8)
+;    9    ELSE
+                       PUSHA     SB:0D28
+                       SVC       #SVC_WRITE_STRING
+;   10       FRY "*NEVER*\n".
+                       SVC       #SVC_WRITE_ENDL
+;   11    COOKEDPOTATO
+                       JMP       E0040
+I0050                  EQU       *
+; **** PRINT statement (  10)
+;   12 COOKEDPOTATO
+                       PUSHA     SB:0D35
+                       SVC       #SVC_WRITE_STRING
+;   13 
+E0040                  EQU       *
+                       RETURN    
+; **** =========
+; **** END (  12)
+; **** =========
+
+;------------------------------------------------------------
+; Issue "Run-time error #X..X near line #X..X" to handle run-time errors
+;------------------------------------------------------------
+HANDLERUNTIMEERROR     EQU       *
+                       SVC       #SVC_WRITE_ENDL
+                       PUSHA     SB:0D46
+                       SVC       #SVC_WRITE_STRING
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D64
+                       SVC       #SVC_WRITE_STRING
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+                       PUSH      #0D1
+                       SVC       #SVC_TERMINATE
+
+;------------------------------------------------------------
+; Static allocation of global data and PROGRAM module data
+;------------------------------------------------------------
+STATICDATA             EQU       *
+                       DS        "Normal program termination"
+                       DS        "1 < 2"
+                       DS        "*NEVER*\n"
+                       DS        "Run-time error #"
+                       DS        " near line #"
+
+;------------------------------------------------------------
+; Heap space for dynamic memory allocation (to support future POTATO syntax)
+;------------------------------------------------------------
+HEAPBASE               EQU       *
+HEAPSIZE               EQU       0B0001000000000000   ; 8K bytes = 4K words
+
+;------------------------------------------------------------
+; Run-time stack
+;------------------------------------------------------------
+RUNTIMESTACK           EQU       0XFFFE
