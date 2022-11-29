@@ -1,0 +1,62 @@
+ "potato3.p" Mon Nov 28 22:35:32 2022 Page 1
+Line Source Line
+---- -------------------------------------------------------------------------------
+   1 || Potato3.cpp by Auroxsus
+   2 || French Fry Productions
+   3 || Description: If/elif/else and nested If/else
+   4 ||-----------------------------------------------------------
+   5 
+   6 POTATO
+   7    VAR x INT, y INT.
+   8 
+   9    INPUT "x? " x.
+  10    INPUT "y? " y.
+  11 
+  12    IF ( x < y ) 
+  13       FRy "x  < y",PEEL.
+  14    COOKEDPOTATO
+  15 
+  16    IF ( x != y ) 
+  17       FRy "x != y",PEEL.
+  18    COOKEDPOTATO
+  19 
+  20    IF ( x <> y ) 
+  21       FRy "x <> y",PEEL.
+  22    COOKEDPOTATO
+  23 
+  24    IF ( x < y ) 
+  25       FRy "x  < y",PEEL.
+  26    ELSE
+  27       FRy "x >= y",PEEL.
+  28    COOKEDPOTATO
+  29 
+  30    IF     ( x < y ) 
+  31       FRy "x  < y",PEEL.
+  32    ELIF ( x = y ) 
+  33       FRy "x  = y",PEEL.
+  34    ELIF ( x > y ) 
+  35       FRy "x  > y",PEEL.
+  36    COOKEDPOTATO
+  37 
+  38    IF     ( x < y ) 
+  39       FRy "x  < y",PEEL.
+  40    ELIF ( x = y ) 
+  41       FRy "x  = y",PEEL.
+  42    ELIF ( x > y ) 
+  43       FRy "x  > y",PEEL.
+  44    ELSE
+  45       FRy "***ERROR***",PEEL.
+  46    COOKEDPOTATO
+  47 
+  48    IF     ( x = y ) 
+  49       FRy "x  = y",PEEL.
+  50    ELSE
+  51       IF ( x > y ) 
+  52          FRy "x  > y",PEEL.
+  53       ELSE
+  54          FRy "x  < y",PEEL.
+  55       COOKEDPOTATO
+  56    COOKEDPOTATO
+  57 COOKEDPOTATO
+  58 
+******* POTATO was cooked thoroughly
