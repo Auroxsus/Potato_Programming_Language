@@ -1,0 +1,15 @@
+ "potato.p" Mon Nov 28 22:34:24 2022 Page 1
+Line Source Line
+---- -------------------------------------------------------------------------------
+   1 || Potato.cpp by Auroxsus
+   2 || French Fry Productions
+   3 || Description: IF statement test
+   4 ||-----------------------------------------------------------
+   5 
+   6 POTATO
+   7    IF   ( 1 < 2 )
+   8       FRY "1 < 2",PEEL.
+   9    COOKEDPOTATO
+  10 COOKEDPOTATO
+  11 
+******* POTATO was cooked thoroughly
