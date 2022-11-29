@@ -1,0 +1,22 @@
+ "extrapotato1.p" Mon Nov 28 22:37:19 2022 Page 1
+Line Source Line
+---- -------------------------------------------------------------------------------
+   1 || ExtraPotato.cpp by Auroxsus
+   2 || French Fry Productions
+   3 || Description: testing <WHILEStatement>
+   4 ||-----------------------------------------------------------
+   5 
+   6 POTATO
+   7    VAR n INT,i INT.
+   8 
+   9    INPUT "n? " n.
+  10 
+  11    fry "WHILE loop",peel.
+  12    
+  13    i = 1.
+  14    WHILE ( i <= n )
+  15       fry i,peel.
+  16       i = i+1.
+  17 	COOKEDPOTATO
+  18 COOKEDPOTATO
+******* POTATO was cooked thoroughly
