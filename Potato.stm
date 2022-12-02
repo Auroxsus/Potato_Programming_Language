@@ -1,0 +1,863 @@
+;--------------------------------------------------------------
+; Potato.stm
+;--------------------------------------------------------------
+; SVC numbers
+SVC_DONOTHING          EQU       0D0                  ; force context switch
+SVC_TERMINATE          EQU       0D1
+SVC_READ_INTEGER       EQU       0D10
+SVC_WRITE_INTEGER      EQU       0D11
+SVC_READ_FLOAT         EQU       0D20
+SVC_WRITE_FLOAT        EQU       0D21
+SVC_READ_BOOLEAN       EQU       0D30
+SVC_WRITE_BOOLEAN      EQU       0D31
+SVC_READ_CHARACTER     EQU       0D40
+SVC_WRITE_CHARACTER    EQU       0D41
+SVC_WRITE_ENDL         EQU       0D42
+SVC_READ_STRING        EQU       0D50
+SVC_WRITE_STRING       EQU       0D51
+SVC_INITIALIZE_HEAP    EQU       0D90
+SVC_ALLOCATE_BLOCK     EQU       0D91
+SVC_DEALLOCATE_BLOCK   EQU       0D92
+
+                       ORG       0X0000
+
+                       JMP       PROGRAMMAIN
+;    1 || Potato.p by Auroxsus
+;    2 || French Fry Productions
+;    3 || Description: For loop testing
+;    4 ||-----------------------------------------------------------
+;    5 
+;    6 
+;    7 VAR INT i.
+;    8 
+;    9 CON INT initialX = 1.
+;   10 
+;   11 
+;   12 POTATO
+;   13    CON INT initialY = 3.
+; **** =========
+; **** PROGRAM module (  12)
+; **** =========
+PROGRAMMAIN            EQU       *
+                       PUSH      #RUNTIMESTACK        ; set SP
+                       POPSP     
+                       PUSHA     STATICDATA           ; set SB
+                       POPSB     
+                       PUSH      #HEAPBASE            ; initialize heap
+                       PUSH      #HEAPSIZE
+                       SVC       #SVC_INITIALIZE_HEAP
+                       CALL      PROGRAMBODY0010
+                       PUSHA     SB:0D2
+                       SVC       #SVC_WRITE_STRING
+                       SVC       #SVC_WRITE_ENDL
+                       PUSH      #0D0                 ; terminate with status = 0
+                       SVC       #SVC_TERMINATE
+
+PROGRAMBODY0010        EQU       *
+;   14 
+;   15    VAR INT n, INT x, INT y.
+;   16 
+;   17    INPUT "n? " n.
+;   18 
+;   19    FRY "FOR-loop (1)",PEEL.
+; **** INPUT statement (  17)
+                       PUSHA     SB:0D34
+                       SVC       #SVC_WRITE_STRING
+                       PUSHA     SB:0D31
+                       SVC       #SVC_READ_INTEGER
+                       POP       @SP:0D1
+                       DISCARD   #0D1
+; **** PRINT statement (  19)
+;   20    x = initialX. y = initialY.
+                       PUSHA     SB:0D39
+                       SVC       #SVC_WRITE_STRING
+                       SVC       #SVC_WRITE_ENDL
+; **** assignment statement (  20)
+                       PUSHA     SB:0D32
+                       PUSH      SB:0D1
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+;   21    FOR (i = 1. i < n.  i = i+1.)
+; **** assignment statement (  20)
+                       PUSHA     SB:0D33
+                       PUSH      SB:0D30
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+; **** FOR statement (  21)
+; **** assignment statement (  21)
+                       PUSHA     SB:0D0
+                       PUSH      #0D1
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+                       PUSH      #0X0000              ; doS3 := FALSE
+                       JMP       S30030               ; doS3
+E20020                 EQU       *
+                       PUSH      SB:0D0
+                       PUSH      SB:0D31
+                       CMPI      
+                       JMPL      T0060
+                       PUSH      #0X0000
+                       JMP       E0070
+T0060                  PUSH      #0XFFFF
+E0070                  EQU       *
+                       SETT                           ; e2
+                       DISCARD   #0D1                 ; (empty)
+                       JMPT      C0040                ; (empty)
+                       JMP       E0050                ; (empty)
+S30030                 EQU       *                    ; doS3
+                       SETT                           ; doS3
+                       DISCARD   #0D1                 ; (empty)
+                       JMPNT     E20020               ; (empty)
+; **** assignment statement (  21)
+                       PUSHA     SB:0D0
+;   22       FRY i,": ".
+                       PUSH      SB:0D0
+                       PUSH      #0D1
+                       ADDI      
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+                       JMP       E20020               ; (empty)
+C0040                  EQU       *
+; **** PRINT statement (  22)
+;   23       IF   ( x < y ) 
+                       PUSH      SB:0D0
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D53
+                       SVC       #SVC_WRITE_STRING
+; **** IF statement (  23)
+                       PUSH      SB:0D32
+;   24          FRY x," < ",y,PEEL.
+                       PUSH      SB:0D33
+                       CMPI      
+                       JMPL      T0080
+                       PUSH      #0X0000
+                       JMP       E0090
+T0080                  PUSH      #0XFFFF
+E0090                  EQU       *
+                       SETT      
+                       DISCARD   #0D1
+                       JMPNT     I0110
+; **** PRINT statement (  24)
+                       PUSH      SB:0D32
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D57
+                       SVC       #SVC_WRITE_STRING
+;   25       ELIF ( x == y ) 
+                       PUSH      SB:0D33
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+                       JMP       E0100
+I0110                  EQU       *
+                       PUSH      SB:0D32
+;   26          FRY x," == ",y,PEEL.
+                       PUSH      SB:0D33
+                       CMPI      
+                       JMPE      T0120
+                       PUSH      #0X0000
+                       JMP       E0130
+T0120                  PUSH      #0XFFFF
+E0130                  EQU       *
+                       SETT      
+                       DISCARD   #0D1
+                       JMPNT     I0140
+; **** PRINT statement (  26)
+                       PUSH      SB:0D32
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D62
+                       SVC       #SVC_WRITE_STRING
+;   27       ELIF ( x > y ) 
+                       PUSH      SB:0D33
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+                       JMP       E0100
+I0140                  EQU       *
+                       PUSH      SB:0D32
+;   28          FRY x," > ",y,PEEL.
+                       PUSH      SB:0D33
+                       CMPI      
+                       JMPG      T0150
+                       PUSH      #0X0000
+                       JMP       E0160
+T0150                  PUSH      #0XFFFF
+E0160                  EQU       *
+                       SETT      
+                       DISCARD   #0D1
+                       JMPNT     I0170
+; **** PRINT statement (  28)
+                       PUSH      SB:0D32
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D68
+                       SVC       #SVC_WRITE_STRING
+;   29       COOKEDPOTATO
+                       PUSH      SB:0D33
+                       SVC       #SVC_WRITE_INTEGER
+;   30       x = x+1.
+                       SVC       #SVC_WRITE_ENDL
+                       JMP       E0100
+I0170                  EQU       *
+E0100                  EQU       *
+; **** assignment statement (  30)
+                       PUSHA     SB:0D32
+;   31       y = y-1.
+                       PUSH      SB:0D32
+                       PUSH      #0D1
+                       ADDI      
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+; **** assignment statement (  31)
+                       PUSHA     SB:0D33
+;   32    COOKEDPOTATO
+                       PUSH      SB:0D33
+;   33 
+;   34    FRY "FOR-loop (2)",PEEL.
+                       PUSH      #0D1
+                       SUBI      
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+                       PUSH      #0XFFFF              ; doS3 := TRUE
+                       JMP       S30030               ; doS3
+E0050                  EQU       *
+; **** PRINT statement (  34)
+;   35    x = initialX. y = initialY. i = n.
+                       PUSHA     SB:0D73
+                       SVC       #SVC_WRITE_STRING
+                       SVC       #SVC_WRITE_ENDL
+; **** assignment statement (  35)
+                       PUSHA     SB:0D32
+                       PUSH      SB:0D1
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+; **** assignment statement (  35)
+                       PUSHA     SB:0D33
+                       PUSH      SB:0D30
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+;   36    FOR ( . i < 1. i = i-1.)
+; **** assignment statement (  35)
+                       PUSHA     SB:0D0
+                       PUSH      SB:0D31
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+; **** FOR statement (  36)
+                       PUSH      SB:0D0
+                       PUSH      #0D1
+                       CMPI      
+                       JMPL      T0180
+                       PUSH      #0X0000
+                       JMP       E0190
+T0180                  PUSH      #0XFFFF
+E0190                  EQU       *
+                       SETT                           ; e2
+                       DISCARD   #0D1                 ; (empty)
+                       JMPT      N                    ; (empty)
+                       JMP       t statement (  35)   ; (empty)
+.                      EQU       *                    ; doS3
+                       SETT                           ; doS3
+                       DISCARD   #0D1                 ; (empty)
+                       JMPNT     ¨I                  ; (empty)
+; **** assignment statement (  36)
+                       PUSHA     SB:0D0
+;   37       FRY i,": ".
+                       PUSH      SB:0D0
+                       PUSH      #0D1
+                       SUBI      
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+                       JMP       ¨I                  ; (empty)
+N                      EQU       *
+; **** PRINT statement (  37)
+;   38       IF   ( x < y ) 
+                       PUSH      SB:0D0
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D87
+                       SVC       #SVC_WRITE_STRING
+; **** IF statement (  38)
+                       PUSH      SB:0D32
+;   39          FRY x," < ",y,PEEL.
+                       PUSH      SB:0D33
+                       CMPI      
+                       JMPL      T0200
+                       PUSH      #0X0000
+                       JMP       E0210
+T0200                  PUSH      #0XFFFF
+E0210                  EQU       *
+                       SETT      
+                       DISCARD   #0D1
+                       JMPNT     I0230
+; **** PRINT statement (  39)
+                       PUSH      SB:0D32
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D91
+                       SVC       #SVC_WRITE_STRING
+;   40       ELIF ( x == y ) 
+                       PUSH      SB:0D33
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+                       JMP       E0220
+I0230                  EQU       *
+                       PUSH      SB:0D32
+;   41          FRY x," == ",y,PEEL.
+                       PUSH      SB:0D33
+                       CMPI      
+                       JMPE      T0240
+                       PUSH      #0X0000
+                       JMP       E0250
+T0240                  PUSH      #0XFFFF
+E0250                  EQU       *
+                       SETT      
+                       DISCARD   #0D1
+                       JMPNT     I0260
+; **** PRINT statement (  41)
+                       PUSH      SB:0D32
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D96
+                       SVC       #SVC_WRITE_STRING
+;   42       ELIF ( x > y ) 
+                       PUSH      SB:0D33
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+                       JMP       E0220
+I0260                  EQU       *
+                       PUSH      SB:0D32
+;   43          FRY x," > ",y,PEEL.
+                       PUSH      SB:0D33
+                       CMPI      
+                       JMPG      T0270
+                       PUSH      #0X0000
+                       JMP       E0280
+T0270                  PUSH      #0XFFFF
+E0280                  EQU       *
+                       SETT      
+                       DISCARD   #0D1
+                       JMPNT     I0290
+; **** PRINT statement (  43)
+                       PUSH      SB:0D32
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D102
+                       SVC       #SVC_WRITE_STRING
+;   44       COOKEDPOTATO
+                       PUSH      SB:0D33
+                       SVC       #SVC_WRITE_INTEGER
+;   45       x = x+3.
+                       SVC       #SVC_WRITE_ENDL
+                       JMP       E0220
+I0290                  EQU       *
+E0220                  EQU       *
+; **** assignment statement (  45)
+                       PUSHA     SB:0D32
+;   46       y = y-3.
+                       PUSH      SB:0D32
+                       PUSH      #0D3
+                       ADDI      
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+; **** assignment statement (  46)
+                       PUSHA     SB:0D33
+;   47    COOKEDPOTATO
+                       PUSH      SB:0D33
+;   48    
+                       PUSH      #0D3
+;   49    FRY "FOR-loop (3)",PEEL.
+                       SUBI      
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+                       PUSH      #0XFFFF              ; doS3 := TRUE
+                       JMP       .                    ; doS3
+t statement (  35)     EQU       *
+; **** PRINT statement (  49)
+;   50    x = initialX. y = initialY.
+                       PUSHA     SB:0D107
+                       SVC       #SVC_WRITE_STRING
+                       SVC       #SVC_WRITE_ENDL
+; **** assignment statement (  50)
+                       PUSHA     SB:0D32
+                       PUSH      SB:0D1
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+;   51    FOR (i = 1. i < n.)
+; **** assignment statement (  50)
+                       PUSHA     SB:0D33
+                       PUSH      SB:0D30
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+; **** FOR statement (  51)
+; **** assignment statement (  51)
+                       PUSHA     SB:0D0
+                       PUSH      #0D1
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+;   52       FRY i,": ".
+                       PUSH      #0X0000              ; doS3 := FALSE
+                       JMP       S30310               ; doS3
+E20300                 EQU       *
+                       PUSH      SB:0D0
+                       PUSH      SB:0D31
+                       CMPI      
+                       JMPL      T0340
+                       PUSH      #0X0000
+                       JMP       E0350
+T0340                  PUSH      #0XFFFF
+E0350                  EQU       *
+                       SETT                           ; e2
+                       DISCARD   #0D1                 ; (empty)
+                       JMPT      C0320                ; (empty)
+                       JMP       E0330                ; (empty)
+S30310                 EQU       *                    ; doS3
+                       SETT                           ; doS3
+                       DISCARD   #0D1                 ; (empty)
+                       JMPNT     E20300               ; (empty)
+; **** PRINT statement (  52)
+;   53       IF   ( x < y ) 
+                       PUSH      SB:0D0
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D121
+                       SVC       #SVC_WRITE_STRING
+; **** IF statement (  53)
+                       PUSH      SB:0D32
+;   54          FRY x," < ",y,PEEL.
+                       PUSH      SB:0D33
+                       CMPI      
+                       JMPL      T0360
+                       PUSH      #0X0000
+                       JMP       E0370
+T0360                  PUSH      #0XFFFF
+E0370                  EQU       *
+                       SETT      
+                       DISCARD   #0D1
+                       JMPNT     I0390
+; **** PRINT statement (  54)
+                       PUSH      SB:0D32
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D125
+                       SVC       #SVC_WRITE_STRING
+;   55       ELIF ( x == y ) 
+                       PUSH      SB:0D33
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+                       JMP       E0380
+I0390                  EQU       *
+                       PUSH      SB:0D32
+;   56          FRY x," == ",y,PEEL.
+                       PUSH      SB:0D33
+                       CMPI      
+                       JMPE      T0400
+                       PUSH      #0X0000
+                       JMP       E0410
+T0400                  PUSH      #0XFFFF
+E0410                  EQU       *
+                       SETT      
+                       DISCARD   #0D1
+                       JMPNT     I0420
+; **** PRINT statement (  56)
+                       PUSH      SB:0D32
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D130
+                       SVC       #SVC_WRITE_STRING
+;   57       ELIF ( x > y ) 
+                       PUSH      SB:0D33
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+                       JMP       E0380
+I0420                  EQU       *
+                       PUSH      SB:0D32
+;   58          FRY x," > ",y,PEEL.
+                       PUSH      SB:0D33
+                       CMPI      
+                       JMPG      T0430
+                       PUSH      #0X0000
+                       JMP       E0440
+T0430                  PUSH      #0XFFFF
+E0440                  EQU       *
+                       SETT      
+                       DISCARD   #0D1
+                       JMPNT     I0450
+; **** PRINT statement (  58)
+                       PUSH      SB:0D32
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D136
+                       SVC       #SVC_WRITE_STRING
+;   59       COOKEDPOTATO
+                       PUSH      SB:0D33
+                       SVC       #SVC_WRITE_INTEGER
+;   60       x = x+2.
+                       SVC       #SVC_WRITE_ENDL
+                       JMP       E0380
+I0450                  EQU       *
+E0380                  EQU       *
+; **** assignment statement (  60)
+                       PUSHA     SB:0D32
+;   61       y = y-2.
+                       PUSH      SB:0D32
+                       PUSH      #0D2
+                       ADDI      
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+; **** assignment statement (  61)
+                       PUSHA     SB:0D33
+;   62 	  i = i+1.
+                       PUSH      SB:0D33
+                       PUSH      #0D2
+                       SUBI      
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+; **** assignment statement (  62)
+                       PUSHA     SB:0D0
+;   63    COOKEDPOTATO
+                       PUSH      SB:0D0
+;   64 
+;   65    FRY "FOR-loop (4)",PEEL.
+                       PUSH      #0D1
+                       ADDI      
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+                       PUSH      #0XFFFF              ; doS3 := TRUE
+                       JMP       S30310               ; doS3
+E0330                  EQU       *
+; **** PRINT statement (  65)
+;   66    x = initialX. y = initialY.
+                       PUSHA     SB:0D141
+                       SVC       #SVC_WRITE_STRING
+                       SVC       #SVC_WRITE_ENDL
+; **** assignment statement (  66)
+                       PUSHA     SB:0D32
+                       PUSH      SB:0D1
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+;   67    FOR (i = n. i < 1. i = i-1.)
+; **** assignment statement (  66)
+                       PUSHA     SB:0D33
+                       PUSH      SB:0D30
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+; **** FOR statement (  67)
+; **** assignment statement (  67)
+                       PUSHA     SB:0D0
+                       PUSH      SB:0D31
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+                       PUSH      #0X0000              ; doS3 := FALSE
+                       JMP       S30470               ; doS3
+E20460                 EQU       *
+                       PUSH      SB:0D0
+                       PUSH      #0D1
+                       CMPI      
+                       JMPL      T0500
+                       PUSH      #0X0000
+                       JMP       E0510
+T0500                  PUSH      #0XFFFF
+E0510                  EQU       *
+                       SETT                           ; e2
+                       DISCARD   #0D1                 ; (empty)
+                       JMPT      C0480                ; (empty)
+                       JMP       E0490                ; (empty)
+S30470                 EQU       *                    ; doS3
+                       SETT                           ; doS3
+                       DISCARD   #0D1                 ; (empty)
+                       JMPNT     E20460               ; (empty)
+; **** assignment statement (  67)
+                       PUSHA     SB:0D0
+;   68       FRY i,": ".
+                       PUSH      SB:0D0
+                       PUSH      #0D1
+                       SUBI      
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+                       JMP       E20460               ; (empty)
+C0480                  EQU       *
+; **** PRINT statement (  68)
+;   69       IF   ( x < y ) 
+                       PUSH      SB:0D0
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D155
+                       SVC       #SVC_WRITE_STRING
+; **** IF statement (  69)
+                       PUSH      SB:0D32
+;   70          FRY x," < ",y,PEEL.
+                       PUSH      SB:0D33
+                       CMPI      
+                       JMPL      T0520
+                       PUSH      #0X0000
+                       JMP       E0530
+T0520                  PUSH      #0XFFFF
+E0530                  EQU       *
+                       SETT      
+                       DISCARD   #0D1
+                       JMPNT     I0550
+; **** PRINT statement (  70)
+                       PUSH      SB:0D32
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D159
+                       SVC       #SVC_WRITE_STRING
+;   71       ELIF ( x == y ) 
+                       PUSH      SB:0D33
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+                       JMP       E0540
+I0550                  EQU       *
+                       PUSH      SB:0D32
+;   72          FRY x," == ",y,PEEL.
+                       PUSH      SB:0D33
+                       CMPI      
+                       JMPE      T0560
+                       PUSH      #0X0000
+                       JMP       E0570
+T0560                  PUSH      #0XFFFF
+E0570                  EQU       *
+                       SETT      
+                       DISCARD   #0D1
+                       JMPNT     I0580
+; **** PRINT statement (  72)
+                       PUSH      SB:0D32
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D164
+                       SVC       #SVC_WRITE_STRING
+;   73       ELIF ( x > y ) 
+                       PUSH      SB:0D33
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+                       JMP       E0540
+I0580                  EQU       *
+                       PUSH      SB:0D32
+;   74          FRY x," > ",y,PEEL.
+                       PUSH      SB:0D33
+                       CMPI      
+                       JMPG      T0590
+                       PUSH      #0X0000
+                       JMP       E0600
+T0590                  PUSH      #0XFFFF
+E0600                  EQU       *
+                       SETT      
+                       DISCARD   #0D1
+                       JMPNT     I0610
+; **** PRINT statement (  74)
+                       PUSH      SB:0D32
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D170
+                       SVC       #SVC_WRITE_STRING
+;   75       COOKEDPOTATO
+                       PUSH      SB:0D33
+                       SVC       #SVC_WRITE_INTEGER
+;   76       x = x+3.
+                       SVC       #SVC_WRITE_ENDL
+                       JMP       E0540
+I0610                  EQU       *
+E0540                  EQU       *
+; **** assignment statement (  76)
+                       PUSHA     SB:0D32
+;   77       y = y-3.
+                       PUSH      SB:0D32
+                       PUSH      #0D3
+                       ADDI      
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+; **** assignment statement (  77)
+                       PUSHA     SB:0D33
+;   78    COOKEDPOTATO
+                       PUSH      SB:0D33
+;   79 
+;   80    FRY "FOR-loop (5)",PEEL.
+                       PUSH      #0D3
+                       SUBI      
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+                       PUSH      #0XFFFF              ; doS3 := TRUE
+                       JMP       S30470               ; doS3
+E0490                  EQU       *
+; **** PRINT statement (  80)
+;   81    FOR (i = 1. i > n. i = i+1-1.)              || run-time error #2 (e3 = 0)
+                       PUSHA     SB:0D175
+                       SVC       #SVC_WRITE_STRING
+                       SVC       #SVC_WRITE_ENDL
+; **** FOR statement (  81)
+; **** assignment statement (  81)
+                       PUSHA     SB:0D0
+                       PUSH      #0D1
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+                       PUSH      #0X0000              ; doS3 := FALSE
+                       JMP       S30630               ; doS3
+E20620                 EQU       *
+                       PUSH      SB:0D0
+                       PUSH      SB:0D31
+                       CMPI      
+                       JMPG      T0660
+                       PUSH      #0X0000
+                       JMP       E0670
+T0660                  PUSH      #0XFFFF
+E0670                  EQU       *
+                       SETT                           ; e2
+                       DISCARD   #0D1                 ; (empty)
+                       JMPT      C0640                ; (empty)
+                       JMP       E0650                ; (empty)
+S30630                 EQU       *                    ; doS3
+                       SETT                           ; doS3
+                       DISCARD   #0D1                 ; (empty)
+                       JMPNT     E20620               ; (empty)
+; **** assignment statement (  81)
+                       PUSHA     SB:0D0
+                       PUSH      SB:0D0
+                       PUSH      #0D1
+                       ADDI      
+                       PUSH      #0D1
+;   82       FRY "UNREACHABLE",PEEL.
+                       SUBI      
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+                       JMP       E20620               ; (empty)
+C0640                  EQU       *
+; **** PRINT statement (  82)
+;   83    COOKEDPOTATO
+                       PUSHA     SB:0D189
+                       SVC       #SVC_WRITE_STRING
+;   84    
+                       SVC       #SVC_WRITE_ENDL
+;   85 COOKEDPOTATO
+;   86 
+                       PUSH      #0XFFFF              ; doS3 := TRUE
+                       JMP       S30630               ; doS3
+E0650                  EQU       *
+                       RETURN    
+; **** =========
+; **** END (  85)
+; **** =========
+
+;------------------------------------------------------------
+; Issue "Run-time error #X..X near line #X..X" to handle run-time errors
+;------------------------------------------------------------
+HANDLERUNTIMEERROR     EQU       *
+                       SVC       #SVC_WRITE_ENDL
+                       PUSHA     SB:0D202
+                       SVC       #SVC_WRITE_STRING
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D220
+                       SVC       #SVC_WRITE_STRING
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+                       PUSH      #0D1
+                       SVC       #SVC_TERMINATE
+
+;------------------------------------------------------------
+; Static allocation of global data and PROGRAM module data
+;------------------------------------------------------------
+STATICDATA             EQU       *
+                       RW        0D1                  ; i
+                       DW        i                    ; initialX
+                       DS        "Normal program termination"
+                       DW                            ; initialY
+                       RW        0D1                  ; n
+                       RW        0D1                  ; x
+                       RW        0D1                  ; y
+                       DS        "n? "
+                       DS        "FOR-loop (1)"
+                       DS        ": "
+                       DS        " < "
+                       DS        " == "
+                       DS        " > "
+                       DS        "FOR-loop (2)"
+                       DS        ": "
+                       DS        " < "
+                       DS        " == "
+                       DS        " > "
+                       DS        "FOR-loop (3)"
+                       DS        ": "
+                       DS        " < "
+                       DS        " == "
+                       DS        " > "
+                       DS        "FOR-loop (4)"
+                       DS        ": "
+                       DS        " < "
+                       DS        " == "
+                       DS        " > "
+                       DS        "FOR-loop (5)"
+                       DS        "UNREACHABLE"
+                       DS        "Run-time error #"
+                       DS        " near line #"
+
+;------------------------------------------------------------
+; Heap space for dynamic memory allocation (to support future POTATO syntax)
+;------------------------------------------------------------
+HEAPBASE               EQU       *
+HEAPSIZE               EQU       0B0001000000000000   ; 8K bytes = 4K words
+
+;------------------------------------------------------------
+; Run-time stack
+;------------------------------------------------------------
+RUNTIMESTACK           EQU       0XFFFE

@@ -1,0 +1,93 @@
+ "Potato.p" Fri Dec  2 06:45:44 2022 Page 1
+Line Source Line
+---- -------------------------------------------------------------------------------
+   1 || Potato.p by Auroxsus
+   2 || French Fry Productions
+   3 || Description: For loop testing
+   4 ||-----------------------------------------------------------
+   5 
+   6 
+   7 VAR INT i.
+   8 
+   9 CON INT initialX = 1.
+  10 
+  11 
+  12 POTATO
+  13    CON INT initialY = 3.
+  14 
+  15    VAR INT n, INT x, INT y.
+  16 
+  17    INPUT "n? " n.
+  18 
+  19    FRY "FOR-loop (1)",PEEL.
+  20    x = initialX. y = initialY.
+  21    FOR (i = 1. i < n.  i = i+1.)
+  22       FRY i,": ".
+  23       IF   ( x < y ) 
+  24          FRY x," < ",y,PEEL.
+  25       ELIF ( x == y ) 
+  26          FRY x," == ",y,PEEL.
+  27       ELIF ( x > y ) 
+  28          FRY x," > ",y,PEEL.
+  29       COOKEDPOTATO
+  30       x = x+1.
+  31       y = y-1.
+  32    COOKEDPOTATO
+  33 
+  34    FRY "FOR-loop (2)",PEEL.
+  35    x = initialX. y = initialY. i = n.
+  36    FOR ( . i < 1. i = i-1.)
+  37       FRY i,": ".
+  38       IF   ( x < y ) 
+  39          FRY x," < ",y,PEEL.
+  40       ELIF ( x == y ) 
+  41          FRY x," == ",y,PEEL.
+  42       ELIF ( x > y ) 
+  43          FRY x," > ",y,PEEL.
+  44       COOKEDPOTATO
+  45       x = x+3.
+  46       y = y-3.
+  47    COOKEDPOTATO
+  48    
+  49    FRY "FOR-loop (3)",PEEL.
+  50    x = initialX. y = initialY.
+  51    FOR (i = 1. i < n.)
+  52       FRY i,": ".
+  53       IF   ( x < y ) 
+  54          FRY x," < ",y,PEEL.
+  55       ELIF ( x == y ) 
+  56          FRY x," == ",y,PEEL.
+  57       ELIF ( x > y ) 
+  58          FRY x," > ",y,PEEL.
+  59       COOKEDPOTATO
+  60       x = x+2.
+ "Potato.p" Fri Dec  2 06:45:44 2022 Page 2
+Line Source Line
+---- -------------------------------------------------------------------------------
+  61       y = y-2.
+  62 	  i = i+1.
+  63    COOKEDPOTATO
+  64 
+  65    FRY "FOR-loop (4)",PEEL.
+  66    x = initialX. y = initialY.
+  67    FOR (i = n. i < 1. i = i-1.)
+  68       FRY i,": ".
+  69       IF   ( x < y ) 
+  70          FRY x," < ",y,PEEL.
+  71       ELIF ( x == y ) 
+  72          FRY x," == ",y,PEEL.
+  73       ELIF ( x > y ) 
+  74          FRY x," > ",y,PEEL.
+  75       COOKEDPOTATO
+  76       x = x+3.
+  77       y = y-3.
+  78    COOKEDPOTATO
+  79 
+  80    FRY "FOR-loop (5)",PEEL.
+  81    FOR (i = 1. i > n. i = i+1-1.)              || run-time error #2 (e3 = 0)
+  82       FRY "UNREACHABLE",PEEL.
+  83    COOKEDPOTATO
+  84    
+  85 COOKEDPOTATO
+  86 
+******* POTATO was cooked thoroughly
