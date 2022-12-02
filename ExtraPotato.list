@@ -1,0 +1,81 @@
+ "ExtraPotato.p" Fri Dec  2 09:07:03 2022 Page 1
+Line Source Line
+---- -------------------------------------------------------------------------------
+   1 || ExtraPotato.p by Auroxsus
+   2 || French Fry Productions
+   3 || Description: test <CHOOSEStatement>
+   4 ||-------------------------------------------------------------
+   5 
+   6 POTATO
+   7 
+   8 ||-------------------------------------------------------------
+   9 || Without ELSE
+  10 ||-------------------------------------------------------------
+  11    FRY "ONE (default)",PEEL.
+  12    CHOOSE
+  13       WHEN (false): 
+  14       WHEN (true): 
+  15          FRY "2".
+  16          FRY PEEL.
+  17       WHEN (true): FRY "3",PEEL.
+  18    COOKEDPOTATO
+  19 
+  20    FRY PEEL,"ONE (explicit)",PEEL.
+  21    CHOOSE ONE
+  22       WHEN (true): FRY "1\n".
+  23       WHEN (true): 
+  24          FRY "2".
+  25          FRY PEEL.
+  26       WHEN (true): FRY "3",PEEL.
+  27    COOKEDPOTATO
+  28 
+  29    FRY PEEL,"ALL",PEEL.
+  30    CHOOSE ALL
+  31       WHEN (true): FRY "1\n". 
+  32       WHEN (false): 
+  33          FRY "2".
+  34          FRY PEEL.
+  35       WHEN (true): FRY "3",PEEL.
+  36    COOKEDPOTATO
+  37 
+  38 ||-------------------------------------------------------------
+  39 || With ELSE
+  40 ||-------------------------------------------------------------
+  41    FRY "ONE (default)",PEEL.
+  42    CHOOSE
+  43       WHEN (false): 
+  44       WHEN (false): 
+  45          FRY "2".
+  46          FRY PEEL.
+  47       WHEN (false): FRY "3",PEEL.
+  48       ELSE
+  49          FRY "ELSE ONE (default)",PEEL.
+  50    COOKEDPOTATO
+  51 
+  52    FRY "ONE (explicit)",PEEL.
+  53    CHOOSE
+  54       WHEN (false): 
+  55       WHEN (true): 
+  56          FRY "2".
+  57          FRY PEEL.
+  58       WHEN (false): FRY "3",PEEL.
+  59       ELSE
+  60          FRY "ELSE ONE (explicit)",PEEL.
+ "ExtraPotato.p" Fri Dec  2 09:07:03 2022 Page 2
+Line Source Line
+---- -------------------------------------------------------------------------------
+  61    COOKEDPOTATO
+  62 
+  63    FRY "ALL",PEEL.
+  64    CHOOSE
+  65       WHEN (false): 
+  66       WHEN (false): 
+  67          FRY "2".
+  68          FRY PEEL.
+  69       WHEN (false): FRY "3",PEEL.
+  70       ELSE
+  71          FRY "ELSE ALL",PEEL.
+  72    COOKEDPOTATO
+  73 COOKEDPOTATO
+  74 
+******* POTATO was cooked thoroughly
