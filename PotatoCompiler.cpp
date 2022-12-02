@@ -60,8 +60,7 @@ typedef enum
 	TO,  
 	BY,  
 	//DO2,	// Added ***extras*** of POTATO4 language   
-	// Added ***extras*** of POTATO5 language  	
-	FOR2,	  
+	// Added ***extras*** of POTATO5 language  
 	CHOOSE,   
 	ONE,   
 	ALL,   
@@ -79,6 +78,7 @@ typedef enum
 	LT, 		// <
 	LTEQ, 		// <=
 	EQ, 		// ==
+	EQUAL,		// =
 	GT, 		// >
 	GTEQ, 		// >=
 	NOTEQ, 		// <> and !=
@@ -135,7 +135,6 @@ const TOKENTABLERECORD TOKENTABLE[] =
     { BY          ,"BY"          ,true  },
 //	{ DO2         ,"DO2"         ,true  }, // POTATO 4 ONLY
 	// POTATO 5 ONLY
-	{ FOR2        ,"FOR2"        ,true  },
 	{ CHOOSE      ,"CHOOSE"      ,true  },
 	{ ONE         ,"ONE"         ,true  },
 	{ ALL         ,"ALL"         ,true  },
@@ -151,6 +150,7 @@ const TOKENTABLERECORD TOKENTABLE[] =
 	{ LT          ,"LT"          ,false },
 	{ LTEQ        ,"LTEQ"        ,false },
 	{ EQ          ,"EQ"          ,false },
+	{ EQUAL       ,"EQUAL"       ,false },
 	{ GT          ,"GT"          ,false },
 	{ GTEQ        ,"GTEQ"        ,false },
 	{ NOTEQ       ,"NOTEQ"       ,false },
@@ -321,12 +321,7 @@ void ParseDataDefinitions(TOKEN tokens[],IDENTIFIERSCOPE identifierScope)
 					int index;
       
 					GetNextToken(tokens);
-         
-					if ( tokens[0].type != IDENTIFIER )
-						ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting identifier");
-					strcpy(identifier,tokens[0].lexeme);
-					GetNextToken(tokens);
-         
+					
 					switch ( tokens[0].type )
 					{
 						case INT:
@@ -336,9 +331,13 @@ void ParseDataDefinitions(TOKEN tokens[],IDENTIFIERSCOPE identifierScope)
 							datatype = BOOLEANTYPE;
 							break;
 						default:
-							ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting INT or BOOL var");
+							ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting INT or BOOL VAR");
 					}
-					
+					GetNextToken(tokens);
+         
+					if ( tokens[0].type != IDENTIFIER )
+						ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting identifier");
+					strcpy(identifier,tokens[0].lexeme);
 					GetNextToken(tokens);
          
 					index = identifierTable.GetIndex(identifier,isInTable);
@@ -377,12 +376,7 @@ void ParseDataDefinitions(TOKEN tokens[],IDENTIFIERSCOPE identifierScope)
 					int index;
       
 					GetNextToken(tokens);
-         
-					if ( tokens[0].type != IDENTIFIER )
-						ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting identifier");
-				    strcpy(identifier,tokens[0].lexeme);
-				    GetNextToken(tokens);
-			 
+					
 					switch ( tokens[0].type )
 				    {
 						case INT:
@@ -392,26 +386,15 @@ void ParseDataDefinitions(TOKEN tokens[],IDENTIFIERSCOPE identifierScope)
 							datatype = BOOLEANTYPE;
 							break;
 						default:
-							ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting INT or BOOL con");
+							ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting INT or BOOL CON");
 					}
 					GetNextToken(tokens);
-			 
-					if ( tokens[0].type != EQ)
-						ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting '='");
-					GetNextToken(tokens);
-			 
-					if      ( (datatype == INTEGERTYPE) && (tokens[0].type == INTEGER) )
-					{
-						strcpy(literal,"0D");
-						strcat(literal,tokens[0].lexeme);
-					}
-					else if ( ((datatype == BOOLEANTYPE) && (tokens[0].type ==    TRUE))
-						   || ((datatype == BOOLEANTYPE) && (tokens[0].type ==   FALSE))  )
-						strcpy(literal,tokens[0].lexeme);
-					else
-						ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Data type mismatch");
-					GetNextToken(tokens);
-			  
+					
+					if ( tokens[0].type != IDENTIFIER )
+						ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting identifier");
+				    strcpy(identifier,tokens[0].lexeme);
+				    GetNextToken(tokens);
+				
 					index = identifierTable.GetIndex(identifier,isInTable);
 					if ( isInTable && identifierTable.IsInCurrentScope(index) )
 						ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Multiply-defined identifier");
@@ -431,6 +414,21 @@ void ParseDataDefinitions(TOKEN tokens[],IDENTIFIERSCOPE identifierScope)
 							identifierTable.AddToTable(identifier,PROGRAMMODULE_CONSTANT,datatype,reference);
 							break;
 					}
+					
+					GetNextToken(tokens);
+					
+					if ( (datatype == INTEGERTYPE) && (tokens[0].type == INTEGER) )
+					{
+						strcpy(literal,"0D");
+						strcat(literal,tokens[0].lexeme);
+					}
+					else if ( ((datatype == BOOLEANTYPE) && ((tokens[0].type == TRUE) || (tokens[0].type == FALSE))) )
+						strcpy(literal,tokens[0].lexeme);
+					else
+						ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Data type mismatch");
+					
+					GetNextToken(tokens);
+					
 				} while ( tokens[0].type == COMMA );
       
 				if ( tokens[0].type != PERIOD )
@@ -517,7 +515,6 @@ void ParseStatement(TOKEN tokens[])
 /*	void ParseDO2WHILEStatement(TOKEN tokens[]);
 	void ParseWHILEStatement(TOKEN tokens[]);		*/
 	// POTATO 5 ONLY
-	void ParseFOR2Statement(TOKEN tokens[]);
 	void ParseCHOOSEStatement(TOKEN tokens[]);										
 	void GetNextToken(TOKEN tokens[]);
 
@@ -554,9 +551,6 @@ void ParseStatement(TOKEN tokens[])
 			break;
 		*/
 		// POTATO 5 ONLY
-		case FOR2:
-			ParseFOR2Statement(tokens);
-			break;
 		case CHOOSE:
 			ParseCHOOSEStatement(tokens);
 			break;
@@ -615,6 +609,7 @@ void ParseAssertion(TOKEN tokens[])
 
 	ExitModule("Assertion");
 }
+
 void ParsePRINTStatement(TOKEN tokens[])
 {
 	void ParseExpression(TOKEN tokens[],DATATYPE &datatype);												   
@@ -745,19 +740,8 @@ void ParseAssignmentStatement(TOKEN tokens[])
 	ParseVariable(tokens,true,datatypeLHS);
 	n = 1;
 
-	while ( tokens[0].type == COLON )
-	{
-		DATATYPE datatype;
-
-		GetNextToken(tokens);
-		ParseVariable(tokens,true,datatype);
-		n++;
-
-		if ( datatype != datatypeLHS )
-			ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Mixed-mode variables not allowed");
-	}
-	if ( tokens[0].type != EQ )
-		ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting ':='");
+	if ( tokens[0].type != EQUAL )
+		ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting '='");
 	GetNextToken(tokens);
 
 	ParseExpression(tokens,datatypeRHS);
@@ -765,7 +749,7 @@ void ParseAssignmentStatement(TOKEN tokens[])
 	if ( datatypeLHS != datatypeRHS )
 		ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Data type mismatch");
 
-// CODEGENERATION
+	// CODEGENERATION
 	for (int i = 1; i <= n; i++)
 	{
 		code.EmitFormattedLine("","MAKEDUP");
@@ -774,7 +758,7 @@ void ParseAssignmentStatement(TOKEN tokens[])
 		code.EmitFormattedLine("","DISCARD","#0D1");
 	}
 	code.EmitFormattedLine("","DISCARD","#0D1");
-// ENDCODEGENERATION
+	// ENDCODEGENERATION
 
 	if ( tokens[0].type != PERIOD )
 		ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting '.'");
@@ -877,7 +861,6 @@ void ParseIFStatement(TOKEN tokens[])
    ExitModule("IFStatement");
 }
 
-
 void ParseCHOOSEStatement(TOKEN tokens[])
 {
 	void ParseExpression(TOKEN tokens[],DATATYPE &datatype);
@@ -908,7 +891,7 @@ void ParseCHOOSEStatement(TOKEN tokens[])
 	{
 		mode = 'O';
 	}
-
+		
 	// CODEGENERATION
 	sprintf(Elabel1,"E%04d",code.LabelSuffix());
 	sprintf(Elabel2,"E%04d",code.LabelSuffix());
@@ -921,6 +904,8 @@ void ParseCHOOSEStatement(TOKEN tokens[])
 		ParseExpression(tokens,datatype);
 		if ( datatype != BOOLEANTYPE )
 			ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting boolean expression");
+		
+		//GetNextToken(tokens);
 		if ( tokens[0].type != COLON )
 			ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting ':'");
 		GetNextToken(tokens);
@@ -944,6 +929,7 @@ void ParseCHOOSEStatement(TOKEN tokens[])
 			code.EmitFormattedLine("","JMP",Elabel1);
 		code.EmitFormattedLine(Ilabel,"EQU","*");
 		// ENDCODEGENERATION
+		
 	}
 
 	// CODEGENERATION
@@ -971,6 +957,7 @@ void ParseCHOOSEStatement(TOKEN tokens[])
 
 		ExitModule("CHOOSEStatement");
 }
+
 void ParseDOWHILEStatement(TOKEN tokens[])
 {
 	void ParseExpression(TOKEN tokens[],DATATYPE &datatype);
@@ -1136,117 +1123,6 @@ void ParseWHILEStatement(TOKEN tokens[])
 
 void ParseFORStatement(TOKEN tokens[])
 {
-	void ParseVariable(TOKEN tokens[],bool asLValue,DATATYPE &datatype);
-	void ParseExpression(TOKEN tokens[],DATATYPE &datatype);
-	void ParseStatement(TOKEN tokens[]);
-	void GetNextToken(TOKEN tokens[]);
-
-	char line[SOURCELINELENGTH+1];
-	char Dlabel[SOURCELINELENGTH+1],Llabel[SOURCELINELENGTH+1],
-		 Clabel[SOURCELINELENGTH+1],Elabel[SOURCELINELENGTH+1];
-	char operand[SOURCELINELENGTH+1];
-	DATATYPE datatype;
-
-	EnterModule("FORStatement");
-
-	sprintf(line,"; **** FOR statement (%4d)",tokens[0].sourceLineNumber);
-	code.EmitUnformattedLine(line);
-
-	GetNextToken(tokens);
-
-	ParseVariable(tokens,true,datatype);
-
-	if ( datatype != INTEGERTYPE )
-		ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting integer variable");
-
-	if ( tokens[0].type != COLONEQ )
-		ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting ':='");
-	GetNextToken(tokens);
-
-	ParseExpression(tokens,datatype);
-	if ( datatype != INTEGERTYPE )
-		ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting integer data type");
-
-	// CODEGENERATION
-	code.EmitFormattedLine("","POP","@SP:0D1");
-	// ENDCODEGENERATION
-
-	if ( tokens[0].type != TO )
-		ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting TO");
-	GetNextToken(tokens);
-
-	ParseExpression(tokens,datatype);
-	if ( datatype != INTEGERTYPE )
-		ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting integer data type");
-
-	if ( tokens[0].type == BY )
-	{
-		GetNextToken(tokens);
-
-		ParseExpression(tokens,datatype);
-		if ( datatype != INTEGERTYPE )
-			ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting integer data type");
-	}
-	else
-	{
-	// CODEGENERATION
-		code.EmitFormattedLine("","PUSH","#0D1");
-	// ENDCODEGENERATION
-	}
-
-	// CODEGENERATION
-	sprintf(Dlabel,"D%04d",code.LabelSuffix());
-	sprintf(Llabel,"L%04d",code.LabelSuffix());
-	sprintf(Clabel,"C%04d",code.LabelSuffix());
-	sprintf(Elabel,"E%04d",code.LabelSuffix());
-
-	code.EmitFormattedLine("","SETNZPI");
-	code.EmitFormattedLine("","JMPNZ",Dlabel);
-	sprintf(operand,"#0D%d",tokens[0].sourceLineNumber);
-	code.EmitFormattedLine("","PUSH",operand);
-	code.EmitFormattedLine("","PUSH","#0D2");
-	code.EmitFormattedLine("","JMP","HANDLERUNTIMEERROR");
-
-	code.EmitFormattedLine(Dlabel,"SETNZPI");
-	code.EmitFormattedLine("","JMPN",Llabel);
-	code.EmitFormattedLine("","SWAP");
-	code.EmitFormattedLine("","MAKEDUP");
-	code.EmitFormattedLine("","PUSH","@SP:0D3");
-	code.EmitFormattedLine("","SWAP");
-	code.EmitFormattedLine("","CMPI");
-	code.EmitFormattedLine("","JMPLE",Clabel);
-	code.EmitFormattedLine("","JMP",Elabel);
-	code.EmitFormattedLine(Llabel,"SWAP");
-	code.EmitFormattedLine("","MAKEDUP");
-	code.EmitFormattedLine("","PUSH","@SP:0D3");
-	code.EmitFormattedLine("","SWAP");
-	code.EmitFormattedLine("","CMPI");
-	code.EmitFormattedLine("","JMPGE",Clabel);
-	code.EmitFormattedLine("","JMP",Elabel);
-	code.EmitFormattedLine(Clabel,"EQU","*");
-	// ENDCODEGENERATION
-
-	while ( tokens[0].type != END )
-		ParseStatement(tokens);
-
-	GetNextToken(tokens);
-																											
-
-	// CODEGENERATION
-	code.EmitFormattedLine("","SWAP");
-	code.EmitFormattedLine("","MAKEDUP");
-	code.EmitFormattedLine("","PUSH","@SP:0D3");
-	code.EmitFormattedLine("","ADDI");
-	code.EmitFormattedLine("","POP","@SP:0D3");
-	code.EmitFormattedLine("","JMP",Dlabel);
-	code.EmitFormattedLine(Elabel,"DISCARD","#0D3");
-	// ENDCODEGENERATION
-
-	ExitModule("FORStatement");
-}
-
-void ParseFOR2Statement(TOKEN tokens[])
-{
 	void ParseAssignmentStatement(TOKEN tokens[]);
 	void ParseExpression(TOKEN tokens[],DATATYPE &datatype);
 	void ParseStatement(TOKEN tokens[]);
@@ -1258,9 +1134,9 @@ void ParseFOR2Statement(TOKEN tokens[])
 	char operand[SOURCELINELENGTH+1];
 	DATATYPE datatype;
 
-	EnterModule("FOR2Statement");
+	EnterModule("FORStatement");
 
-	sprintf(line,"; **** FOR2 statement (%4d)",tokens[0].sourceLineNumber);
+	sprintf(line,"; **** FOR statement (%4d)",tokens[0].sourceLineNumber);
 	code.EmitUnformattedLine(line);
 
 	GetNextToken(tokens);
@@ -1269,18 +1145,22 @@ void ParseFOR2Statement(TOKEN tokens[])
 		ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting '('");
 	GetNextToken(tokens);
 
-	ParseAssignmentStatement(tokens);
+	if ( tokens[0].type != PERIOD )
+	{
+		ParseAssignmentStatement(tokens);
 
-	// CODEGENERATION
-	sprintf(E2label,"E2%04d",code.LabelSuffix());
-	sprintf(S3label,"S3%04d",code.LabelSuffix());
-	sprintf(Clabel, "C%04d", code.LabelSuffix());
-	sprintf(Elabel, "E%04d", code.LabelSuffix());
+		// CODEGENERATION
+		sprintf(E2label,"E2%04d",code.LabelSuffix());
+		sprintf(S3label,"S3%04d",code.LabelSuffix());
+		sprintf(Clabel, "C%04d", code.LabelSuffix());
+		sprintf(Elabel, "E%04d", code.LabelSuffix());
 
-	code.EmitFormattedLine("","PUSH","#0X0000","doS3 := FALSE");
-	code.EmitFormattedLine("","JMP",S3label,"doS3");
-	code.EmitFormattedLine(E2label,"EQU","*");
-	// ENDCODEGENERATION
+		code.EmitFormattedLine("","PUSH","#0X0000","doS3 := FALSE");
+		code.EmitFormattedLine("","JMP",S3label,"doS3");
+		code.EmitFormattedLine(E2label,"EQU","*");
+		// ENDCODEGENERATION
+	} else
+		GetNextToken(tokens);
 	
 	ParseExpression(tokens,datatype);
 									 
@@ -1301,17 +1181,21 @@ void ParseFOR2Statement(TOKEN tokens[])
 	code.EmitFormattedLine("","JMPNT",E2label,"(empty)");
 	// ENDCODEGENERATION
 
-	ParseAssignmentStatement(tokens);
+	if ( tokens[0].type != CPARENTHESIS )
+	{
+		ParseAssignmentStatement(tokens);
 
-	// CODEGENERATION
-	code.EmitFormattedLine("","JMP",E2label,"(empty)");
-	code.EmitFormattedLine(Clabel,"EQU","*","");
-	// ENDCODEGENERATION
-
+		// CODEGENERATION
+		code.EmitFormattedLine("","JMP",E2label,"(empty)");
+		code.EmitFormattedLine(Clabel,"EQU","*","");
+		// ENDCODEGENERATION
+	}
+	
 	if ( tokens[0].type != CPARENTHESIS )
 		ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting ')'");
+	
 	GetNextToken(tokens);
-
+		
 	while ( tokens[0].type != END )
 		ParseStatement(tokens);
 
@@ -1479,7 +1363,7 @@ void ParseComparison(TOKEN tokens[],DATATYPE &datatype)
 		TOKENTYPE operation = tokens[0].type;
 
 		GetNextToken(tokens);
-      ParseComparator(tokens,datatypeRHS);
+        ParseComparator(tokens,datatypeRHS);
 
 		if ( (datatypeLHS != INTEGERTYPE) || (datatypeRHS != INTEGERTYPE) )
 			ProcessCompilerError(tokens[0].sourceLineNumber,tokens[0].sourceLineIndex,"Expecting integer operands");
@@ -2105,6 +1989,7 @@ void GetNextToken(TOKEN tokens[])
 					type = COLON;
 					lexeme[1] = '\0';
 				}
+				break;
 			case '{': 
 				type = OBRACE;
 				lexeme[0] = nextCharacter; lexeme[1] = '\0';
@@ -2137,9 +2022,19 @@ void GetNextToken(TOKEN tokens[])
 				}
 				break;
 			case '=':  
-				type = EQ;
-				lexeme[0] = nextCharacter; lexeme[1] = '\0';
-				reader.GetNextCharacter();
+				lexeme[0] = nextCharacter;
+				nextCharacter = reader.GetNextCharacter().character;
+				if ( nextCharacter == '=' ) // operator ==
+				{
+					type = EQ;
+					lexeme[1] = nextCharacter; lexeme[2] = '\0';
+					reader.GetNextCharacter();
+				}
+				else
+				{
+					type = EQUAL;	// assignment 	ex: x = 1
+					lexeme[1] = '\0';
+				}
 				break;
 			case '>':
 				lexeme[0] = nextCharacter;
