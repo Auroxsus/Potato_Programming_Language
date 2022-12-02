@@ -71,9 +71,6 @@ NOTE: ***SIMPLIFIED*** means that the syntax is completed for the current versio
 								{ <statement> }* 
 							cookedpotato
 ************* Only POTATO Version 5 *************
-<for2 statement>        ::= <expression> to <expression> [ by <expression> ]
-								{ <statement> }* 
-							cookedpotato
 <choose statement>      ::= choose [ (( ONE | ALL )) ]
 								{ when <expression> : { <statement> }* }*
 								[ else { <statement> }* ]
