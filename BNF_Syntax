@@ -3,20 +3,23 @@
 <program definition>    ::= potato                                            		|| ***SIMPLIFIED***           
 								{ <statement> } .*
 							cookedpotato		
-<statemnent>			::= <print statement>  .                         			|| ***SIMPLIFIED***
-						  |	<input statement>  .                      		
-						  |	<assignment statement>  .                      			
-						  |	<if statement>  .                      			
-						  |	<do while statement>  .                      		
-						  |	<do2 while statement>  . 
-						  | <while statement>  .
-<print statement>       ::= fry (( <string> | <expression> | \n | \t )) 
+<statemnent>			::= { <assertion> }*                         	     		|| ***SIMPLIFIED***
+							((  
+								<print statement>
+							|	<input statement>                     		
+							|	<assignment statement>                      			
+							|	<if statement>                 			
+							|	<do while statement>
+							| 	<for statement>
+							))
+							{ <assertion> }*  
+<assertion>				::= { <expression> }
+<print statement>       ::= fry (( <string> | <expression> | \n | \t ))  .
 							{ , {( <string> | <expression> | \n | \t )) }* 
 <input statement>       ::= input [ <string> ] <variable> .
 <assignment statement>  ::= <variable> { , <variable> }* = <expression> .
 <string>	            ::= "{<ascii character>}*" | '{<ascii character>}*'
-<input statement>       ::= input [ <string> ] <variable>.
-<assignment statement>  ::= <variable> {, <variable> }* = <expression>
+<input statement>       ::= input [ <string> ] <variable> .
 <if statement>          ::= if ( <expression> ) 
 								{ <statement> }*
 							{ elif ( <expression> )
@@ -29,22 +32,19 @@
 							while ( <expression> )
 								{ <statement> }*
 							cookedpotato
-<do2 while statement>   ::= do2
-								{ <statement> }*
-							while ( <expression> )
-<while statement>       ::= while ( <expression> )
+<for statement>         ::= for (<assignment statement> <expression> | <negation> { <expression> | <negation> }* { <assignment statement> })
 								{ <statement> }* 
 							cookedpotato
-<expression>		    ::= <conjunction> { (( OR | NOR | XOR )) <conjunction> }
-<conjunction>           ::= <negation> { (( AND | NAND )) <negation> }*
+<expression>		    ::= <conjunction> { (( OR | NOR | XOR )) <conjunction> } .
+<conjunction>           ::= <negation> { (( AND | NAND )) <negation> }* .
 <negation>              ::= [ NOT ] <comparison>			
-<comparison>            ::= <comparator> [ (( < | <= | = | > | >= | (( <> | != )) )) <comparator> ]
+<comparison>            ::= <comparator> [ (( < | <= | == | > | >= | (( <> | != )) )) <comparator> ]
 <comparator>            ::= <term> { (( + | - )) <term> }*
 <term>                  ::= <factor> { (( * | / | % )) <factor> }*
 <factor>                ::= [ (( ABS | + | - )) ] <secondary>          				|| ***SIMPLIFIED***
 <secondary>             ::= <prefix> [ (( ^ | ** )) <prefix> ]
 <prefix>                ::= <primary> | (( ++ | -- )) <variable>
-<primary>               ::= <variable> ( <expression> ) | <literal>              	|| ***SIMPLIFIED***
+<primary>               ::= <literal> <variable> ( <expression> )               	|| ***SIMPLIFIED***
 <variable>				::= <identifier>          							    	|| ***SIMPLIFIED***
 <identifier>            ::= <letter> { (( <letter> | <digit> | _ )) }* 				|| ***SIMPLIFIED***
 <literal>             	::= <integer> | <boolean> | <string>           				|| ***SIMPLIFIED***
@@ -59,5 +59,14 @@
 
 NOTE: ***SIMPLIFIED*** means that the syntax is completed for the current version
 	of the compiler and could be built on further in the development
-	<primary> is simplified because there is no < variable> syntactic entry in SPL2
-	
+	<primary> is simplified because there is no < variable> syntactic entry in POTATO
+
+************* Only POTATO Version 4 *************
+<statemnent>			::= <do2 while statement>  . 
+						  | <while statement>  .
+<do2 while statement>   ::= do2
+								{ <statement> }*
+							while ( <expression> )
+<while statement>       ::= while ( <expression> )
+								{ <statement> }* 
+							cookedpotato
