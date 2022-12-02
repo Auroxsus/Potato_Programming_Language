@@ -32,7 +32,7 @@
 							while ( <expression> )
 								{ <statement> }*
 							cookedpotato
-<for statement>         ::= for (<assignment statement> <expression> | <negation> { <expression> | <negation> }* { <assignment statement> })
+<for statement>         ::= for (<assignment statement> <expression> <assignment statement> )
 								{ <statement> }* 
 							cookedpotato
 <expression>		    ::= <conjunction> { (( OR | NOR | XOR )) <conjunction> } .
@@ -59,7 +59,7 @@
 
 NOTE: ***SIMPLIFIED*** means that the syntax is completed for the current version
 	of the compiler and could be built on further in the development
-	<primary> is simplified because there is no < variable> syntactic entry in POTATO
+	<primary> is simplified because there is no <variable> syntactic entry in POTATO
 
 ************* Only POTATO Version 4 *************
 <statemnent>			::= <do2 while statement>  . 
@@ -69,4 +69,9 @@ NOTE: ***SIMPLIFIED*** means that the syntax is completed for the current versio
 							while ( <expression> )
 <while statement>       ::= while ( <expression> )
 								{ <statement> }* 
+							cookedpotato
+************* Only POTATO Version 5 *************
+<choose statement>      ::= choose [ (( ONE | ALL )) ]
+								{ when <expression> : { <statement> }* }*
+								[ else { <statement> }* ]
 							cookedpotato
