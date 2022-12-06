@@ -1,0 +1,918 @@
+ "Potato1.p" Mon Dec  5 21:44:59 2022 Page 1
+Line Source Line
+---- -------------------------------------------------------------------------------
+   1 || Potato.p by Auroxsus
+   2 || French Fry Productions
+   3 || Description: testing complex subprogram
+   4 ||-----------------------------------------------------------
+   5 
+   6 VAR INT x, INT y.
+   7 VAR BOOL z.
+   8 
+   9 PROCEDURE PIN0
+  10    FRY "PIN0()",PEEL.
+===================================================================================================
+Contents of identifier table after compilation of global data definitions
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+===================================================================================================
+===================================================================================================
+Contents of identifier table after compilation of PROCEDURE module header
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+===================================================================================================
+===================================================================================================
+Contents of identifier table after compilation of PROCEDURE local data definitions
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+===================================================================================================
+  11    RETURN.
+  12 COOKEDPOTATO
+  13 
+  14 PROCEDURE PIN1(INT x)
+===================================================================================================
+Contents of identifier table at end of compilation of PROCEDURE module definition
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+===================================================================================================
+  15    FRY "PIN1(",x,")",PEEL.
+===================================================================================================
+Contents of identifier table after compilation of PROCEDURE module header
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               x
+ "Potato1.p" Mon Dec  5 21:44:59 2022 Page 2
+Line Source Line
+---- -------------------------------------------------------------------------------
+===================================================================================================
+===================================================================================================
+Contents of identifier table after compilation of PROCEDURE local data definitions
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               x
+===================================================================================================
+  16 ||   RETURN.
+  17 COOKEDPOTATO
+  18 
+  19 PROCEDURE PIN2(INT x,IN INT y)
+===================================================================================================
+Contents of identifier table at end of compilation of PROCEDURE module definition
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+===================================================================================================
+  20    FRY "PIN2(",x,",",y,")",PEEL.
+===================================================================================================
+Contents of identifier table after compilation of PROCEDURE module header
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  7     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN2                 PIN2
+  8     1 INTEGER            0 IN_PARAMETER               FB:0D0               x
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               y
+===================================================================================================
+===================================================================================================
+Contents of identifier table after compilation of PROCEDURE local data definitions
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  7     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN2                 PIN2
+  8     1 INTEGER            0 IN_PARAMETER               FB:0D0               x
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               y
+===================================================================================================
+  21 COOKEDPOTATO
+  22 
+  23 PROCEDURE POUT1(OUT BOOL b)
+===================================================================================================
+ "Potato1.p" Mon Dec  5 21:44:59 2022 Page 3
+Line Source Line
+---- -------------------------------------------------------------------------------
+Contents of identifier table at end of compilation of PROCEDURE module definition
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  7     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN2                 PIN2
+  8     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+===================================================================================================
+  24    FRY "POUT1",PEEL.
+===================================================================================================
+Contents of identifier table after compilation of PROCEDURE module header
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  7     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN2                 PIN2
+  8     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT1                POUT1
+ 11     1 BOOLEAN            0 OUT_PARAMETER              FB:0D1               b
+===================================================================================================
+===================================================================================================
+Contents of identifier table after compilation of PROCEDURE local data definitions
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  7     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN2                 PIN2
+  8     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT1                POUT1
+ 11     1 BOOLEAN            0 OUT_PARAMETER              FB:0D1               b
+===================================================================================================
+  25    b = true.
+  26 COOKEDPOTATO
+  27 
+  28 PROCEDURE POUT2(OUT INT x, OUT INT y)
+===================================================================================================
+Contents of identifier table at end of compilation of PROCEDURE module definition
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ "Potato1.p" Mon Dec  5 21:44:59 2022 Page 4
+Line Source Line
+---- -------------------------------------------------------------------------------
+  7     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN2                 PIN2
+  8     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT1                POUT1
+ 11     1 BOOLEAN            0 OUT_PARAMETER              FB:0D1               
+===================================================================================================
+  29    FRY "POUT2",PEEL.
+===================================================================================================
+Contents of identifier table after compilation of PROCEDURE module header
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  7     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN2                 PIN2
+  8     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT1                POUT1
+ 11     1 BOOLEAN            0 OUT_PARAMETER              FB:0D1               
+ 12     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT2                POUT2
+ 13     1 INTEGER            0 OUT_PARAMETER              FB:0D1               x
+ 14     1 INTEGER            0 OUT_PARAMETER              FB:0D3               y
+===================================================================================================
+===================================================================================================
+Contents of identifier table after compilation of PROCEDURE local data definitions
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  7     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN2                 PIN2
+  8     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT1                POUT1
+ 11     1 BOOLEAN            0 OUT_PARAMETER              FB:0D1               
+ 12     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT2                POUT2
+ 13     1 INTEGER            0 OUT_PARAMETER              FB:0D1               x
+ 14     1 INTEGER            0 OUT_PARAMETER              FB:0D3               y
+===================================================================================================
+  30    x = 2.
+  31    y = 2*x.
+  32    RETURN.
+  33 COOKEDPOTATO
+  34 
+  35 PROCEDURE PIN1R(INT x)
+===================================================================================================
+Contents of identifier table at end of compilation of PROCEDURE module definition
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+ "Potato1.p" Mon Dec  5 21:44:59 2022 Page 5
+Line Source Line
+---- -------------------------------------------------------------------------------
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  7     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN2                 PIN2
+  8     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT1                POUT1
+ 11     1 BOOLEAN            0 OUT_PARAMETER              FB:0D1               
+ 12     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT2                POUT2
+ 13     1 INTEGER            0 OUT_PARAMETER              FB:0D1               
+ 14     1 INTEGER            0 OUT_PARAMETER              FB:0D3               
+===================================================================================================
+  36    IF ( x > 0 ) 
+===================================================================================================
+Contents of identifier table after compilation of PROCEDURE module header
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  7     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN2                 PIN2
+  8     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT1                POUT1
+ 11     1 BOOLEAN            0 OUT_PARAMETER              FB:0D1               
+ 12     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT2                POUT2
+ 13     1 INTEGER            0 OUT_PARAMETER              FB:0D1               
+ 14     1 INTEGER            0 OUT_PARAMETER              FB:0D3               
+ 15     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1R                PIN1R
+ 16     1 INTEGER            0 IN_PARAMETER               FB:0D0               x
+===================================================================================================
+===================================================================================================
+Contents of identifier table after compilation of PROCEDURE local data definitions
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  7     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN2                 PIN2
+  8     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT1                POUT1
+ 11     1 BOOLEAN            0 OUT_PARAMETER              FB:0D1               
+ 12     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT2                POUT2
+ 13     1 INTEGER            0 OUT_PARAMETER              FB:0D1               
+ 14     1 INTEGER            0 OUT_PARAMETER              FB:0D3               
+ 15     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1R                PIN1R
+ 16     1 INTEGER            0 IN_PARAMETER               FB:0D0               x
+===================================================================================================
+  37       FRY x,PEEL.
+  38       CALL PIN1R(x-1).
+  39    COOKEDPOTATO
+  40 COOKEDPOTATO
+  41 
+  42 PROCEDURE PIN1OUT1(IN INT x,OUT INT y)
+===================================================================================================
+ "Potato1.p" Mon Dec  5 21:44:59 2022 Page 6
+Line Source Line
+---- -------------------------------------------------------------------------------
+Contents of identifier table at end of compilation of PROCEDURE module definition
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  7     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN2                 PIN2
+  8     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT1                POUT1
+ 11     1 BOOLEAN            0 OUT_PARAMETER              FB:0D1               
+ 12     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT2                POUT2
+ 13     1 INTEGER            0 OUT_PARAMETER              FB:0D1               
+ 14     1 INTEGER            0 OUT_PARAMETER              FB:0D3               
+ 15     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1R                PIN1R
+ 16     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+===================================================================================================
+  43    FRY "PIN1OUT1",PEEL.
+===================================================================================================
+Contents of identifier table after compilation of PROCEDURE module header
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  7     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN2                 PIN2
+  8     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT1                POUT1
+ 11     1 BOOLEAN            0 OUT_PARAMETER              FB:0D1               
+ 12     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT2                POUT2
+ 13     1 INTEGER            0 OUT_PARAMETER              FB:0D1               
+ 14     1 INTEGER            0 OUT_PARAMETER              FB:0D3               
+ 15     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1R                PIN1R
+ 16     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 17     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1             PIN1OUT1
+ 18     1 INTEGER            0 IN_PARAMETER               FB:0D0               x
+ 19     1 INTEGER            0 OUT_PARAMETER              FB:0D2               y
+===================================================================================================
+===================================================================================================
+Contents of identifier table after compilation of PROCEDURE local data definitions
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  7     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN2                 PIN2
+  8     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT1                POUT1
+ 11     1 BOOLEAN            0 OUT_PARAMETER              FB:0D1               
+ "Potato1.p" Mon Dec  5 21:44:59 2022 Page 7
+Line Source Line
+---- -------------------------------------------------------------------------------
+ 12     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT2                POUT2
+ 13     1 INTEGER            0 OUT_PARAMETER              FB:0D1               
+ 14     1 INTEGER            0 OUT_PARAMETER              FB:0D3               
+ 15     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1R                PIN1R
+ 16     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 17     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1             PIN1OUT1
+ 18     1 INTEGER            0 IN_PARAMETER               FB:0D0               x
+ 19     1 INTEGER            0 OUT_PARAMETER              FB:0D2               y
+===================================================================================================
+  44    y = x.
+  45 COOKEDPOTATO
+  46 
+  47 PROCEDURE PIN1OUT1R(INT x,OUT INT y)
+===================================================================================================
+Contents of identifier table at end of compilation of PROCEDURE module definition
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  7     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN2                 PIN2
+  8     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT1                POUT1
+ 11     1 BOOLEAN            0 OUT_PARAMETER              FB:0D1               
+ 12     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT2                POUT2
+ 13     1 INTEGER            0 OUT_PARAMETER              FB:0D1               
+ 14     1 INTEGER            0 OUT_PARAMETER              FB:0D3               
+ 15     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1R                PIN1R
+ 16     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 17     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1             PIN1OUT1
+ 18     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 19     1 INTEGER            0 OUT_PARAMETER              FB:0D2               
+===================================================================================================
+  48    IF ( x == 0 ) 
+===================================================================================================
+Contents of identifier table after compilation of PROCEDURE module header
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  7     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN2                 PIN2
+  8     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT1                POUT1
+ 11     1 BOOLEAN            0 OUT_PARAMETER              FB:0D1               
+ 12     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT2                POUT2
+ 13     1 INTEGER            0 OUT_PARAMETER              FB:0D1               
+ 14     1 INTEGER            0 OUT_PARAMETER              FB:0D3               
+ 15     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1R                PIN1R
+ 16     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 17     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1             PIN1OUT1
+ 18     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ "Potato1.p" Mon Dec  5 21:44:59 2022 Page 8
+Line Source Line
+---- -------------------------------------------------------------------------------
+ 19     1 INTEGER            0 OUT_PARAMETER              FB:0D2               
+ 20     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1R            PIN1OUT1R
+ 21     1 INTEGER            0 IN_PARAMETER               FB:0D0               x
+ 22     1 INTEGER            0 OUT_PARAMETER              FB:0D2               y
+===================================================================================================
+===================================================================================================
+Contents of identifier table after compilation of PROCEDURE local data definitions
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  7     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN2                 PIN2
+  8     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT1                POUT1
+ 11     1 BOOLEAN            0 OUT_PARAMETER              FB:0D1               
+ 12     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT2                POUT2
+ 13     1 INTEGER            0 OUT_PARAMETER              FB:0D1               
+ 14     1 INTEGER            0 OUT_PARAMETER              FB:0D3               
+ 15     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1R                PIN1R
+ 16     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 17     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1             PIN1OUT1
+ 18     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 19     1 INTEGER            0 OUT_PARAMETER              FB:0D2               
+ 20     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1R            PIN1OUT1R
+ 21     1 INTEGER            0 IN_PARAMETER               FB:0D0               x
+ 22     1 INTEGER            0 OUT_PARAMETER              FB:0D2               y
+===================================================================================================
+  49       y = 42.
+  50    ELSE
+  51       CALL PIN1OUT1R(x-1,y).
+  52    COOKEDPOTATO
+  53 COOKEDPOTATO
+  54 
+  55 PROCEDURE PIO1(IO INT x)
+===================================================================================================
+Contents of identifier table at end of compilation of PROCEDURE module definition
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  7     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN2                 PIN2
+  8     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT1                POUT1
+ 11     1 BOOLEAN            0 OUT_PARAMETER              FB:0D1               
+ 12     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT2                POUT2
+ 13     1 INTEGER            0 OUT_PARAMETER              FB:0D1               
+ 14     1 INTEGER            0 OUT_PARAMETER              FB:0D3               
+ 15     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1R                PIN1R
+ 16     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 17     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1             PIN1OUT1
+ "Potato1.p" Mon Dec  5 21:44:59 2022 Page 9
+Line Source Line
+---- -------------------------------------------------------------------------------
+ 18     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 19     1 INTEGER            0 OUT_PARAMETER              FB:0D2               
+ 20     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1R            PIN1OUT1R
+ 21     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 22     1 INTEGER            0 OUT_PARAMETER              FB:0D2               
+===================================================================================================
+  56    FRY "PIO1",PEEL.
+===================================================================================================
+Contents of identifier table after compilation of PROCEDURE module header
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  7     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN2                 PIN2
+  8     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT1                POUT1
+ 11     1 BOOLEAN            0 OUT_PARAMETER              FB:0D1               
+ 12     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT2                POUT2
+ 13     1 INTEGER            0 OUT_PARAMETER              FB:0D1               
+ 14     1 INTEGER            0 OUT_PARAMETER              FB:0D3               
+ 15     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1R                PIN1R
+ 16     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 17     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1             PIN1OUT1
+ 18     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 19     1 INTEGER            0 OUT_PARAMETER              FB:0D2               
+ 20     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1R            PIN1OUT1R
+ 21     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 22     1 INTEGER            0 OUT_PARAMETER              FB:0D2               
+ 23     0                    0 PROCEDURE_SUBPROGRAMMODULE PIO1                 PIO1
+ 24     1 INTEGER            0 IO_PARAMETER               FB:0D1               x
+===================================================================================================
+===================================================================================================
+Contents of identifier table after compilation of PROCEDURE local data definitions
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  7     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN2                 PIN2
+  8     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT1                POUT1
+ 11     1 BOOLEAN            0 OUT_PARAMETER              FB:0D1               
+ 12     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT2                POUT2
+ 13     1 INTEGER            0 OUT_PARAMETER              FB:0D1               
+ 14     1 INTEGER            0 OUT_PARAMETER              FB:0D3               
+ 15     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1R                PIN1R
+ 16     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 17     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1             PIN1OUT1
+ 18     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 19     1 INTEGER            0 OUT_PARAMETER              FB:0D2               
+ 20     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1R            PIN1OUT1R
+ "Potato1.p" Mon Dec  5 21:44:59 2022 Page 10
+Line Source Line
+---- -------------------------------------------------------------------------------
+ 21     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 22     1 INTEGER            0 OUT_PARAMETER              FB:0D2               
+ 23     0                    0 PROCEDURE_SUBPROGRAMMODULE PIO1                 PIO1
+ 24     1 INTEGER            0 IO_PARAMETER               FB:0D1               x
+===================================================================================================
+  57    x = x+2.
+  58 COOKEDPOTATO
+  59 
+  60 PROCEDURE PIO2(IO INT x1,IO INT x2)
+===================================================================================================
+Contents of identifier table at end of compilation of PROCEDURE module definition
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  7     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN2                 PIN2
+  8     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT1                POUT1
+ 11     1 BOOLEAN            0 OUT_PARAMETER              FB:0D1               
+ 12     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT2                POUT2
+ 13     1 INTEGER            0 OUT_PARAMETER              FB:0D1               
+ 14     1 INTEGER            0 OUT_PARAMETER              FB:0D3               
+ 15     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1R                PIN1R
+ 16     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 17     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1             PIN1OUT1
+ 18     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 19     1 INTEGER            0 OUT_PARAMETER              FB:0D2               
+ 20     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1R            PIN1OUT1R
+ 21     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 22     1 INTEGER            0 OUT_PARAMETER              FB:0D2               
+ 23     0                    0 PROCEDURE_SUBPROGRAMMODULE PIO1                 PIO1
+ 24     1 INTEGER            0 IO_PARAMETER               FB:0D1               
+===================================================================================================
+  61    VAR INT T.
+  62 
+  63    FRY "PIO2",PEEL.
+===================================================================================================
+Contents of identifier table after compilation of PROCEDURE module header
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  7     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN2                 PIN2
+  8     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT1                POUT1
+ 11     1 BOOLEAN            0 OUT_PARAMETER              FB:0D1               
+ 12     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT2                POUT2
+ 13     1 INTEGER            0 OUT_PARAMETER              FB:0D1               
+ 14     1 INTEGER            0 OUT_PARAMETER              FB:0D3               
+ 15     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1R                PIN1R
+ "Potato1.p" Mon Dec  5 21:44:59 2022 Page 11
+Line Source Line
+---- -------------------------------------------------------------------------------
+ 16     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 17     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1             PIN1OUT1
+ 18     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 19     1 INTEGER            0 OUT_PARAMETER              FB:0D2               
+ 20     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1R            PIN1OUT1R
+ 21     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 22     1 INTEGER            0 OUT_PARAMETER              FB:0D2               
+ 23     0                    0 PROCEDURE_SUBPROGRAMMODULE PIO1                 PIO1
+ 24     1 INTEGER            0 IO_PARAMETER               FB:0D1               
+ 25     0                    0 PROCEDURE_SUBPROGRAMMODULE PIO2                 PIO2
+ 26     1 INTEGER            0 IO_PARAMETER               FB:0D1               x1
+ 27     1 INTEGER            0 IO_PARAMETER               FB:0D3               x2
+===================================================================================================
+===================================================================================================
+Contents of identifier table after compilation of PROCEDURE local data definitions
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  7     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN2                 PIN2
+  8     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT1                POUT1
+ 11     1 BOOLEAN            0 OUT_PARAMETER              FB:0D1               
+ 12     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT2                POUT2
+ 13     1 INTEGER            0 OUT_PARAMETER              FB:0D1               
+ 14     1 INTEGER            0 OUT_PARAMETER              FB:0D3               
+ 15     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1R                PIN1R
+ 16     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 17     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1             PIN1OUT1
+ 18     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 19     1 INTEGER            0 OUT_PARAMETER              FB:0D2               
+ 20     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1R            PIN1OUT1R
+ 21     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 22     1 INTEGER            0 OUT_PARAMETER              FB:0D2               
+ 23     0                    0 PROCEDURE_SUBPROGRAMMODULE PIO1                 PIO1
+ 24     1 INTEGER            0 IO_PARAMETER               FB:0D1               
+ 25     0                    0 PROCEDURE_SUBPROGRAMMODULE PIO2                 PIO2
+ 26     1 INTEGER            0 IO_PARAMETER               FB:0D1               x1
+ 27     1 INTEGER            0 IO_PARAMETER               FB:0D3               x2
+ 28     1 INTEGER            0 SUBPROGRAMMODULE_VARIABLE  FB:0D6               T
+===================================================================================================
+  64    T = x1.
+  65    x1 = x2.
+  66    x2 = T.
+  67 COOKEDPOTATO
+  68 
+  69 PROCEDURE PREF2(REF INT i,REF BOOL x)
+===================================================================================================
+Contents of identifier table at end of compilation of PROCEDURE module definition
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+ "Potato1.p" Mon Dec  5 21:44:59 2022 Page 12
+Line Source Line
+---- -------------------------------------------------------------------------------
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  7     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN2                 PIN2
+  8     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT1                POUT1
+ 11     1 BOOLEAN            0 OUT_PARAMETER              FB:0D1               
+ 12     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT2                POUT2
+ 13     1 INTEGER            0 OUT_PARAMETER              FB:0D1               
+ 14     1 INTEGER            0 OUT_PARAMETER              FB:0D3               
+ 15     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1R                PIN1R
+ 16     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 17     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1             PIN1OUT1
+ 18     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 19     1 INTEGER            0 OUT_PARAMETER              FB:0D2               
+ 20     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1R            PIN1OUT1R
+ 21     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 22     1 INTEGER            0 OUT_PARAMETER              FB:0D2               
+ 23     0                    0 PROCEDURE_SUBPROGRAMMODULE PIO1                 PIO1
+ 24     1 INTEGER            0 IO_PARAMETER               FB:0D1               
+ 25     0                    0 PROCEDURE_SUBPROGRAMMODULE PIO2                 PIO2
+ 26     1 INTEGER            0 IO_PARAMETER               FB:0D1               
+ 27     1 INTEGER            0 IO_PARAMETER               FB:0D3               
+===================================================================================================
+  70    FRY "PREF2 (i,x) = (",i,",",x,")",PEEL.
+===================================================================================================
+Contents of identifier table after compilation of PROCEDURE module header
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  7     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN2                 PIN2
+  8     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT1                POUT1
+ 11     1 BOOLEAN            0 OUT_PARAMETER              FB:0D1               
+ 12     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT2                POUT2
+ 13     1 INTEGER            0 OUT_PARAMETER              FB:0D1               
+ 14     1 INTEGER            0 OUT_PARAMETER              FB:0D3               
+ 15     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1R                PIN1R
+ 16     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 17     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1             PIN1OUT1
+ 18     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 19     1 INTEGER            0 OUT_PARAMETER              FB:0D2               
+ 20     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1R            PIN1OUT1R
+ 21     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 22     1 INTEGER            0 OUT_PARAMETER              FB:0D2               
+ 23     0                    0 PROCEDURE_SUBPROGRAMMODULE PIO1                 PIO1
+ 24     1 INTEGER            0 IO_PARAMETER               FB:0D1               
+ 25     0                    0 PROCEDURE_SUBPROGRAMMODULE PIO2                 PIO2
+ 26     1 INTEGER            0 IO_PARAMETER               FB:0D1               
+ 27     1 INTEGER            0 IO_PARAMETER               FB:0D3               
+ 28     0                    0 PROCEDURE_SUBPROGRAMMODULE PREF2                PREF2
+ 29     1 INTEGER            0 REF_PARAMETER              @FB:0D0              i
+ 30     1 BOOLEAN            0 REF_PARAMETER              @FB:0D1              x
+===================================================================================================
+ "Potato1.p" Mon Dec  5 21:44:59 2022 Page 13
+Line Source Line
+---- -------------------------------------------------------------------------------
+===================================================================================================
+Contents of identifier table after compilation of PROCEDURE local data definitions
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  7     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN2                 PIN2
+  8     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT1                POUT1
+ 11     1 BOOLEAN            0 OUT_PARAMETER              FB:0D1               
+ 12     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT2                POUT2
+ 13     1 INTEGER            0 OUT_PARAMETER              FB:0D1               
+ 14     1 INTEGER            0 OUT_PARAMETER              FB:0D3               
+ 15     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1R                PIN1R
+ 16     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 17     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1             PIN1OUT1
+ 18     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 19     1 INTEGER            0 OUT_PARAMETER              FB:0D2               
+ 20     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1R            PIN1OUT1R
+ 21     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 22     1 INTEGER            0 OUT_PARAMETER              FB:0D2               
+ 23     0                    0 PROCEDURE_SUBPROGRAMMODULE PIO1                 PIO1
+ 24     1 INTEGER            0 IO_PARAMETER               FB:0D1               
+ 25     0                    0 PROCEDURE_SUBPROGRAMMODULE PIO2                 PIO2
+ 26     1 INTEGER            0 IO_PARAMETER               FB:0D1               
+ 27     1 INTEGER            0 IO_PARAMETER               FB:0D3               
+ 28     0                    0 PROCEDURE_SUBPROGRAMMODULE PREF2                PREF2
+ 29     1 INTEGER            0 REF_PARAMETER              @FB:0D0              i
+ 30     1 BOOLEAN            0 REF_PARAMETER              @FB:0D1              x
+===================================================================================================
+  71    x = NOT x.
+  72    RETURN.
+  73 COOKEDPOTATO
+  74 
+  75 POTATO
+  76    VAR INT i.
+===================================================================================================
+Contents of identifier table at end of compilation of PROCEDURE module definition
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  7     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN2                 PIN2
+  8     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT1                POUT1
+ 11     1 BOOLEAN            0 OUT_PARAMETER              FB:0D1               
+ 12     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT2                POUT2
+ 13     1 INTEGER            0 OUT_PARAMETER              FB:0D1               
+ 14     1 INTEGER            0 OUT_PARAMETER              FB:0D3               
+ 15     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1R                PIN1R
+ "Potato1.p" Mon Dec  5 21:44:59 2022 Page 14
+Line Source Line
+---- -------------------------------------------------------------------------------
+ 16     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 17     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1             PIN1OUT1
+ 18     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 19     1 INTEGER            0 OUT_PARAMETER              FB:0D2               
+ 20     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1R            PIN1OUT1R
+ 21     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 22     1 INTEGER            0 OUT_PARAMETER              FB:0D2               
+ 23     0                    0 PROCEDURE_SUBPROGRAMMODULE PIO1                 PIO1
+ 24     1 INTEGER            0 IO_PARAMETER               FB:0D1               
+ 25     0                    0 PROCEDURE_SUBPROGRAMMODULE PIO2                 PIO2
+ 26     1 INTEGER            0 IO_PARAMETER               FB:0D1               
+ 27     1 INTEGER            0 IO_PARAMETER               FB:0D3               
+ 28     0                    0 PROCEDURE_SUBPROGRAMMODULE PREF2                PREF2
+ 29     1 INTEGER            0 REF_PARAMETER              @FB:0D0              
+ 30     1 BOOLEAN            0 REF_PARAMETER              @FB:0D1              
+===================================================================================================
+  77 
+  78    CALL PIN0.
+  79 
+  80    CALL PIN1(1).
+  81 
+  82    x = 2.
+  83    CALL PIN2(x,x+2).
+  84 
+  85    CALL POUT1(z).
+  86    FRY "z = ",z,PEEL.
+  87 
+  88    CALL POUT2(x,y).
+  89    FRY "x = ",x,", y = ",y,PEEL.
+  90 
+  91    FRY "PIN1R(3)",PEEL.
+  92    CALL PIN1R(3).
+  93 
+  94    x = 1.
+  95    CALL PIN1OUT1(x,y).
+  96    FRY "y = ",y,PEEL.
+  97 
+  98    FRY "PIN1OUT1R",PEEL.
+  99    CALL PIN1OUT1R(3,y).
+ 100    FRY "y = ",y,PEEL.
+ 101 
+ 102    y = 7.
+ 103    CALL PIO1(y).
+ 104    FRY "y = ",y,PEEL.
+ 105 
+ 106    x = 3. y = 7.
+ 107    FRY "(x,y) = (",x,",",y,")",PEEL.
+ 108    CALL PIO2(x,y).
+ 109    FRY "(x,y) = (",x,",",y,")",PEEL.
+ 110 
+ 111    FOR (i = 1. i < 2. i = i + 1.)
+ 112       CALL PREF2(i,z).
+ 113    COOKEDPOTATO
+ 114 
+ 115 COOKEDPOTATO
+ 116 
+===================================================================================================
+Contents of identifier table at end of compilation of PROGRAM module definition
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+ "Potato1.p" Mon Dec  5 21:44:59 2022 Page 15
+Line Source Line
+---- -------------------------------------------------------------------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 BOOLEAN            0 GLOBAL_VARIABLE            SB:0D2               z
+  4     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN0                 PIN0
+  5     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1                 PIN1
+  6     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  7     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN2                 PIN2
+  8     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT1                POUT1
+ 11     1 BOOLEAN            0 OUT_PARAMETER              FB:0D1               
+ 12     0                    0 PROCEDURE_SUBPROGRAMMODULE POUT2                POUT2
+ 13     1 INTEGER            0 OUT_PARAMETER              FB:0D1               
+ 14     1 INTEGER            0 OUT_PARAMETER              FB:0D3               
+ 15     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1R                PIN1R
+ 16     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 17     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1             PIN1OUT1
+ 18     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 19     1 INTEGER            0 OUT_PARAMETER              FB:0D2               
+ 20     0                    0 PROCEDURE_SUBPROGRAMMODULE PIN1OUT1R            PIN1OUT1R
+ 21     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 22     1 INTEGER            0 OUT_PARAMETER              FB:0D2               
+ 23     0                    0 PROCEDURE_SUBPROGRAMMODULE PIO1                 PIO1
+ 24     1 INTEGER            0 IO_PARAMETER               FB:0D1               
+ 25     0                    0 PROCEDURE_SUBPROGRAMMODULE PIO2                 PIO2
+ 26     1 INTEGER            0 IO_PARAMETER               FB:0D1               
+ 27     1 INTEGER            0 IO_PARAMETER               FB:0D3               
+ 28     0                    0 PROCEDURE_SUBPROGRAMMODULE PREF2                PREF2
+ 29     1 INTEGER            0 REF_PARAMETER              @FB:0D0              
+ 30     1 BOOLEAN            0 REF_PARAMETER              @FB:0D1              
+ 31     1 INTEGER            0 PROGRAMMODULE_VARIABLE     SB:0D121             i
+===================================================================================================
+******* POTATO was cooked thoroughly
