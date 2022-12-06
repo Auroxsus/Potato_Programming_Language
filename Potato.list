@@ -1,0 +1,98 @@
+ "Potato.p" Mon Dec  5 21:38:18 2022 Page 1
+Line Source Line
+---- -------------------------------------------------------------------------------
+   1 || Potato.p by Auroxsus
+   2 || French Fry Productions
+   3 || Description: testing subprogram
+   4 ||-----------------------------------------------------------
+   5 
+   6 VAR INT x, INT y.
+   7 
+   8 PROCEDURE P(IN INT in1, OUT INT out1, IO INT io1, REF BOOL ref1)
+===================================================================================================
+Contents of identifier table after compilation of global data definitions
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+===================================================================================================
+   9    CON INT C1 = 101.
+===================================================================================================
+Contents of identifier table after compilation of PROCEDURE module header
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0                    0 PROCEDURE_SUBPROGRAMMODULE P                    P
+  4     1 INTEGER            0 IN_PARAMETER               FB:0D0               in1
+  5     1 INTEGER            0 OUT_PARAMETER              FB:0D2               out1
+  6     1 INTEGER            0 IO_PARAMETER               FB:0D4               io1
+  7     1 BOOLEAN            0 REF_PARAMETER              @FB:0D5              ref1
+===================================================================================================
+  10    
+  11    out1 = in1+C1.
+===================================================================================================
+Contents of identifier table after compilation of PROCEDURE local data definitions
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0                    0 PROCEDURE_SUBPROGRAMMODULE P                    P
+  4     1 INTEGER            0 IN_PARAMETER               FB:0D0               in1
+  5     1 INTEGER            0 OUT_PARAMETER              FB:0D2               out1
+  6     1 INTEGER            0 IO_PARAMETER               FB:0D4               io1
+  7     1 BOOLEAN            0 REF_PARAMETER              @FB:0D5              ref1
+  8     1 INTEGER            0 SUBPROGRAMMODULE_CONSTANT  FB:0D8               C1
+===================================================================================================
+  12    io1 = io1+1.
+  13    ref1 = NOT ref1.
+  14 COOKEDPOTATO
+  15 
+  16 POTATO
+  17    CON INT P1 = 1.
+===================================================================================================
+Contents of identifier table at end of compilation of PROCEDURE module definition
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0                    0 PROCEDURE_SUBPROGRAMMODULE P                    P
+  4     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  5     1 INTEGER            0 OUT_PARAMETER              FB:0D2               
+  6     1 INTEGER            0 IO_PARAMETER               FB:0D4               
+  7     1 BOOLEAN            0 REF_PARAMETER              @FB:0D5              
+ "Potato.p" Mon Dec  5 21:38:18 2022 Page 2
+Line Source Line
+---- -------------------------------------------------------------------------------
+===================================================================================================
+  18 
+  19    VAR INT P2, INT P3.
+  20    VAR BOOL P4.
+  21 
+  22    P3 = 3.
+  23    P4 = TRUE.
+  24    
+  25    CALL P(P1,P2,P3,P4).
+  26    FRY "P1 = ",P1,PEEL.
+  27    FRY "P2 = ",P2,PEEL.
+  28    FRY "P3 = ",P3,PEEL.
+  29    FRY "P4 = ",P4,PEEL.
+  30 COOKEDPOTATO
+  31 
+===================================================================================================
+Contents of identifier table at end of compilation of PROGRAM module definition
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0                    0 PROCEDURE_SUBPROGRAMMODULE P                    P
+  4     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+  5     1 INTEGER            0 OUT_PARAMETER              FB:0D2               
+  6     1 INTEGER            0 IO_PARAMETER               FB:0D4               
+  7     1 BOOLEAN            0 REF_PARAMETER              @FB:0D5              
+  8     1 INTEGER            0 PROGRAMMODULE_CONSTANT     SB:0D30              P1
+  9     1 INTEGER            0 PROGRAMMODULE_VARIABLE     SB:0D31              P2
+ 10     1 INTEGER            0 PROGRAMMODULE_VARIABLE     SB:0D32              P3
+ 11     1 BOOLEAN            0 PROGRAMMODULE_VARIABLE     SB:0D33              P4
+===================================================================================================
+******* POTATO was cooked thoroughly
