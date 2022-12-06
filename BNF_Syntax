@@ -1,8 +1,16 @@
 
-<potato program>        ::= <program definition> EOPC                           	|| ***SIMPLIFIED***
+<potato program>        ::= { <data definitions> }*                       	    	|| ***SIMPLIFIED***
+							{ <procedure definition> }*
+							<program definition> EOPC
+<data definition> 		::= <variable definition> | <constant definitions>
 <program definition>    ::= potato                                            		|| ***SIMPLIFIED***           
 								{ <statement> } .*
 							cookedpotato		
+<procedure definition>  ::= procedure <identifier> [ ( <formalParameter> { , < formalParameter > }* ) ]
+								{ <dataDefinitions> }*
+								{ <statement> }*
+							cookedpotato
+<formal parameter>      ::= [ (( IN | OUT | IO | REF )) ] <datatype> <identifier>   || ***SIMPLIFIED***
 <statemnent>			::= { <assertion> }*                         	     		|| ***SIMPLIFIED***
 							((  
 								<print statement>
@@ -10,7 +18,9 @@
 							|	<assignment statement>                      			
 							|	<if statement>                 			
 							|	<do while statement>
-							| 	<for statement>
+							| 	<for statement>                 			
+							|	<call statement>
+							| 	<return statement>
 							))
 							{ <assertion> }*  
 <assertion>				::= { <expression> }
@@ -35,6 +45,9 @@
 <for statement>         ::= for (<assignment statement> <expression> <assignment statement> )
 								{ <statement> }* 
 							cookedpotato
+<call statement>        ::= call <identifier> [ ( (( <expression> | <variable> )) 
+                                            { , (( <expression> | <variable> )) }* ) ] .
+<return statement>      ::= return .                                  				|| ***SIMPLIFIED***
 <expression>		    ::= <conjunction> { (( OR | NOR | XOR )) <conjunction> } .
 <conjunction>           ::= <negation> { (( AND | NAND )) <negation> }* .
 <negation>              ::= [ NOT ] <comparison>			
@@ -71,6 +84,9 @@ NOTE: ***SIMPLIFIED*** means that the syntax is completed for the current versio
 								{ <statement> }* 
 							cookedpotato
 ************* Only POTATO Version 5 *************
+<for2 statement>        ::= for2 <expression> to <expression> [ by <expression> ]
+								{ <statement> }* 
+							cookedpotato
 <choose statement>      ::= choose [ (( ONE | ALL )) ]
 								{ when <expression> : { <statement> }* }*
 								[ else { <statement> }* ]
