@@ -1,0 +1,284 @@
+;--------------------------------------------------------------
+; Potato1.stm
+;--------------------------------------------------------------
+; SVC numbers
+SVC_DONOTHING          EQU       0D0                  ; force context switch
+SVC_TERMINATE          EQU       0D1
+SVC_READ_INTEGER       EQU       0D10
+SVC_WRITE_INTEGER      EQU       0D11
+SVC_READ_FLOAT         EQU       0D20
+SVC_WRITE_FLOAT        EQU       0D21
+SVC_READ_BOOLEAN       EQU       0D30
+SVC_WRITE_BOOLEAN      EQU       0D31
+SVC_READ_CHARACTER     EQU       0D40
+SVC_WRITE_CHARACTER    EQU       0D41
+SVC_WRITE_ENDL         EQU       0D42
+SVC_READ_STRING        EQU       0D50
+SVC_WRITE_STRING       EQU       0D51
+SVC_INITIALIZE_HEAP    EQU       0D90
+SVC_ALLOCATE_BLOCK     EQU       0D91
+SVC_DEALLOCATE_BLOCK   EQU       0D92
+
+                       ORG       0X0000
+
+                       JMP       PROGRAMMAIN
+;    1 || Potato1.p by Auroxsus
+;    2 || French Fry Productions
+;    3 || Description: testing medium function
+;    4 ||-----------------------------------------------------------
+;    5 
+;    6 
+;    7 CON INT F0 = 0.
+;    8 CON INT F1 = 1.
+;    9 
+;   10 FUNCTION Fibonacci: INT(INT i)
+;   11    IF   ( i == 0 ) 
+; **** =========
+; **** FUNCTION module (  10)
+; **** =========
+Fibonacci              EQU       *
+                       PUSHSP                         ; set FUNCTION module FB = SP-on-entry + 2(n+3)
+                       PUSH      #0D8                 ; n = 1
+                       ADDI      
+                       POPFB     
+                       PUSHSP                         ; FUNCTION module SP = SP-on-entry + 2m
+                       PUSH      #0D0                 ; m = 0
+                       SUBI      
+                       POPSP     
+; statements to initialize frame data (if necessary)
+                       CALL      MODULEBODY0010
+                       PUSHFB                         ; restore caller's SP-on-entry = FB - 2(n+3)
+                       PUSH      #0D8
+                       SUBI      
+                       POPSP     
+                       RETURN                         ; return to caller
+
+MODULEBODY0010         EQU       *
+; statements in body of FUNCTION module (*MUST* execute RETURN)
+; **** IF statement (  11)
+                       PUSH      FB:0D1
+;   12       RETURN( F0 ).
+                       PUSH      #0D0
+                       CMPI      
+                       JMPE      T0020
+                       PUSH      #0X0000
+                       JMP       E0030
+T0020                  PUSH      #0XFFFF
+E0030                  EQU       *
+                       SETT      
+                       DISCARD   #0D1
+                       JMPNT     I0050
+; **** RETURN statement (  12)
+;   13    ELIF ( i == 1 ) 
+                       PUSH      SB:0D0
+                       POP       FB:0D0               ; pop RETURN expression into function return value
+                       RETURN    
+                       JMP       E0040
+I0050                  EQU       *
+                       PUSH      FB:0D1
+;   14       RETURN( F1 ).
+                       PUSH      #0D1
+                       CMPI      
+                       JMPE      T0060
+                       PUSH      #0X0000
+                       JMP       E0070
+T0060                  PUSH      #0XFFFF
+E0070                  EQU       *
+                       SETT      
+                       DISCARD   #0D1
+                       JMPNT     I0080
+; **** RETURN statement (  14)
+;   15    ELSE
+                       PUSH      SB:0D1
+;   16       RETURN( Fibonacci(i-2)+Fibonacci(i-1) ).
+                       POP       FB:0D0               ; pop RETURN expression into function return value
+                       RETURN    
+                       JMP       E0040
+I0080                  EQU       *
+; **** RETURN statement (  16)
+                       PUSH      #0X0000              ; reserve space for function return value
+                       PUSH      FB:0D1
+                       PUSH      #0D2
+                       SUBI      
+                       PUSHFB    
+                       CALL      Fibonacci
+                       POPFB     
+                       DISCARD   #0D1
+                       PUSH      #0X0000              ; reserve space for function return value
+                       PUSH      FB:0D1
+;   17    COOKEDPOTATO
+                       PUSH      #0D1
+                       SUBI      
+;   18 COOKEDPOTATO
+                       PUSHFB    
+                       CALL      Fibonacci
+                       POPFB     
+                       DISCARD   #0D1
+                       ADDI      
+                       POP       FB:0D0               ; pop RETURN expression into function return value
+                       RETURN    
+;   19 
+;   20 POTATO
+;   21    VAR INT i, INT n.
+E0040                  EQU       *
+                       PUSH      #0D18
+                       PUSH      #0D3
+                       JMP       HANDLERUNTIMEERROR
+; **** =========
+; **** END (  18)
+; **** =========
+; **** =========
+; **** PROGRAM module (  20)
+; **** =========
+PROGRAMMAIN            EQU       *
+                       PUSH      #RUNTIMESTACK        ; set SP
+                       POPSP     
+                       PUSHA     STATICDATA           ; set SB
+                       POPSB     
+                       PUSH      #HEAPBASE            ; initialize heap
+                       PUSH      #HEAPSIZE
+                       SVC       #SVC_INITIALIZE_HEAP
+                       CALL      PROGRAMBODY0090
+                       PUSHA     SB:0D2
+                       SVC       #SVC_WRITE_STRING
+                       SVC       #SVC_WRITE_ENDL
+                       PUSH      #0D0                 ; terminate with status = 0
+                       SVC       #SVC_TERMINATE
+
+PROGRAMBODY0090        EQU       *
+;   22 
+;   23    DO
+;   24       INPUT "n? " n.
+; **** DO-WHILE statement (  23)
+;   25    WHILE ( n <> -1 )
+D0100                  EQU       *
+; **** INPUT statement (  24)
+                       PUSHA     SB:0D32
+                       SVC       #SVC_WRITE_STRING
+                       PUSHA     SB:0D31
+                       SVC       #SVC_READ_INTEGER
+                       POP       @SP:0D1
+                       DISCARD   #0D1
+                       PUSH      SB:0D31
+;   26       FOR ( i=0. i<n. i=i+1.)
+                       PUSH      #0D1
+                       NEGI      
+                       CMPI      
+                       JMPNE     T0120
+                       PUSH      #0X0000
+                       JMP       E0130
+T0120                  PUSH      #0XFFFF
+E0130                  EQU       *
+                       SETT      
+                       DISCARD   #0D1
+                       JMPNT     E0110
+; **** FOR statement (  26)
+; **** assignment statement (  26)
+                       PUSHA     SB:0D30
+                       PUSH      #0D0
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+                       PUSH      #0X0000              ; doS3 := FALSE
+                       JMP       S30150               ; doS3
+E20140                 EQU       *
+                       PUSH      SB:0D30
+                       PUSH      SB:0D31
+                       CMPI      
+                       JMPL      T0180
+                       PUSH      #0X0000
+                       JMP       E0190
+T0180                  PUSH      #0XFFFF
+E0190                  EQU       *
+                       SETT                           ; e2
+                       DISCARD   #0D1                 ; (empty)
+                       JMPT      C0160                ; (empty)
+                       JMP       E0170                ; (empty)
+S30150                 EQU       *                    ; doS3
+                       SETT                           ; doS3
+                       DISCARD   #0D1                 ; (empty)
+                       JMPNT     E20140               ; (empty)
+; **** assignment statement (  26)
+                       PUSHA     SB:0D30
+;   27          FRY "Fibonacci(",i,")     = ",Fibonacci(i),PEEL.
+                       PUSH      SB:0D30
+                       PUSH      #0D1
+                       ADDI      
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+                       JMP       E20140               ; (empty)
+C0160                  EQU       *
+; **** PRINT statement (  27)
+                       PUSHA     SB:0D37
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      SB:0D30
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D49
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0X0000              ; reserve space for function return value
+                       PUSH      SB:0D30
+;   28       COOKEDPOTATO
+                       PUSHFB    
+                       CALL      Fibonacci
+                       POPFB     
+                       DISCARD   #0D1
+                       SVC       #SVC_WRITE_INTEGER
+;   29    COOKEDPOTATO
+                       SVC       #SVC_WRITE_ENDL
+;   30 COOKEDPOTATO
+;   31 
+                       PUSH      #0XFFFF              ; doS3 := TRUE
+                       JMP       S30150               ; doS3
+E0170                  EQU       *
+                       JMP       D0100
+E0110                  EQU       *
+                       RETURN    
+; **** =========
+; **** END (  30)
+; **** =========
+
+;------------------------------------------------------------
+; Issue "Run-time error #X..X near line #X..X" to handle run-time errors
+;------------------------------------------------------------
+HANDLERUNTIMEERROR     EQU       *
+                       SVC       #SVC_WRITE_ENDL
+                       PUSHA     SB:0D59
+                       SVC       #SVC_WRITE_STRING
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D77
+                       SVC       #SVC_WRITE_STRING
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+                       PUSH      #0D1
+                       SVC       #SVC_TERMINATE
+
+;------------------------------------------------------------
+; Static allocation of global data and PROGRAM module data
+;------------------------------------------------------------
+STATICDATA             EQU       *
+                       DW        0ú‘qü               ; F0
+                       DW        0D0                  ; F1
+                       DS        "Normal program termination"
+                       RW        0D1                  ; i
+                       RW        0D1                  ; n
+                       DS        "n? "
+                       DS        "Fibonacci("
+                       DS        ")     = "
+                       DS        "Run-time error #"
+                       DS        " near line #"
+
+;------------------------------------------------------------
+; Heap space for dynamic memory allocation (to support future POTATO syntax)
+;------------------------------------------------------------
+HEAPBASE               EQU       *
+HEAPSIZE               EQU       0B0001000000000000   ; 8K bytes = 4K words
+
+;------------------------------------------------------------
+; Run-time stack
+;------------------------------------------------------------
+RUNTIMESTACK           EQU       0XFFFE
