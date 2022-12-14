@@ -1,0 +1,410 @@
+ "Potato2.p" Tue Dec  6 01:00:10 2022 Page 1
+Line Source Line
+---- -------------------------------------------------------------------------------
+   1 || Potato2.p by Auroxsus
+   2 || French Fry Productions
+   3 || Description: testing complex functions
+   4 ||-----------------------------------------------------------
+   5 
+   6 var int x, int y.
+   7 
+   8 function F0:int()
+===================================================================================================
+Contents of identifier table after compilation of global data definitions
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+===================================================================================================
+   9    return( 1-1 ).
+===================================================================================================
+Contents of identifier table after compilation of FUNCTION module header
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F0                   F0
+===================================================================================================
+===================================================================================================
+Contents of identifier table after compilation of FUNCTION local data definitions
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F0                   F0
+===================================================================================================
+  10 cookedpotato
+  11 
+  12 function F1:int(IN int x)
+===================================================================================================
+Contents of identifier table at end of compilation of FUNCTION module definition
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F0                   F0
+===================================================================================================
+  13    var int y.
+  14 
+  15    y = x+1.
+===================================================================================================
+Contents of identifier table after compilation of FUNCTION module header
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F0                   F0
+  4     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F1                   F1
+  5     1 INTEGER            0 IN_PARAMETER               FB:0D1               x
+===================================================================================================
+===================================================================================================
+Contents of identifier table after compilation of FUNCTION local data definitions
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+ "Potato2.p" Tue Dec  6 01:00:10 2022 Page 2
+Line Source Line
+---- -------------------------------------------------------------------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F0                   F0
+  4     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F1                   F1
+  5     1 INTEGER            0 IN_PARAMETER               FB:0D1               x
+  6     1 INTEGER            0 SUBPROGRAMMODULE_VARIABLE  FB:0D4               y
+===================================================================================================
+  16    return( y ).
+  17 cookedpotato
+  18 
+  19 function F2:int(IN int x)
+===================================================================================================
+Contents of identifier table at end of compilation of FUNCTION module definition
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F0                   F0
+  4     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F1                   F1
+  5     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+===================================================================================================
+  20    var int y.
+  21 
+  22    return( F0() + F1(x) ).
+===================================================================================================
+Contents of identifier table after compilation of FUNCTION module header
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F0                   F0
+  4     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F1                   F1
+  5     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+  6     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F2                   F2
+  7     1 INTEGER            0 IN_PARAMETER               FB:0D1               x
+===================================================================================================
+===================================================================================================
+Contents of identifier table after compilation of FUNCTION local data definitions
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F0                   F0
+  4     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F1                   F1
+  5     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+  6     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F2                   F2
+  7     1 INTEGER            0 IN_PARAMETER               FB:0D1               x
+  8     1 INTEGER            0 SUBPROGRAMMODULE_VARIABLE  FB:0D4               y
+===================================================================================================
+  23 cookedpotato
+  24 
+  25 function F3:int(int x)      || F3() is *recursive*
+===================================================================================================
+Contents of identifier table at end of compilation of FUNCTION module definition
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F0                   F0
+  4     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F1                   F1
+ "Potato2.p" Tue Dec  6 01:00:10 2022 Page 3
+Line Source Line
+---- -------------------------------------------------------------------------------
+  5     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+  6     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F2                   F2
+  7     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+===================================================================================================
+  26    if ( x == 0 )
+===================================================================================================
+Contents of identifier table after compilation of FUNCTION module header
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F0                   F0
+  4     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F1                   F1
+  5     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+  6     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F2                   F2
+  7     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+  8     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F3                   F3
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               x
+===================================================================================================
+===================================================================================================
+Contents of identifier table after compilation of FUNCTION local data definitions
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F0                   F0
+  4     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F1                   F1
+  5     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+  6     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F2                   F2
+  7     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+  8     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F3                   F3
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               x
+===================================================================================================
+  27       return( 1 ).
+  28    else
+  29       return( 1 + F3(x-1) ).
+  30    cookedpotato
+  31 cookedpotato
+  32 
+  33 function F4:int(int x1, int x2, int x3)
+===================================================================================================
+Contents of identifier table at end of compilation of FUNCTION module definition
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F0                   F0
+  4     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F1                   F1
+  5     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+  6     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F2                   F2
+  7     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+  8     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F3                   F3
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+===================================================================================================
+  34    return( x1*x2*x3 ).
+===================================================================================================
+Contents of identifier table after compilation of FUNCTION module header
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+ "Potato2.p" Tue Dec  6 01:00:10 2022 Page 4
+Line Source Line
+---- -------------------------------------------------------------------------------
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F0                   F0
+  4     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F1                   F1
+  5     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+  6     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F2                   F2
+  7     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+  8     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F3                   F3
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F4                   F4
+ 11     1 INTEGER            0 IN_PARAMETER               FB:0D1               x1
+ 12     1 INTEGER            0 IN_PARAMETER               FB:0D2               x2
+ 13     1 INTEGER            0 IN_PARAMETER               FB:0D3               x3
+===================================================================================================
+===================================================================================================
+Contents of identifier table after compilation of FUNCTION local data definitions
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F0                   F0
+  4     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F1                   F1
+  5     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+  6     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F2                   F2
+  7     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+  8     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F3                   F3
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F4                   F4
+ 11     1 INTEGER            0 IN_PARAMETER               FB:0D1               x1
+ 12     1 INTEGER            0 IN_PARAMETER               FB:0D2               x2
+ 13     1 INTEGER            0 IN_PARAMETER               FB:0D3               x3
+===================================================================================================
+  35 cookedpotato
+  36 
+  37 function F5:int(IN int x,IN int y)
+===================================================================================================
+Contents of identifier table at end of compilation of FUNCTION module definition
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F0                   F0
+  4     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F1                   F1
+  5     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+  6     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F2                   F2
+  7     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+  8     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F3                   F3
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F4                   F4
+ 11     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 12     1 INTEGER            0 IN_PARAMETER               FB:0D2               
+ 13     1 INTEGER            0 IN_PARAMETER               FB:0D3               
+===================================================================================================
+  38    return( F3(x) + F2(y) ).
+===================================================================================================
+Contents of identifier table after compilation of FUNCTION module header
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F0                   F0
+ "Potato2.p" Tue Dec  6 01:00:10 2022 Page 5
+Line Source Line
+---- -------------------------------------------------------------------------------
+  4     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F1                   F1
+  5     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+  6     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F2                   F2
+  7     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+  8     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F3                   F3
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F4                   F4
+ 11     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 12     1 INTEGER            0 IN_PARAMETER               FB:0D2               
+ 13     1 INTEGER            0 IN_PARAMETER               FB:0D3               
+ 14     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F5                   F5
+ 15     1 INTEGER            0 IN_PARAMETER               FB:0D1               x
+ 16     1 INTEGER            0 IN_PARAMETER               FB:0D2               y
+===================================================================================================
+===================================================================================================
+Contents of identifier table after compilation of FUNCTION local data definitions
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F0                   F0
+  4     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F1                   F1
+  5     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+  6     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F2                   F2
+  7     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+  8     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F3                   F3
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F4                   F4
+ 11     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 12     1 INTEGER            0 IN_PARAMETER               FB:0D2               
+ 13     1 INTEGER            0 IN_PARAMETER               FB:0D3               
+ 14     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F5                   F5
+ 15     1 INTEGER            0 IN_PARAMETER               FB:0D1               x
+ 16     1 INTEGER            0 IN_PARAMETER               FB:0D2               y
+===================================================================================================
+  39 cookedpotato
+  40 
+  41 procedure P1(IN int x1,OUT int x2,IO int x3,REF int x4)
+===================================================================================================
+Contents of identifier table at end of compilation of FUNCTION module definition
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F0                   F0
+  4     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F1                   F1
+  5     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+  6     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F2                   F2
+  7     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+  8     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F3                   F3
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F4                   F4
+ 11     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 12     1 INTEGER            0 IN_PARAMETER               FB:0D2               
+ 13     1 INTEGER            0 IN_PARAMETER               FB:0D3               
+ 14     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F5                   F5
+ 15     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 16     1 INTEGER            0 IN_PARAMETER               FB:0D2               
+===================================================================================================
+  42    fry "P1",peel.
+ "Potato2.p" Tue Dec  6 01:00:10 2022 Page 6
+Line Source Line
+---- -------------------------------------------------------------------------------
+===================================================================================================
+Contents of identifier table after compilation of PROCEDURE module header
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F0                   F0
+  4     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F1                   F1
+  5     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+  6     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F2                   F2
+  7     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+  8     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F3                   F3
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F4                   F4
+ 11     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 12     1 INTEGER            0 IN_PARAMETER               FB:0D2               
+ 13     1 INTEGER            0 IN_PARAMETER               FB:0D3               
+ 14     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F5                   F5
+ 15     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 16     1 INTEGER            0 IN_PARAMETER               FB:0D2               
+ 17     0                    0 PROCEDURE_SUBPROGRAMMODULE P1                   P1
+ 18     1 INTEGER            0 IN_PARAMETER               FB:0D0               x1
+ 19     1 INTEGER            0 OUT_PARAMETER              FB:0D2               x2
+ 20     1 INTEGER            0 IO_PARAMETER               FB:0D4               x3
+ 21     1 INTEGER            0 REF_PARAMETER              @FB:0D5              x4
+===================================================================================================
+===================================================================================================
+Contents of identifier table after compilation of PROCEDURE local data definitions
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F0                   F0
+  4     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F1                   F1
+  5     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+  6     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F2                   F2
+  7     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+  8     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F3                   F3
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F4                   F4
+ 11     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 12     1 INTEGER            0 IN_PARAMETER               FB:0D2               
+ 13     1 INTEGER            0 IN_PARAMETER               FB:0D3               
+ 14     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F5                   F5
+ 15     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 16     1 INTEGER            0 IN_PARAMETER               FB:0D2               
+ 17     0                    0 PROCEDURE_SUBPROGRAMMODULE P1                   P1
+ 18     1 INTEGER            0 IN_PARAMETER               FB:0D0               x1
+ 19     1 INTEGER            0 OUT_PARAMETER              FB:0D2               x2
+ 20     1 INTEGER            0 IO_PARAMETER               FB:0D4               x3
+ 21     1 INTEGER            0 REF_PARAMETER              @FB:0D5              x4
+===================================================================================================
+  43    x2 = F3(x1).   fry "x2=",x2,peel.
+  44    x3 = x3+x2+x4. fry "x3=",x3,peel.
+  45    x4 = x3.       fry "x4=",x4,peel.
+  46 cookedpotato 
+  47 
+  48 PROGRAM
+  49    var int x, int i.
+===================================================================================================
+ "Potato2.p" Tue Dec  6 01:00:10 2022 Page 7
+Line Source Line
+---- -------------------------------------------------------------------------------
+Contents of identifier table at end of compilation of PROCEDURE module definition
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               y
+  3     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F0                   F0
+  4     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F1                   F1
+  5     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+  6     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F2                   F2
+  7     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+  8     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F3                   F3
+  9     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 10     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F4                   F4
+ 11     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 12     1 INTEGER            0 IN_PARAMETER               FB:0D2               
+ 13     1 INTEGER            0 IN_PARAMETER               FB:0D3               
+ 14     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F5                   F5
+ 15     1 INTEGER            0 IN_PARAMETER               FB:0D1               
+ 16     1 INTEGER            0 IN_PARAMETER               FB:0D2               
+ 17     0                    0 PROCEDURE_SUBPROGRAMMODULE P1                   P1
+ 18     1 INTEGER            0 IN_PARAMETER               FB:0D0               
+ 19     1 INTEGER            0 OUT_PARAMETER              FB:0D2               
+ 20     1 INTEGER            0 IO_PARAMETER               FB:0D4               
+ 21     1 INTEGER            0 REF_PARAMETER              @FB:0D5              
+===================================================================================================
+     At (  48:  0) Expecting PROGRAM
+POTATO compiler ending with a potato famine!
+
+******* POTATO was cooked thoroughly
