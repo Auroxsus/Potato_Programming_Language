@@ -1,0 +1,37 @@
+ "Potato.p" Thu Dec  8 15:16:01 2022 Page 1
+Line Source Line
+---- -------------------------------------------------------------------------------
+   1 || Potato.p by Auroxsus
+   2 || French Fry Productions
+   3 || Description: testing small function
+   4 ||-----------------------------------------------------------
+   5 
+   6 
+   7 VAR INT global.
+   8 
+   9 FUNCTION F: INT()
+===================================================================================================
+Contents of identifier table after compilation of global data definitions
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               global
+===================================================================================================
+  10    global = 1.                        || causes static semantic error!
+===================================================================================================
+Contents of identifier table after compilation of FUNCTION module header
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               global
+  2     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F                    F
+===================================================================================================
+===================================================================================================
+Contents of identifier table after compilation of FUNCTION local data definitions
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               global
+  2     0 INTEGER            0 FUNCTION_SUBPROGRAMMODULE  F                    F
+===================================================================================================
+     At (  10:  3) FUNCTION may not modify global variable
+POTATO compiler ending with a potato famine!
+
+******* POTATO was cooked thoroughly
