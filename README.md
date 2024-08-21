@@ -1,36 +1,63 @@
 # Potato_Programming_Language
-Also known as PotatoC, or rather Potato Chip, as it takes a majority of the syntax from the C programming language.
 
-Ultimatly, there are only slight changes made from the reader to scanner and scanner to parser. Parser to compilier will start off with _light_ changes as well but I hope it will spiral into a complex compiler that will be able to translate the entire POTATO language, or at least as much as I can develop.
+>[!CAUTION]
+>### ***[UPDATE: August 20th, 2024]***
+>After a year away from this project, I am returning with renewed enthusiasm and fresh inspiration. I will be reviewing and updating the archived files to align with new syntax and design choices. The original archived files will be preserved, and a new folder will be created for the updated versions. Please note that no additional functionality will be added until I have caught up with the current progress.
 
-As I am continously improving and adding new features, it will be updated in the compiler code. There are no plans to create a sperate updated PotatoXScanner.cpp, PotatoXParcer.cpp, PotatoXCompilier.cpp. The previous versions and executable files will stay in the repository and in the "Previous_Versions" folder for historical purposes. 
+---
 
-These are for **MY** understanding of how my compilier works but to get a 'deeper look' into the logic of each, feel free to browse the attached wiki where I attempt to explain additions and new functions introduced in the source code. 
+PotatoC, also known as Potato Chip, is inspired by the syntax of the C programming language. While the core syntax remains familiar, PotatoC introduces minor modifications and improvements throughout the compiler stages.
 
-## File Decriptions
-**Potato.h** is the core of our project, the **reader-and-lister** classes and grows along with the compilier.
+**Development Phases:**
 
-**PotatoCompiler.cpp** is the source file of our project and is updated as additional features and functions are added to the POTATO programming language.
+- **Reader to Scanner:** Minor adjustments are made to adapt the syntax of PotatoC from the C language.
+- **Scanner to Parser:** Similar incremental changes are implemented to refine the parsing process.
+- **Parser to Compiler:** Initially, the changes from parser to compiler are minimal, but the goal is to evolve the compiler into a sophisticated tool capable of translating the complete PotatoC language. This evolution will be a gradual process, with complexity increasing over time.
 
-**PotatoCompilier.exe** is the current version of the "compilier" for the POTATO programming language that is in use. It is a combination of PotatoComplier.cpp + Potato.h
+**Version Management:**
+
+- As new features and improvements are added, they will be incorporated into the compiler code.
+- Previous versions of the compiler, including PotatoXScanner.cpp, PotatoXParser.cpp, and PotatoXCompiler.cpp, will remain in the repository under the "Previous_Versions" folder for reference and historical purposes.
+
+**Documentation:**
+
+- For a detailed understanding of the compiler’s logic and the latest updates, please refer to the attached wiki. The wiki provides explanations of recent additions and functions introduced in the source code.
+
+---
+
+## File Descriptions
+- **Potato.h:** This header file contains the core definitions and declarations for our project. It includes the **Reader** and **Lister** classes and evolves alongside the compiler.
+- **PotatoCompiler.cpp:** This source file serves as the primary implementation for the project. It is updated with each addition of new features and functions to the POTATO programming language.
+- **PotatoCompiler.exe:** This executable represents the current version of the POTATO compiler. It is created by compiling **PotatoCompiler.cpp** together with **Potato.h**.
+
+---
 
 ## Language Capabilities
-* specify unnamed literal constants with data types integer, boolean, and string (strings are usually used to label output);
-* name program variables and modules with identifiers;
-* define scalar variables for data types integer and boolean;
-* define 1-dimensional array variables for data types integer and boolean;
-* express computation using expression syntax that makes use of an “interesting” collection of unary and binary operators for operands with data types integer and boolean;
-* specify an assignment-statement;
-* specify several “classic” structured flow-of-control statements, including, (1) an if-statement;  (2) a bounded-loop-statement ; and (3) an unbounded pretest- and/or posttest-loop-statement;
-* define the main program module;
-* specify assertions;
-* define directly-recursive procedure subprogram modules with IN, OUT, IO parameters;
-* specify a call-procedure-module-statement (with parameter passing);
-* specify a return-from-procedure-module-statement;
-* define directly-recursive, pure function subprogram modules with IN parameters;
-* specify reference-to-function-module syntax as part of expression (with parameter passing);
-* specify a return-from-function-module-statement;
-* specify an input-statement used for console text input;
-* specify an output-statement used for console formatted-text output; and
-* include comments.
-
+### 1. **Basic Data Types and Constants**
+   - Specify unnamed literal constants with data types integer, boolean, and string.
+### 2. **Identifiers and Variable Declarations**
+   - Name program variables and modules with identifiers.
+   - Define scalar variables for data types integer and boolean.
+   - Define 1-dimensional array variables for data types integer and boolean.
+### 3. **Expressions and Computation**
+   - Express computation using expression syntax with a collection of unary and binary operators for integer and boolean operands.
+   - Specify an assignment statement.
+### 4. **Control Flow**
+   - Specify structured flow-of-control statements, including:
+     - If-statement
+     - Bounded-loop-statement
+     - Unbounded pretest and/or posttest-loop-statement.
+### 5. **Program Structure**
+   - Define the main program module.
+   - Specify assertions.
+   - Include comments.
+### 6. **Procedures and Functions**
+   - Define directly-recursive procedure subprogram modules with IN, OUT, IO parameters.
+   - Specify a call-procedure-module statement with parameter passing.
+   - Specify a return-from-procedure-module statement.
+   - Define directly-recursive, pure function subprogram modules with IN parameters.
+   - Specify reference-to-function-module syntax as part of an expression with parameter passing.
+   - Specify a return-from-function-module statement.
+### 7. **Input and Output**
+   - Specify an input-statement for console text input.
+   - Specify an output-statement for console formatted-text output.
