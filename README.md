@@ -6,7 +6,9 @@
 
 ---
 
-PotatoC, also known as Potato Chip, is inspired by the syntax of the C programming language. While the core syntax remains familiar, PotatoC introduces minor modifications and improvements throughout the compiler stages.
+<img src="https://github.com/user-attachments/assets/654f1cae-8cf5-4b56-a642-1269b11243c7" align="left" width="300" height=auto/>
+
+Potato Chip, also known as PotatoC or Potato Programming Language, is inspired by the code structure of C and the syntax of Python. While the core syntax remains familiar, Potato Chip introduces the thematic twist of potato puns.
 
 **Development Phases:**
 
@@ -27,8 +29,8 @@ PotatoC, also known as Potato Chip, is inspired by the syntax of the C programmi
 
 ## File Descriptions
 - **Potato.h:** This header file contains the core definitions and declarations for our project. It includes the **Reader** and **Lister** classes and evolves alongside the compiler.
-- **PotatoCompiler.cpp:** This source file serves as the primary implementation for the project. It is updated with each addition of new features and functions to the POTATO programming language.
-- **PotatoCompiler.exe:** This executable represents the current version of the POTATO compiler. It is created by compiling **PotatoCompiler.cpp** together with **Potato.h**.
+- **PotatoCompiler.cpp:** This source file serves as the primary implementation for the project. It is updated with each addition of new features and functions to Potato Chip.
+- **PotatoCompiler.exe:** This executable represents the current version of the Potato Chip Compiler. It is created by compiling **PotatoCompiler.cpp** together with **Potato.h**.
 
 ---
 
