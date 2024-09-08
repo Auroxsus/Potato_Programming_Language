@@ -77,12 +77,14 @@ class LISTER
 		void ListTopOfPageHeader();
 };
 
+// Constructor & Deconstructor
 LISTER::LISTER(const int LINESPERPAGE): LINESPERPAGE(LINESPERPAGE)
 {
 	pageNumber = 0;
 	linesOnPage = 0;
 }
 
+// Clean Up: Closes the file, if it is open and flushes away any pending output
 LISTER::~LISTER()
 {
 	if ( LIST.is_open() ) 
@@ -92,6 +94,7 @@ LISTER::~LISTER()
 	}
 }
 
+// Opens the output file and sets up the initial page header
 void LISTER::OpenFile(const char sourceFileName[])
 {
 	char fullFileName[80+1];
@@ -99,12 +102,14 @@ void LISTER::OpenFile(const char sourceFileName[])
 	strcpy(this->sourceFileName,sourceFileName);
 	strcat(this->sourceFileName,".p");  // File extention
 	strcpy(fullFileName,sourceFileName);
-	strcat(fullFileName,".list");
+	strcat(fullFileName,".list"); // File extension for generated output
 	LIST.open(fullFileName,ios::out);
+	// Opens the file for writing and throws an exception if the file cannot be opened
 	if ( !LIST.is_open() ) throw( POTATOEXCEPTION("Unable to open list file") );
 	ListTopOfPageHeader();
 }
 
+// Lists a source code line, including the line number. Starts a new page if the current page is full
 void LISTER::ListSourceLine(int sourceLineNumber,const char sourceLine[])
 {
 	if ( linesOnPage >= LINESPERPAGE )
@@ -116,6 +121,7 @@ void LISTER::ListSourceLine(int sourceLineNumber,const char sourceLine[])
 	linesOnPage++;
 }
 
+// Lists an informational line. Also starts a new page if needed.
 void LISTER::ListInformationLine(const char information[])
 {
 	if ( linesOnPage >= LINESPERPAGE )
@@ -127,7 +133,8 @@ void LISTER::ListInformationLine(const char information[])
 	linesOnPage++;
 }
 
-// FROM http://www.cplusplus.com/reference/ctime/asctime/
+/* Outputs the header for a new page, including the source file name, date, time, and page number
+FROM http://www.cplusplus.com/reference/ctime/asctime/ */
 char* LISTER::asctime(const struct tm *timeptr)
 {
 	static const char wday_name[][4] = {
@@ -157,9 +164,9 @@ void LISTER::ListTopOfPageHeader()
 	time_t rawtime;
 	struct tm * timeinfo;
 
-	time ( &rawtime );
-	timeinfo = localtime ( &rawtime );
-
+	time ( &rawtime ); // get current time
+	timeinfo = localtime ( &rawtime ); // convert to local time
+	
 	pageNumber++;
 	LIST << FF  << setw(2) << '"' << sourceFileName << '"' << asctime(timeinfo) << " Page " << pageNumber << endl;
 	LIST << "Line Source Line" << endl;
@@ -474,7 +481,8 @@ const char IDENTIFIERTABLE::DATATYPENAMES[][9+1] =
 {
 	"NOTYPE",
 	"INTEGER",
-	"BOOLEAN"
+	"BOOLEAN",
+	"FLOAT"
 };
 
 IDENTIFIERTABLE::IDENTIFIERTABLE(LISTER *lister,int capacity)
@@ -962,7 +970,7 @@ int CODE::LabelSuffix()
 
 /*			 1         2         3         4         5         6         7         8
 	^1234567890123456789012 ^56789012 ^5678901234567890123 ^6789012345678901234567890 
-	^ is a pre-established Dr. Hanna tab stop */
+	^ is a pre-established tab stop */
 void CODE::EmitFormattedLine(const char label[],const char mnemonic[],const char operand[],const char comment[])
 {
 	char line[110+1];
