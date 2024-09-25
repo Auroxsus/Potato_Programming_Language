@@ -1,6 +1,6 @@
 |[ 
 ||	Potato.p
-||	Purpose: Potato Chip testing of comments and string literals
+||	Purpose: Potato Chip testing of a simple program 
 ]|
 
 mainCrisp {
