@@ -1,0 +1,26 @@
+ "Potato1.p" Wed Sep 25 21:15:03 2024 Page 1
+Line Source Line
+---- -------------------------------------------------------------------------------
+   1 |[ 
+   2 ||	Potato.p
+   3 ||	Purpose: Potato Chip demonstration how to use different string literal formats and newline handling
+   4 ]|
+   5 
+   6 crisp mainCrisp () {
+     >POTATOProgram
+       >CRISPDefinition
+   7 	bite " \"Hello, World! Ready to mash some spuds?\" \n "
+   8 	bite ' \" Hello, World! \" ' endl
+         >Statement
+           >PRINTStatement
+   9 }
+  10 
+           <PRINTStatement
+         <Statement
+         >Statement
+           >PRINTStatement
+           <PRINTStatement
+         <Statement
+       <CRISPDefinition
+     <POTATOProgram
+******* POTATO was cooked thoroughly

@@ -3,6 +3,6 @@
 ||	Purpose: Potato Chip testing of a simple program 
 ]|
 
-mainCrisp {
+crisp mainCrisp () {
 
 }

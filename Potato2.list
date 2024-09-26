@@ -1,0 +1,51 @@
+ "Potato2.p" Wed Sep 25 21:15:11 2024 Page 1
+Line Source Line
+---- -------------------------------------------------------------------------------
+   1 |[ 
+   2 ||	Potato.p
+   3 ||	Purpose: Potato Chip showcasing how to format and output strings, and handle newlines.
+   4 ]|
+   5 crisp mainCrisp () {
+     >POTATOProgram
+       >CRISPDefinition
+   6 
+   7 bite "Hello, world!\n"
+   8 bite "Value: %i\n" value
+         >Statement
+           >PRINTStatement
+   9 bite 'Value: ' value endl
+           <PRINTStatement
+         <Statement
+         >Statement
+           >PRINTStatement
+           <PRINTStatement
+         <Statement
+         >Statement
+           >PRINTStatement
+  10 bite "Score: %i Name: %s\n" score name
+           <PRINTStatement
+         <Statement
+         >Statement
+           >PRINTStatement
+  11 bite 'Score: ' score ' Name: ' name endl
+           <PRINTStatement
+         <Statement
+         >Statement
+           >PRINTStatement
+  12 bite "\n"
+  13 bite endl
+           <PRINTStatement
+         <Statement
+         >Statement
+           >PRINTStatement
+  14 
+  15 }
+           <PRINTStatement
+         <Statement
+         >Statement
+           >PRINTStatement
+           <PRINTStatement
+         <Statement
+       <CRISPDefinition
+     <POTATOProgram
+******* POTATO was cooked thoroughly

@@ -1,131 +1,17 @@
- "Potato.p" Sun Sep  8 15:43:46 2024 Page 1
+ "Potato.p" Wed Sep 25 21:14:56 2024 Page 1
 Line Source Line
 ---- -------------------------------------------------------------------------------
    1 |[ 
-At (   1:  0) begin block comment depth = 1
    2 ||	Potato.p
-   3 ||	Purpose: Potato Chip testing of comments a nd string literals
+   3 ||	Purpose: Potato Chip testing of a simple program 
    4 ]|
    5 
-At (   4:  0)   end block comment depth = 1
-   6 |[|[ 
-At (   6:  0) begin block comment depth = 1
-At (   6:  2) begin block comment depth = 2
-   7    |["eat" these |[ quadruply nested ]| block comments ]|
-At (   7:  3) begin block comment depth = 3
-At (   7: 17) begin block comment depth = 4
-At (   7: 37)   end block comment depth = 4
-   8 ]|]|
-At (   7: 55)   end block comment depth = 3
-At (   8:  0)   end block comment depth = 2
+   6 crisp mainCrisp () {
+     >POTATOProgram
+       >CRISPDefinition
+   7 
+   8 }
    9 
-At (   8:  2)   end block comment depth = 1
-  10 || "eat" the empty block comment on the next line
-At (  10:  0) begin line comment
-  11 |[]|
-At (  11:  0) begin block comment depth = 1
-  12 
-At (  11:  2)   end block comment depth = 1
-  13 || "eat" this "interesting" sequence of comments
-At (  13:  0) begin line comment
-  14 |[ block comment #1 ]||[ followed by block comment #2]||| followed by line comment #3
-At (  14:  0) begin block comment depth = 1
-At (  14: 20)   end block comment depth = 1
-At (  14: 22) begin block comment depth = 1
-At (  14: 53)   end block comment depth = 1
-At (  14: 55) begin line comment
-  15 
-  16 |[ "eat" the 4 tabs characters on the next line ]|
-At (  16:  0) begin block comment depth = 1
-  17 
-At (  16: 48)   end block comment depth = 1
-  18 || reserved-word terminals
-At (  18:  0) begin line comment
-  19 BITE ENDL
-At (  19:  0) token =         BITE lexeme = |BITE|
-  20 BITE bite ENDL endl
-At (  19:  5) token =         ENDL lexeme = |ENDL|
-At (  20:  0) token =         BITE lexeme = |BITE|
-At (  20:  5) token =         BITE lexeme = |bite|
-At (  20: 10) token =         ENDL lexeme = |ENDL|
-  21 
-  22 || identifier pseudo-terminal
-At (  20: 15) token =         ENDL lexeme = |endl|
-At (  22:  0) begin line comment
-  23  a  ab  ab1  ab1c A2Z A_B_2
-At (  23:  1) token =   IDENTIFIER lexeme = |a|
-At (  23:  4) token =   IDENTIFIER lexeme = |ab|
-At (  23:  8) token =   IDENTIFIER lexeme = |ab1|
-At (  23: 13) token =   IDENTIFIER lexeme = |ab1c|
-At (  23: 18) token =   IDENTIFIER lexeme = |A2Z|
-  24 
-  25 || punctuation terminals
-At (  23: 22) token =   IDENTIFIER lexeme = |A_B_2|
- "Potato.p" Sun Sep  8 15:43:46 2024 Page 2
-Line Source Line
----- -------------------------------------------------------------------------------
-At (  25:  0) begin line comment
-  26 ,. , .
-At (  26:  0) token =        COMMA lexeme = |,|
-At (  26:  1) token =       PERIOD lexeme = |.|
-  27 
-At (  26:  3) token =        COMMA lexeme = |,|
-  28 || string pseudo-terminal
-At (  26:  5) token =       PERIOD lexeme = |.|
-At (  28:  0) begin line comment
-  29 "" "a" "ab" "abc"
-At (  29:  0) token =       STRING lexeme = ||
-At (  29:  3) token =       STRING lexeme = |a|
-At (  29:  7) token =       STRING lexeme = |ab|
-  30 '' 'a' 'ab' 'abc'
-At (  29: 12) token =       STRING lexeme = |abc|
-At (  30:  0) token =     UNKTOKEN lexeme = |'|
-At (  30:  1) token =     UNKTOKEN lexeme = |'|
-At (  30:  3) token =     UNKTOKEN lexeme = |'|
-At (  30:  4) token =   IDENTIFIER lexeme = |a|
-At (  30:  5) token =     UNKTOKEN lexeme = |'|
-At (  30:  7) token =     UNKTOKEN lexeme = |'|
-At (  30:  8) token =   IDENTIFIER lexeme = |ab|
-At (  30: 10) token =     UNKTOKEN lexeme = |'|
-At (  30: 12) token =     UNKTOKEN lexeme = |'|
-  31 
-  32 || string pseudo-terminal with escape characters
-At (  30: 13) token =   IDENTIFIER lexeme = |abc|
-At (  30: 16) token =     UNKTOKEN lexeme = |'|
-At (  32:  0) begin line comment
-  33 "ab\"c" 
-  34 "\\abc\"" 
-At (  33:  0) token =       STRING lexeme = |ab\"c|
-  35 "newLine \n (LF)" 
-At (  34:  0) token =       STRING lexeme = |\\abc\"|
-  36 "horizontalTab \t (HT)"
-At (  35:  0) token =       STRING lexeme = |newLine \n (LF)|
-  37 "backSpace \b (BS)"
-At (  36:  0) token =       STRING lexeme = |horizontalTab \t (HT)|
-  38 "carriage return \r (CR)"
-At (  37:  0) token =       STRING lexeme = |backSpace \b (BS)|
-  39 "\"\\\n\t\b\r"
-At (  38:  0) token =       STRING lexeme = |carriage return \r (CR)|
-  40 
-  41 || non-SPL <string> (no escape sequences)
-At (  39:  0) token =       STRING lexeme = |\"\\\n\t\b\r|
-At (  41:  0) begin line comment
-  42 `` `a` `ab` `abc` `a``b````c`
-At (  42:  0) token =       STRING lexeme = ||
-At (  42:  3) token =       STRING lexeme = |a|
-At (  42:  7) token =       STRING lexeme = |ab|
-At (  42: 12) token =       STRING lexeme = |abc|
-  43 
-  44 || *ERROR* un-terminated string pseudo-terminal 
-At (  42: 18) token =       STRING lexeme = |a`b``c|
-At (  44:  0) begin line comment
-  45 "unterminated string
-  46 
-  47 
-     At (  45:  0) Un-terminated string literal
-POTATO compiler ending with a potato famine!
-
- "Potato.p" Sun Sep  8 15:43:46 2024 Page 3
-Line Source Line
----- -------------------------------------------------------------------------------
+       <CRISPDefinition
+     <POTATOProgram
 ******* POTATO was cooked thoroughly
