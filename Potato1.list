@@ -1,26 +1,43 @@
- "Potato1.p" Wed Sep 25 21:15:03 2024 Page 1
+ "Potato1.p" Wed Sep 25 21:50:31 2024 Page 1
 Line Source Line
 ---- -------------------------------------------------------------------------------
    1 |[ 
+At (   1:  0) begin block comment depth = 1
    2 ||	Potato.p
    3 ||	Purpose: Potato Chip demonstration how to use different string literal formats and newline handling
    4 ]|
    5 
+At (   4:  0)   end block comment depth = 1
    6 crisp mainCrisp () {
+At (   6:  0) token =        CRISP lexeme = |crisp|
+At (   6:  6) token =   IDENTIFIER lexeme = |mainCrisp|
+At (   6: 16) token = OPARENTHESIS lexeme = |(|
      >POTATOProgram
        >CRISPDefinition
    7 	bite " \"Hello, World! Ready to mash some spuds?\" \n "
+At (   6: 17) token = CPARENTHESIS lexeme = |)|
+At (   6: 19) token =    OCBRACKET lexeme = |{|
+At (   7:  1) token =         BITE lexeme = |bite|
    8 	bite ' \" Hello, World! \" ' endl
+At (   7:  6) token =       STRING lexeme = | "Hello, World! Ready to mash some spuds?" 
+ |
+At (   8:  1) token =         BITE lexeme = |bite|
          >Statement
            >PRINTStatement
+At (   8:  6) token =       STRING lexeme = | \" Hello, World! \" |
    9 }
   10 
+At (   8: 30) token =         ENDL lexeme = |endl|
            <PRINTStatement
          <Statement
          >Statement
            >PRINTStatement
+At (   9:  0) token =    CCBRACKET lexeme = |}|
+At (  10:  0) token =     EOPTOKEN lexeme = ||
+At (  10:  0) token =     EOPTOKEN lexeme = ||
            <PRINTStatement
          <Statement
+At (  10:  0) token =     EOPTOKEN lexeme = ||
        <CRISPDefinition
      <POTATOProgram
 ******* POTATO was cooked thoroughly
