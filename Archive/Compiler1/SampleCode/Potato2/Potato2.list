@@ -1,0 +1,16 @@
+ "Potato2.p" Tue Nov  5 11:40:25 2024 Page 1
+Line Source Line
+---- -------------------------------------------------------------------------------
+   1 || ------------------------------------------------------------
+   2 || Auroxsus
+   3 || Description: POTATO Scanner program
+   4 || Potato2.p
+   5 || ------------------------------------------------------------
+   6 crisp mainCrisp () {
+   7    bite "Howdy"
+   8    bite "," + " " + "world" + "!"
+   9    bite ENDL
+  10 }
+  11 
+  12 
+******* POTATO was cooked thoroughly
