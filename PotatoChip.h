@@ -65,8 +65,8 @@ class LISTER
 		int linesOnPage;
 		char sourceFileName[80+1];
 
-	public: // noraml a page is 55 BTW
-		LISTER(const int LINESPERPAGE = 42);  // Answer to everything -- Hichthiker's Guide to the Galaxy
+	public: 
+		LISTER(const int LINESPERPAGE = 55);
 		~LISTER();
 		void OpenFile(const char sourceFileName[]);
 		void ListSourceLine(int sourceLineNumber,const char sourceLine[]);
@@ -133,8 +133,7 @@ void LISTER::ListInformationLine(const char information[])
 	linesOnPage++;
 }
 
-/* Outputs the header for a new page, including the source file name, date, time, and page number
-FROM http://www.cplusplus.com/reference/ctime/asctime/ */
+// Outputs the header for a new page, including the source file name, date, time, and page number
 char* LISTER::asctime(const struct tm *timeptr)
 {
 	static const char wday_name[][4] = {
@@ -905,7 +904,7 @@ void CODE::EmitEndingCode()
     EmitUnformattedLine("; Heap space for dynamic memory allocation (to support future SPL syntax)");
     EmitUnformattedLine(";------------------------------------------------------------");
     EmitFormattedLine("HEAPBASE","EQU","*");
-    EmitFormattedLine("HEAPSIZE","EQU","0B0001000000000000","8K bytes = 4K words");
+    EmitFormattedLine("HEAPSIZE","EQU","0B0010000000000000","8K bytes = 4K words");
 
     EmitUnformattedLine(";------------------------------------------------------------");
     EmitUnformattedLine("; Run-time stack");
