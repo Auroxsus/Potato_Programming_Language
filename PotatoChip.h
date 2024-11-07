@@ -4,7 +4,6 @@
 //		"global" definitions and the common classes
 //    	POTATOEXCEPTION, LISTER, READER, CODE, and IDENTIFIERTABLE
 //
-// Several classes indicate future evolution of the POTATO compiler
 //-----------------------------------------------------------
 
 #define CALLBACKSUSED 2
@@ -15,7 +14,7 @@ const int LINESPERPAGE            =  60;
 const int MAXIMUMLENGTHIDENTIFIER =  64;
 const int MAXIMUMIDENTIFIERS      = 500;
 
-enum DATATYPE { NOTYPE,INTEGERTYPE,BOOLEANTYPE,FLTTYPE,CHRTYPE };
+enum DATATYPE { NOTYPE,INTTYPE,BOOLTYPE,FLTTYPE,CHRTYPE };
 
 enum IDENTIFIERSCOPE { GLOBALSCOPE,PROGRAMMODULESCOPE,SUBPROGRAMMODULESCOPE };
 
