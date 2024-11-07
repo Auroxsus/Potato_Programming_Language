@@ -1,0 +1,219 @@
+Page   1  Potato1.stm
+
+    LC  Object    Line  Source Line
+------  --------  ----  -------------------------------------------------------------
+0X0000               1  ;--------------------------------------------------------------
+0X0000               2  ; Potato1.stm
+0X0000               3  ;--------------------------------------------------------------
+0X0000               4  ; SVC numbers
+0X0000               5  SVC_DONOTHING          EQU       0D0                  ; force context switch
+0X0000               6  SVC_TERMINATE          EQU       0D1
+0X0000               7  SVC_READ_INTEGER       EQU       0D10
+0X0000               8  SVC_WRITE_INTEGER      EQU       0D11
+0X0000               9  SVC_READ_FLOAT         EQU       0D20
+0X0000              10  SVC_WRITE_FLOAT        EQU       0D21
+0X0000              11  SVC_READ_BOOLEAN       EQU       0D30
+0X0000              12  SVC_WRITE_BOOLEAN      EQU       0D31
+0X0000              13  SVC_READ_CHARACTER     EQU       0D40
+0X0000              14  SVC_WRITE_CHARACTER    EQU       0D41
+0X0000              15  SVC_WRITE_ENDL         EQU       0D42
+0X0000              16  SVC_READ_STRING        EQU       0D50
+0X0000              17  SVC_WRITE_STRING       EQU       0D51
+0X0000              18  SVC_INITIALIZE_HEAP    EQU       0D90
+0X0000              19  SVC_ALLOCATE_BLOCK     EQU       0D91
+0X0000              20  SVC_DEALLOCATE_BLOCK   EQU       0D92
+0X0000              21  
+0X0000              22                         ORG       0X0000
+0X0000              23  
+0X0000  800003      24                         JMP       PROGRAMMAIN
+0X0003              25  ;    1 || ------------------------------------------------------------
+0X0003              26  ;    2 || Auroxsus
+0X0003              27  ;    3 || Description: POTATO Scanner program
+0X0003              28  ;    4 || Potato1.p
+0X0003              29  ;    5 || ------------------------------------------------------------
+0X0003              30  ;    6 
+0X0003              31  ;    7 crisp mainCrisp () {
+0X0003              32  ;    8    bite "\"Howdy, world!\"\n"
+0X0003              33  ; **** =========
+0X0003              34  ; **** PROGRAM module (   7)
+0X0003              35  ; **** =========
+0X0003              36  PROGRAMMAIN            EQU       *
+0X0003  0100FFFE    37                         PUSH      #RUNTIMESTACK        ; set SP
+0X0007  0A          38                         POPSP     
+0X0008  02010095    39                         PUSHA     STATICDATA           ; set SB
+0X000C  0C          40                         POPSB     
+0X000D  0100015D    41                         PUSH      #HEAPBASE            ; initialize heap
+0X0011  01002000    42                         PUSH      #HEAPSIZE
+0X0015  FF005A      43                         SVC       #SVC_INITIALIZE_HEAP
+0X0018  A0002C      44                         CALL      PROGRAMBODY0010
+0X001B  020A0000    45                         PUSHA     SB:0D0
+0X001F  FF0033      46                         SVC       #SVC_WRITE_STRING
+0X0022  FF002A      47                         SVC       #SVC_WRITE_ENDL
+0X0025  01000000    48                         PUSH      #0D0                 ; terminate with status = 0
+0X0029  FF0001      49                         SVC       #SVC_TERMINATE
+0X002C              50  PROGRAMBODY0010        EQU       *
+0X002C              51  ;    9    bite "\"Howdy, world!\"" ENDL
+0X002C              52  ; **** PRINT statement (   8)
+0X002C  020A001C    53                         PUSHA     SB:0D28
+0X0030  FF0033      54                         SVC       #SVC_WRITE_STRING
+0X0033              55  ;   10 }
+0X0033              56  ;   11 
+Page   2  Potato1.stm
+
+    LC  Object    Line  Source Line
+------  --------  ----  -------------------------------------------------------------
+0X0033              57  ; **** PRINT statement (   9)
+0X0033  020A0031    58                         PUSHA     SB:0D49
+0X0037  FF0033      59                         SVC       #SVC_WRITE_STRING
+0X003A  FF002A      60                         SVC       #SVC_WRITE_ENDL
+0X003D  A1          61                         RETURN    
+0X003E              62  ; **** =========
+0X003E              63  ; **** END (  11)
+0X003E              64  ; **** =========
+0X003E              65  ;--------------------------------------------------------------
+0X003E              66  ; Common subroutines
+0X003E              67  ;--------------------------------------------------------------
+0X003E              68  CHRIsInRange           EQU       *                    ; CHR,LB,UB,RA
+0X003E  01040002    69                         PUSH      SP:0D2               ; CHR,LB,UB,RA,LB
+0X0042  01040004    70                         PUSH      SP:0D4               ; CHR,LB,UB,RA,LB,CHR
+0X0046  70          71                         CMPI                           ; CHR,LB,UB,RA (set LEG)
+0X0047  830066      72                         JMPG      F0030                ; CHR,LB,UB,RA
+0X004A  01040003    73                         PUSH      SP:0D3               ; CHR,LB,UB,RA,CHR
+0X004E  01040002    74                         PUSH      SP:0D2               ; CHR,LB,UB,RA,CHR,UB
+0X0052  70          75                         CMPI                           ; CHR,LB,UB,RA (set LEG)
+0X0053  830066      76                         JMPG      F0030                ; CHR,LB,UB,RA
+0X0056              77  T0020                  EQU       *                    ; CHR,LB,UB,RA
+0X0056  05          78                         SWAP                           ; CHR,LB,RA,UB
+0X0057  040001      79                         DISCARD   #0D1                 ; CHR,LB,RA
+0X005A  05          80                         SWAP                           ; CHR,RA,LB
+0X005B  040001      81                         DISCARD   #0D1                 ; CHR,RA
+0X005E  0100FFFF    82                         PUSH      #0XFFFF              ; CHR,RA,true
+0X0062  05          83                         SWAP                           ; CHR,true,RA
+0X0063  800073      84                         JMP       E0040                ; CHR,true,RA
+0X0066              85  F0030                  EQU       *                    ; CHR,LB,UB,RA
+0X0066  05          86                         SWAP                           ; CHR,LB,RA,UB
+0X0067  040001      87                         DISCARD   #0D1                 ; CHR,LB,RA
+0X006A  05          88                         SWAP                           ; CHR,RA,LB
+0X006B  040001      89                         DISCARD   #0D1                 ; CHR,RA
+0X006E  01000000    90                         PUSH      #0X0000              ; CHR,RA,false
+0X0072  05          91                         SWAP                           ; CHR,false,RA
+0X0073              92  E0040                  EQU       *                    ; CHR,true-or-false,RA
+0X0073  A1          93                         RETURN                         ; CHR,true-or-false,RA
+0X0074              94  ;------------------------------------------------------------
+0X0074              95  ; Issue "Run-time error #X..X near line #X..X" to handle run-time errors
+0X0074              96  ;------------------------------------------------------------
+0X0074              97  HANDLERUNTIMEERROR     EQU       *
+0X0074  FF002A      98                         SVC       #SVC_WRITE_ENDL
+0X0077  020A0044    99                         PUSHA     SB:0D68
+0X007B  FF0033     100                         SVC       #SVC_WRITE_STRING
+0X007E  FF000B     101                         SVC       #SVC_WRITE_INTEGER
+0X0081  020A0056   102                         PUSHA     SB:0D86
+0X0085  FF0033     103                         SVC       #SVC_WRITE_STRING
+0X0088  FF000B     104                         SVC       #SVC_WRITE_INTEGER
+0X008B  FF002A     105                         SVC       #SVC_WRITE_ENDL
+0X008E  01000001   106                         PUSH      #0D1
+0X0092  FF0001     107                         SVC       #SVC_TERMINATE
+0X0095             108  ;------------------------------------------------------------
+0X0095             109  ; Static allocation of global data and PROGRAM module data
+0X0095             110  ;------------------------------------------------------------
+0X0095             111  STATICDATA             EQU       *
+0X0095  001A001A   112                         DS        "Normal program termination"
+Page   3  Potato1.stm
+
+    LC  Object    Line  Source Line
+------  --------  ----  -------------------------------------------------------------
+0X0099  004E006F
+0X009D  0072006D
+0X00A1  0061006C
+0X00A5  00200070
+0X00A9  0072006F
+0X00AD  00670072
+0X00B1  0061006D
+0X00B5  00200074
+0X00B9  00650072
+0X00BD  006D0069
+0X00C1  006E0061
+0X00C5  00740069
+0X00C9  006F006E
+0X00CD  00130013   113                         DS        "\"Howdy, world!\"\n"
+0X00D1  005C0022
+0X00D5  0048006F
+0X00D9  00770064
+0X00DD  0079002C
+0X00E1  00200077
+0X00E5  006F0072
+0X00E9  006C0064
+0X00ED  0021005C
+0X00F1  0022005C
+0X00F5  006E    
+0X00F7  00110011   114                         DS        "\"Howdy, world!\""
+0X00FB  005C0022
+0X00FF  0048006F
+0X0103  00770064
+0X0107  0079002C
+0X010B  00200077
+0X010F  006F0072
+0X0113  006C0064
+0X0117  0021005C
+0X011B  0022    
+0X011D  00100010   115                         DS        "Run-time error #"
+0X0121  00520075
+0X0125  006E002D
+0X0129  00740069
+0X012D  006D0065
+0X0131  00200065
+0X0135  00720072
+0X0139  006F0072
+0X013D  00200023
+0X0141  000C000C   116                         DS        " near line #"
+0X0145  0020006E
+0X0149  00650061
+0X014D  00720020
+0X0151  006C0069
+0X0155  006E0065
+0X0159  00200023
+0X015D             117  ;------------------------------------------------------------
+0X015D             118  ; Heap space for dynamic memory allocation (to support future SPL syntax)
+0X015D             119  ;------------------------------------------------------------
+0X015D             120  HEAPBASE               EQU       *
+0X015D             121  HEAPSIZE               EQU       0B0010000000000000   ; 8K bytes = 4K words
+0X015D             122  ;------------------------------------------------------------
+Page   4  Potato1.stm
+
+    LC  Object    Line  Source Line
+------  --------  ----  -------------------------------------------------------------
+0X015D             123  ; Run-time stack
+0X015D             124  ;------------------------------------------------------------
+0X015D             125  RUNTIMESTACK           EQU       0XFFFE
+
+
+  PC   SP TOS0 TOS1 TOS2 mnemonic  information
+---- ---- ---- ---- ---- --------- ----------------------------------------------
+0000 FFFE                 JMP       0X0003
+0003 FFFE                 PUSH      #memory[EA = 0X0005] = 0XFFFE
+0007 FFFC FFFE            POPSP     SP = 0XFFFE
+0008 FFFE                 PUSHA     memory[EA = 0X0095]
+000C FFFC 0095            POPSB     SB = 0X0095
+000D FFFE                 PUSH      #memory[EA = 0X000F] = 0X015D
+0011 FFFC 015D            PUSH      #memory[EA = 0X0013] = 0X2000
+-------------------------------------------------------------
+FREE nodes list
+   0X015D:0X215C(0X1FFC)
+-------------------------------------------------------------
+0015 FFFA 2000 015D       SVC       #90 initialize heap, heapBase = 0X015D, heapSize = 0X2000 words
+0018 FFFE                 CALL      0X002C return to 0X001B
+002C FFFC 001B            PUSHA     SB( 28) memory[EA = 0X00CD]
+"Howdy, world!"
+0030 FFFA 00CD 001B       SVC       #51 write string
+0033 FFFC 001B            PUSHA     SB( 49) memory[EA = 0X00F7]
+0037 FFFA 00F7 001B       SVC       #51 write string
+"Howdy, world!"
+003A FFFC 001B            SVC       #42 write ENDL
+003D FFFC 001B            RETURN    to 0X001B
+001B FFFE                 PUSHA     SB(  0) memory[EA = 0X0095]
+001F FFFC 0095            SVC       #51 write string
+Normal program termination
+0022 FFFE                 SVC       #42 write ENDL
+0025 FFFE                 PUSH      #memory[EA = 0X0027] = 0X0000
+0029 FFFC 0000            SVC       #1 terminate program with status 0, SP = 0XFFFE
+
