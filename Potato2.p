@@ -36,6 +36,7 @@ crisp mainCrisp () {
    bite "4 == 6                = "  , 4 == 6             , endl;
    bite "4 spudMatch 6         = "  , 4 spudMatch 6      , endl;
    bite "4 != 6                = "  , 4 != 6             , endl;
+   bite "4 <> 6                = "  , 4 <> 6             , endl;
    bite "4 mashApart 6         = "  , 4 mashApart 6      , endl;
    bite "4 < 6                 = "  , 4 < 6              , endl;
    bite "4 smallerSpud 6       = "  , 4 smallerSpud 6    , endl;
