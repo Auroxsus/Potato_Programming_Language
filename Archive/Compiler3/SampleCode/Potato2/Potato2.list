@@ -1,0 +1,113 @@
+ "Potato2.p" Thu Nov  7 16:40:02 2024 Page 1
+Line Source Line
+---- -------------------------------------------------------------------------------
+   1 ||------------------------------------------------------------
+   2 || Auroxsus
+   3 || Description: sample operator statements
+   4 || Potato2.p
+   5 ||------------------------------------------------------------
+   6 
+   7 crisp mainCrisp () {
+===================================================================================================
+Contents of identifier table after compilation of global data definitions
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+===================================================================================================
+   8 |[----------------------||
+Begin nested scope #1, identifier table index = 0
+   9 || Arithmetic Operators ||
+  10 ||----------------------]|
+  11 
+  12    bite "1          = "              , 1                  , endl;
+  13    bite "+2         = "              , +2                 , endl;
+  14    bite "mash 2     = "              , mash 2             , endl;
+  15    bite "-3         = "              , -3                 , endl;
+  16    bite "peel 3     = "              , peel 3             , endl;
+  17    bite "ABS 2      = "              , ABS 2              , endl;
+  18    bite "ABS(-2)    = "              , ABS(-3)            , endl;
+  19    bite "4 + 5      = "              , 4 + 5              , endl;
+  20    bite "4 mash 5   = "              , 4 mash 5           , endl;
+  21    bite "8 - 3      = "              , 8 - 3              , endl;
+  22    bite "8 peel 3   = "              , 8 peel 3           , endl;
+  23    bite "6 * 2      = "              , 6 * 7              , endl;
+  24    bite "6 fry 2    = "              , 6 fry 7            , endl;
+  25    bite "10 / 2     = "              , 10 / 2             , endl;
+  26    bite "10 slice 2 = "              , 10 slice 2         , endl;
+  27    bite "7 % 3      = "              , 7 % 3              , endl;
+  28    bite "7 mod 3    = "              , 7 mod 3            , endl;
+  29    bite "2 ^ 3      = "              , 2 ^ 3              , endl;
+  30    bite "2 pow 3    = "              , 2 pow 3            , endl;
+  31 
+  32 |[----------------------||
+  33 || Comparison Operators ||
+  34 ||----------------------]|
+  35 
+  36    bite "4 == 6                = "  , 4 == 6             , endl;
+  37    bite "4 spudMatch 6         = "  , 4 spudMatch 6      , endl;
+  38    bite "4 != 6                = "  , 4 != 6             , endl;
+  39    bite "4 <> 6                = "  , 4 <> 6             , endl;
+  40    bite "4 mashApart 6         = "  , 4 mashApart 6      , endl;
+  41    bite "4 < 6                 = "  , 4 < 6              , endl;
+  42    bite "4 smallerSpud 6       = "  , 4 smallerSpud 6    , endl;
+  43    bite "4 > 6                 = "  , 4 > 6              , endl;
+  44    bite "4 biggerSpud 6        = "  , 4 biggerSpud 6     , endl;
+  45    bite "4 <= 6                = "  , 4 <= 6             , endl;
+  46    bite "4 notBiggerSpud 6     = "  , 4 notBiggerSpud 6  , endl;
+  47    bite "4 >= 6                = "  , 4 >= 6             , endl;
+  48    bite "4 notSmallerSpud 6    = "  , 4 notSmallerSpud 6 , endl;
+  49 
+  50 |[----------------------||
+  51 || Logical Operators    ||
+  52 ||----------------------]|
+  53 
+  54    bite "true && true          = "  , true && true       , endl;
+ "Potato2.p" Thu Nov  7 16:40:02 2024 Page 2
+Line Source Line
+---- -------------------------------------------------------------------------------
+  55    bite "true prep true        = "  , true prep true     , endl;
+  56    bite "true && false         = "  , true && false      , endl;
+  57    bite "true prep false       = "  , true prep false    , endl;
+  58    bite "false && false        = "  , false && false     , endl;
+  59    bite "false prep false      = "  , false prep false   , endl;
+  60 
+  61    bite "true \\\\ true          = " , true \\ true       , endl;
+  62    bite "true mix true         = "   , true mix true      , endl;
+  63    bite "true \\\\ false         = " , true \\ false      , endl;
+  64    bite "true mix false        = "   , true mix false     , endl;
+  65    bite "false \\\\ false        = " , false \\ false     , endl;
+  66    bite "false mix false       = "   , false mix false    , endl;
+  67 
+  68    bite "false spudStop true   = "   , false spudStop true      , endl;
+  69    bite "false ~\\ true         = "  , false ~\ true            , endl;
+  70    bite "false spudStop false  = "   , false spudStop false     , endl;
+  71    bite "false ~\\ false        = "  , false ~\ false           , endl;
+  72 
+  73    bite "true eitherSpud true  = "   , true eitherSpud true     , endl;
+  74    bite "true +\\ true          = "  , true +\ true             , endl;
+  75    bite "true eitherSpud false = "   , true eitherSpud false    , endl;
+  76    bite "true +\\ false         = "  , true +\ false            , endl;
+  77    bite "false eitherSpud false= "   , false eitherSpud false   , endl;
+  78    bite "false +\\ false        = "  , false +\ false           , endl;
+  79 
+  80    bite "false mashless true   = "  , false mashless true      , endl;
+  81    bite "false ~& true         = "  , false ~& true            , endl;
+  82    bite "false mashless false  = "  , false mashless false     , endl;
+  83    bite "false ~& false        = "  , false ~& false           , endl;
+  84    bite "true mashless true    = "  , true mashless true       , endl;
+  85    bite "true ~& true          = "  , true ~& true             , endl;
+  86    bite "true mashless false   = "  , true mashless false      , endl;
+  87    bite "true ~& false         = "  , true ~& false            , endl;
+  88 
+  89    bite "!true                 = "  , !true                    , endl;
+  90    bite "raw true              = "  , raw true                 , endl;
+  91    bite "!false                = "  , !false                   , endl;
+  92    bite "raw false             = "  , raw false                , endl;
+  93 
+  94 }
+===================================================================================================
+Contents of identifier table at end of compilation of PROGRAM module definition
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+===================================================================================================
+End nested scope #1, identifier table index now = 0
+******* POTATO was cooked thoroughly

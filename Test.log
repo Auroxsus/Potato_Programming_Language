@@ -1,0 +1,795 @@
+Page   1  Test.stm
+
+    LC  Object    Line  Source Line
+------  --------  ----  -------------------------------------------------------------
+0X0000               1  ;--------------------------------------------------------------
+0X0000               2  ; Test.stm
+0X0000               3  ;--------------------------------------------------------------
+0X0000               4  ; SVC numbers
+0X0000               5  SVC_DONOTHING          EQU       0D0                  ; force context switch
+0X0000               6  SVC_TERMINATE          EQU       0D1
+0X0000               7  SVC_READ_INTEGER       EQU       0D10
+0X0000               8  SVC_WRITE_INTEGER      EQU       0D11
+0X0000               9  SVC_READ_FLOAT         EQU       0D20
+0X0000              10  SVC_WRITE_FLOAT        EQU       0D21
+0X0000              11  SVC_READ_BOOLEAN       EQU       0D30
+0X0000              12  SVC_WRITE_BOOLEAN      EQU       0D31
+0X0000              13  SVC_READ_CHARACTER     EQU       0D40
+0X0000              14  SVC_WRITE_CHARACTER    EQU       0D41
+0X0000              15  SVC_WRITE_ENDL         EQU       0D42
+0X0000              16  SVC_READ_STRING        EQU       0D50
+0X0000              17  SVC_WRITE_STRING       EQU       0D51
+0X0000              18  SVC_INITIALIZE_HEAP    EQU       0D90
+0X0000              19  SVC_ALLOCATE_BLOCK     EQU       0D91
+0X0000              20  SVC_DEALLOCATE_BLOCK   EQU       0D92
+0X0000              21  
+0X0000              22                         ORG       0X0000
+0X0000              23  
+0X0000  800003      24                         JMP       PROGRAMMAIN
+0X0003              25  ;    1 ||------------------------------------------------------------
+0X0003              26  ;    2 || Auroxsus
+0X0003              27  ;    3 || Description: Demonstrates the use of variables, constants,
+0X0003              28  ;    4 || and basic arithmetic, logical operations, and user interaction
+0X0003              29  ;    5 || Potato3.p (Enhanced Version)
+0X0003              30  ;    6 ||------------------------------------------------------------
+0X0003              31  ;    7 
+0X0003              32  ;    8 || Global Variables
+0X0003              33  ;    9 spudling potatoCount;  
+0X0003              34  ;   10 spudling field1 : field2;
+0X0003              35  ;   11 
+0X0003              36  ;   12 || Constants
+0X0003              37  ;   13 spud spudling surplus = 2;  
+0X0003              38  ;   14 spud tater isSurplusPotatoGood = true;
+0X0003              39  ;   15 
+0X0003              40  ;   16 crisp mainCrisp () {
+0X0003              41  ;   17    || Local Variables
+0X0003              42  ; **** =========
+0X0003              43  ; **** PROGRAM module (  16)
+0X0003              44  ; **** =========
+0X0003              45  PROGRAMMAIN            EQU       *
+0X0003  0100FFFE    46                         PUSH      #RUNTIMESTACK        ; set SP
+0X0007  0A          47                         POPSP     
+0X0008  02010215    48                         PUSHA     STATICDATA           ; set SB
+0X000C  0C          49                         POPSB     
+0X000D  0100067B    50                         PUSH      #HEAPBASE            ; initialize heap
+0X0011  01002000    51                         PUSH      #HEAPSIZE
+0X0015  FF005A      52                         SVC       #SVC_INITIALIZE_HEAP
+0X0018  A0002C      53                         CALL      PROGRAMBODY0010
+0X001B  020A0005    54                         PUSHA     SB:0D5
+0X001F  FF0033      55                         SVC       #SVC_WRITE_STRING
+0X0022  FF002A      56                         SVC       #SVC_WRITE_ENDL
+Page   2  Test.stm
+
+    LC  Object    Line  Source Line
+------  --------  ----  -------------------------------------------------------------
+0X0025  01000000    57                         PUSH      #0D0                 ; terminate with status = 0
+0X0029  FF0001      58                         SVC       #SVC_TERMINATE
+0X002C              59  PROGRAMBODY0010        EQU       *
+0X002C              60  ;   18    spudling totalHarvest : tempPotato;
+0X002C              61  ;   19    tater isFieldActive : isHarvestSuccessful = true;
+0X002C              62  ;   20    spud spudling currentSurplus = 3;
+0X002C              63  ;   21    spud tater isWeatherFavorable = false;
+0X002C              64  ;   22    tater question;
+0X002C              65  ;   23    
+0X002C              66  ;   24    || Print constant values to the console for clarity
+0X002C              67  ;   25    bite "Surplus = ", surplus, endl; || from other seasons
+0X002C              68  ; **** PRINT statement (  25)
+0X002C  020A0028    69                         PUSHA     SB:0D40
+0X0030  FF0033      70                         SVC       #SVC_WRITE_STRING
+0X0033  010A0003    71                         PUSH      SB:0D3
+0X0037  FF000B      72                         SVC       #SVC_WRITE_INTEGER
+0X003A              73  ;   26    bite "Are the potato's still good? ", isSurplusPotatoGood, endl;
+0X003A  FF002A      74                         SVC       #SVC_WRITE_ENDL
+0X003D              75  ; **** PRINT statement (  26)
+0X003D  020A0034    76                         PUSHA     SB:0D52
+0X0041  FF0033      77                         SVC       #SVC_WRITE_STRING
+0X0044              78  ;   27    bite "Current Surplus = ", currentSurplus, endl;
+0X0044  010A0004    79                         PUSH      SB:0D4
+0X0048  FF001F      80                         SVC       #SVC_WRITE_BOOLEAN
+0X004B  FF002A      81                         SVC       #SVC_WRITE_ENDL
+0X004E              82  ; **** PRINT statement (  27)
+0X004E  020A0053    83                         PUSHA     SB:0D83
+0X0052  FF0033      84                         SVC       #SVC_WRITE_STRING
+0X0055              85  ;   28    bite "Is Weather Favorable? ", isWeatherFavorable, endl;
+0X0055  010A0025    86                         PUSH      SB:0D37
+0X0059  FF000B      87                         SVC       #SVC_WRITE_INTEGER
+0X005C  FF002A      88                         SVC       #SVC_WRITE_ENDL
+0X005F              89  ; **** PRINT statement (  28)
+0X005F  020A0067    90                         PUSHA     SB:0D103
+0X0063  FF0033      91                         SVC       #SVC_WRITE_STRING
+0X0066              92  ;   29 
+0X0066              93  ;   30    || Request user input to assign values to variables from both fields
+0X0066  010A0026    94                         PUSH      SB:0D38
+0X006A  FF001F      95                         SVC       #SVC_WRITE_BOOLEAN
+0X006D              96  ;   31    unearth "Enter today's harvest from field 1: " field1;
+0X006D  FF002A      97                         SVC       #SVC_WRITE_ENDL
+0X0070              98  ;   32    unearth "Enter today's harvest from field 2: " field2;
+0X0070              99  ; **** INPUT statement (  31)
+0X0070  020A007F   100                         PUSHA     SB:0D127
+0X0074  FF0033     101                         SVC       #SVC_WRITE_STRING
+0X0077  020A0001   102                         PUSHA     SB:0D1
+0X007B  FF000A     103                         SVC       #SVC_READ_INTEGER
+0X007E  03050001   104                         POP       @SP:0D1
+0X0082  040001     105                         DISCARD   #0D1
+0X0085             106  ;   33 
+0X0085             107  ;   34    || Calculations involving user input from both fields, surplus, and constants
+0X0085             108  ; **** INPUT statement (  32)
+0X0085  020A00A5   109                         PUSHA     SB:0D165
+0X0089  FF0033     110                         SVC       #SVC_WRITE_STRING
+0X008C             111  ;   35    totalHarvest = potatoCount + field1 + field2 + currentSurplus;
+0X008C  020A0002   112                         PUSHA     SB:0D2
+Page   3  Test.stm
+
+    LC  Object    Line  Source Line
+------  --------  ----  -------------------------------------------------------------
+0X0090  FF000A     113                         SVC       #SVC_READ_INTEGER
+0X0093  03050001   114                         POP       @SP:0D1
+0X0097  040001     115                         DISCARD   #0D1
+0X009A             116  ; **** assignment statement (  35)
+0X009A  020A0021   117                         PUSHA     SB:0D33
+0X009E  010A0000   118                         PUSH      SB:0D0
+0X00A2  010A0001   119                         PUSH      SB:0D1
+0X00A6  20         120                         ADDI      
+0X00A7             121  ;   36    bite "Total Harvest = ", totalHarvest, endl;
+0X00A7  010A0002   122                         PUSH      SB:0D2
+0X00AB  20         123                         ADDI      
+0X00AC  010A0025   124                         PUSH      SB:0D37
+0X00B0  20         125                         ADDI      
+0X00B1  06         126                         MAKEDUP   
+0X00B2  03050002   127                         POP       @SP:0D2
+0X00B6  05         128                         SWAP      
+0X00B7  040001     129                         DISCARD   #0D1
+0X00BA  040001     130                         DISCARD   #0D1
+0X00BD             131  ; **** PRINT statement (  36)
+0X00BD  020A00CB   132                         PUSHA     SB:0D203
+0X00C1  FF0033     133                         SVC       #SVC_WRITE_STRING
+0X00C4             134  ;   37 
+0X00C4             135  ;   38    || Demonstrate increment and decrement operations
+0X00C4  010A0021   136                         PUSH      SB:0D33
+0X00C8  FF000B     137                         SVC       #SVC_WRITE_INTEGER
+0X00CB             138  ;   39    unearth "Did you eat one? (true) " question; 
+0X00CB  FF002A     139                         SVC       #SVC_WRITE_ENDL
+0X00CE             140  ;   40    bite "Updated potato count = ", potatoCount, ", Decremented potatoCount = ", --potatoCount, endl;
+0X00CE             141  ; **** INPUT statement (  39)
+0X00CE  020A00DD   142                         PUSHA     SB:0D221
+0X00D2  FF0033     143                         SVC       #SVC_WRITE_STRING
+0X00D5  020A0027   144                         PUSHA     SB:0D39
+0X00D9  FF001E     145                         SVC       #SVC_READ_BOOLEAN
+0X00DC  03050001   146                         POP       @SP:0D1
+0X00E0  040001     147                         DISCARD   #0D1
+0X00E3             148  ; **** PRINT statement (  40)
+0X00E3  020A00F7   149                         PUSHA     SB:0D247
+0X00E7  FF0033     150                         SVC       #SVC_WRITE_STRING
+0X00EA  010A0000   151                         PUSH      SB:0D0
+0X00EE  FF000B     152                         SVC       #SVC_WRITE_INTEGER
+0X00F1  020A0110   153                         PUSHA     SB:0D272
+0X00F5  FF0033     154                         SVC       #SVC_WRITE_STRING
+0X00F8             155  ;   41    unearth "Are you telling the truth? (false) " question; 
+0X00F8  020A0000   156                         PUSHA     SB:0D0
+0X00FC  01050000   157                         PUSH      @SP:0D0
+0X0100  01000001   158                         PUSH      #0D1
+0X0104  22         159                         SUBI      
+0X0105  03050001   160                         POP       @SP:0D1
+0X0109  01050000   161                         PUSH      @SP:0D0
+0X010D  05         162                         SWAP      
+0X010E  040001     163                         DISCARD   #0D1
+0X0111  FF000B     164                         SVC       #SVC_WRITE_INTEGER
+0X0114  FF002A     165                         SVC       #SVC_WRITE_ENDL
+0X0117             166  ;   42    bite "Current potato count = ", potatoCount, ", Incremented potatoCount = ", ++potatoCount, endl;
+0X0117             167  ; **** INPUT statement (  41)
+0X0117  020A012E   168                         PUSHA     SB:0D302
+Page   4  Test.stm
+
+    LC  Object    Line  Source Line
+------  --------  ----  -------------------------------------------------------------
+0X011B  FF0033     169                         SVC       #SVC_WRITE_STRING
+0X011E  020A0027   170                         PUSHA     SB:0D39
+0X0122  FF001E     171                         SVC       #SVC_READ_BOOLEAN
+0X0125  03050001   172                         POP       @SP:0D1
+0X0129  040001     173                         DISCARD   #0D1
+0X012C             174  ; **** PRINT statement (  42)
+0X012C  020A0153   175                         PUSHA     SB:0D339
+0X0130  FF0033     176                         SVC       #SVC_WRITE_STRING
+0X0133  010A0000   177                         PUSH      SB:0D0
+0X0137  FF000B     178                         SVC       #SVC_WRITE_INTEGER
+0X013A  020A016C   179                         PUSHA     SB:0D364
+0X013E  FF0033     180                         SVC       #SVC_WRITE_STRING
+0X0141             181  ;   43    
+0X0141  020A0000   182                         PUSHA     SB:0D0
+0X0145  01050000   183                         PUSH      @SP:0D0
+0X0149  01000001   184                         PUSH      #0D1
+0X014D  20         185                         ADDI      
+0X014E  03050001   186                         POP       @SP:0D1
+0X0152  01050000   187                         PUSH      @SP:0D0
+0X0156  05         188                         SWAP      
+0X0157  040001     189                         DISCARD   #0D1
+0X015A  FF000B     190                         SVC       #SVC_WRITE_INTEGER
+0X015D             191  ;   44    || Request boolean input from user and demonstrate logical operation
+0X015D             192  ;   45    unearth "Is Field Active? (true/false): " isFieldActive;
+0X015D  FF002A     193                         SVC       #SVC_WRITE_ENDL
+0X0160             194  ;   46    
+0X0160             195  ; **** INPUT statement (  45)
+0X0160  020A018A   196                         PUSHA     SB:0D394
+0X0164  FF0033     197                         SVC       #SVC_WRITE_STRING
+0X0167             198  ;   47    || the harvest is successful if either the field is inactive OR if the potatoes are good and the weather is favorable
+0X0167             199  ;   48    isHarvestSuccessful = !isFieldActive \\ (isSurplusPotatoGood +\ isWeatherFavorable);
+0X0167  020A0023   200                         PUSHA     SB:0D35
+0X016B  FF001E     201                         SVC       #SVC_READ_BOOLEAN
+0X016E  03050001   202                         POP       @SP:0D1
+0X0172  040001     203                         DISCARD   #0D1
+0X0175             204  ; **** assignment statement (  48)
+0X0175  020A0024   205                         PUSHA     SB:0D36
+0X0179  010A0023   206                         PUSH      SB:0D35
+0X017D  33         207                         NOT       
+0X017E             208  ;   49    
+0X017E  010A0004   209                         PUSH      SB:0D4
+0X0182  010A0026   210                         PUSH      SB:0D38
+0X0186             211  ;   50    bite "Field Active: ", isFieldActive, ", Harvest Successful: ", isHarvestSuccessful, endl;
+0X0186  31         212                         XOR       
+0X0187  2F         213                         OR        
+0X0188  06         214                         MAKEDUP   
+0X0189  03050002   215                         POP       @SP:0D2
+0X018D  05         216                         SWAP      
+0X018E  040001     217                         DISCARD   #0D1
+0X0191  040001     218                         DISCARD   #0D1
+0X0194             219  ; **** PRINT statement (  50)
+0X0194  020A01AB   220                         PUSHA     SB:0D427
+0X0198  FF0033     221                         SVC       #SVC_WRITE_STRING
+0X019B  010A0023   222                         PUSH      SB:0D35
+0X019F  FF001F     223                         SVC       #SVC_WRITE_BOOLEAN
+0X01A2  020A01BB   224                         PUSHA     SB:0D443
+Page   5  Test.stm
+
+    LC  Object    Line  Source Line
+------  --------  ----  -------------------------------------------------------------
+0X01A6  FF0033     225                         SVC       #SVC_WRITE_STRING
+0X01A9             226  ;   51 
+0X01A9             227  ;   52    || Farewell message
+0X01A9  010A0024   228                         PUSH      SB:0D36
+0X01AD  FF001F     229                         SVC       #SVC_WRITE_BOOLEAN
+0X01B0             230  ;   53    bite "Thank you for farming with Auroxsus. Keep growing those spuds!", endl;
+0X01B0  FF002A     231                         SVC       #SVC_WRITE_ENDL
+0X01B3             232  ; **** PRINT statement (  53)
+0X01B3             233  ;   54 }
+0X01B3  020A01D3   234                         PUSHA     SB:0D467
+0X01B7  FF0033     235                         SVC       #SVC_WRITE_STRING
+0X01BA             236  ;   55 
+0X01BA             237  ;   56 
+0X01BA  FF002A     238                         SVC       #SVC_WRITE_ENDL
+0X01BD  A1         239                         RETURN    
+0X01BE             240  ; **** =========
+0X01BE             241  ; **** END (  56)
+0X01BE             242  ; **** =========
+0X01BE             243  ;--------------------------------------------------------------
+0X01BE             244  ; Common subroutines
+0X01BE             245  ;--------------------------------------------------------------
+0X01BE             246  CHRIsInRange           EQU       *                    ; CHR,LB,UB,RA
+0X01BE  01040002   247                         PUSH      SP:0D2               ; CHR,LB,UB,RA,LB
+0X01C2  01040004   248                         PUSH      SP:0D4               ; CHR,LB,UB,RA,LB,CHR
+0X01C6  70         249                         CMPI                           ; CHR,LB,UB,RA (set LEG)
+0X01C7  8301E6     250                         JMPG      F0030                ; CHR,LB,UB,RA
+0X01CA  01040003   251                         PUSH      SP:0D3               ; CHR,LB,UB,RA,CHR
+0X01CE  01040002   252                         PUSH      SP:0D2               ; CHR,LB,UB,RA,CHR,UB
+0X01D2  70         253                         CMPI                           ; CHR,LB,UB,RA (set LEG)
+0X01D3  8301E6     254                         JMPG      F0030                ; CHR,LB,UB,RA
+0X01D6             255  T0020                  EQU       *                    ; CHR,LB,UB,RA
+0X01D6  05         256                         SWAP                           ; CHR,LB,RA,UB
+0X01D7  040001     257                         DISCARD   #0D1                 ; CHR,LB,RA
+0X01DA  05         258                         SWAP                           ; CHR,RA,LB
+0X01DB  040001     259                         DISCARD   #0D1                 ; CHR,RA
+0X01DE  0100FFFF   260                         PUSH      #0XFFFF              ; CHR,RA,true
+0X01E2  05         261                         SWAP                           ; CHR,true,RA
+0X01E3  8001F3     262                         JMP       E0040                ; CHR,true,RA
+0X01E6             263  F0030                  EQU       *                    ; CHR,LB,UB,RA
+0X01E6  05         264                         SWAP                           ; CHR,LB,RA,UB
+0X01E7  040001     265                         DISCARD   #0D1                 ; CHR,LB,RA
+0X01EA  05         266                         SWAP                           ; CHR,RA,LB
+0X01EB  040001     267                         DISCARD   #0D1                 ; CHR,RA
+0X01EE  01000000   268                         PUSH      #0X0000              ; CHR,RA,false
+0X01F2  05         269                         SWAP                           ; CHR,false,RA
+0X01F3             270  E0040                  EQU       *                    ; CHR,true-or-false,RA
+0X01F3  A1         271                         RETURN                         ; CHR,true-or-false,RA
+0X01F4             272  ;------------------------------------------------------------
+0X01F4             273  ; Issue "Run-time error #X..X near line #X..X" to handle run-time errors
+0X01F4             274  ;------------------------------------------------------------
+0X01F4             275  HANDLERUNTIMEERROR     EQU       *
+0X01F4  FF002A     276                         SVC       #SVC_WRITE_ENDL
+0X01F7  020A0213   277                         PUSHA     SB:0D531
+0X01FB  FF0033     278                         SVC       #SVC_WRITE_STRING
+0X01FE  FF000B     279                         SVC       #SVC_WRITE_INTEGER
+0X0201  020A0225   280                         PUSHA     SB:0D549
+Page   6  Test.stm
+
+    LC  Object    Line  Source Line
+------  --------  ----  -------------------------------------------------------------
+0X0205  FF0033     281                         SVC       #SVC_WRITE_STRING
+0X0208  FF000B     282                         SVC       #SVC_WRITE_INTEGER
+0X020B  FF002A     283                         SVC       #SVC_WRITE_ENDL
+0X020E  01000001   284                         PUSH      #0D1
+0X0212  FF0001     285                         SVC       #SVC_TERMINATE
+0X0215             286  ;------------------------------------------------------------
+0X0215             287  ; Static allocation of global data and PROGRAM module data
+0X0215             288  ;------------------------------------------------------------
+0X0215             289  STATICDATA             EQU       *
+0X0215             290                         RW        0D1                  ; potatoCount
+0X0217             291                         RW        0D1                  ; field1
+0X0219             292                         RW        0D1                  ; field2
+0X021B  0002       293                         DW        0D2                  ; surplus
+0X021D  FFFF       294                         DW        true                 ; isSurplusPotatoGood
+0X021F  001A001A   295                         DS        "Normal program termination"
+0X0223  004E006F
+0X0227  0072006D
+0X022B  0061006C
+0X022F  00200070
+0X0233  0072006F
+0X0237  00670072
+0X023B  0061006D
+0X023F  00200074
+0X0243  00650072
+0X0247  006D0069
+0X024B  006E0061
+0X024F  00740069
+0X0253  006F006E
+0X0257             296                         RW        0D1                  ; totalHarvest
+0X0259             297                         RW        0D1                  ; tempPotato
+0X025B             298                         RW        0D1                  ; isFieldActive
+0X025D             299                         RW        0D1                  ; isHarvestSuccessful
+0X025F  0003       300                         DW        0D3                  ; currentSurplus
+0X0261  0000       301                         DW        false                ; isWeatherFavorable
+0X0263             302                         RW        0D1                  ; question
+0X0265  000A000A   303                         DS        "Surplus = "
+0X0269  00530075
+0X026D  00720070
+0X0271  006C0075
+0X0275  00730020
+0X0279  003D0020
+0X027D  001D001D   304                         DS        "Are the potato's still good? "
+0X0281  00410072
+0X0285  00650020
+0X0289  00740068
+0X028D  00650020
+0X0291  0070006F
+0X0295  00740061
+0X0299  0074006F
+0X029D  00270073
+0X02A1  00200073
+0X02A5  00740069
+0X02A9  006C006C
+0X02AD  00200067
+0X02B1  006F006F
+0X02B5  0064003F
+Page   7  Test.stm
+
+    LC  Object    Line  Source Line
+------  --------  ----  -------------------------------------------------------------
+0X02B9  0020    
+0X02BB  00120012   305                         DS        "Current Surplus = "
+0X02BF  00430075
+0X02C3  00720072
+0X02C7  0065006E
+0X02CB  00740020
+0X02CF  00530075
+0X02D3  00720070
+0X02D7  006C0075
+0X02DB  00730020
+0X02DF  003D0020
+0X02E3  00160016   306                         DS        "Is Weather Favorable? "
+0X02E7  00490073
+0X02EB  00200057
+0X02EF  00650061
+0X02F3  00740068
+0X02F7  00650072
+0X02FB  00200046
+0X02FF  00610076
+0X0303  006F0072
+0X0307  00610062
+0X030B  006C0065
+0X030F  003F0020
+0X0313  00240024   307                         DS        "Enter today's harvest from field 1: "
+0X0317  0045006E
+0X031B  00740065
+0X031F  00720020
+0X0323  0074006F
+0X0327  00640061
+0X032B  00790027
+0X032F  00730020
+0X0333  00680061
+0X0337  00720076
+0X033B  00650073
+0X033F  00740020
+0X0343  00660072
+0X0347  006F006D
+0X034B  00200066
+0X034F  00690065
+0X0353  006C0064
+0X0357  00200031
+0X035B  003A0020
+0X035F  00240024   308                         DS        "Enter today's harvest from field 2: "
+0X0363  0045006E
+0X0367  00740065
+0X036B  00720020
+0X036F  0074006F
+0X0373  00640061
+0X0377  00790027
+0X037B  00730020
+0X037F  00680061
+0X0383  00720076
+0X0387  00650073
+0X038B  00740020
+0X038F  00660072
+0X0393  006F006D
+Page   8  Test.stm
+
+    LC  Object    Line  Source Line
+------  --------  ----  -------------------------------------------------------------
+0X0397  00200066
+0X039B  00690065
+0X039F  006C0064
+0X03A3  00200032
+0X03A7  003A0020
+0X03AB  00100010   309                         DS        "Total Harvest = "
+0X03AF  0054006F
+0X03B3  00740061
+0X03B7  006C0020
+0X03BB  00480061
+0X03BF  00720076
+0X03C3  00650073
+0X03C7  00740020
+0X03CB  003D0020
+0X03CF  00180018   310                         DS        "Did you eat one? (true) "
+0X03D3  00440069
+0X03D7  00640020
+0X03DB  0079006F
+0X03DF  00750020
+0X03E3  00650061
+0X03E7  00740020
+0X03EB  006F006E
+0X03EF  0065003F
+0X03F3  00200028
+0X03F7  00740072
+0X03FB  00750065
+0X03FF  00290020
+0X0403  00170017   311                         DS        "Updated potato count = "
+0X0407  00550070
+0X040B  00640061
+0X040F  00740065
+0X0413  00640020
+0X0417  0070006F
+0X041B  00740061
+0X041F  0074006F
+0X0423  00200063
+0X0427  006F0075
+0X042B  006E0074
+0X042F  0020003D
+0X0433  0020    
+0X0435  001C001C   312                         DS        ", Decremented potatoCount = "
+0X0439  002C0020
+0X043D  00440065
+0X0441  00630072
+0X0445  0065006D
+0X0449  0065006E
+0X044D  00740065
+0X0451  00640020
+0X0455  0070006F
+0X0459  00740061
+0X045D  0074006F
+0X0461  0043006F
+0X0465  0075006E
+0X0469  00740020
+0X046D  003D0020
+0X0471  00230023   313                         DS        "Are you telling the truth? (false) "
+Page   9  Test.stm
+
+    LC  Object    Line  Source Line
+------  --------  ----  -------------------------------------------------------------
+0X0475  00410072
+0X0479  00650020
+0X047D  0079006F
+0X0481  00750020
+0X0485  00740065
+0X0489  006C006C
+0X048D  0069006E
+0X0491  00670020
+0X0495  00740068
+0X0499  00650020
+0X049D  00740072
+0X04A1  00750074
+0X04A5  0068003F
+0X04A9  00200028
+0X04AD  00660061
+0X04B1  006C0073
+0X04B5  00650029
+0X04B9  0020    
+0X04BB  00170017   314                         DS        "Current potato count = "
+0X04BF  00430075
+0X04C3  00720072
+0X04C7  0065006E
+0X04CB  00740020
+0X04CF  0070006F
+0X04D3  00740061
+0X04D7  0074006F
+0X04DB  00200063
+0X04DF  006F0075
+0X04E3  006E0074
+0X04E7  0020003D
+0X04EB  0020    
+0X04ED  001C001C   315                         DS        ", Incremented potatoCount = "
+0X04F1  002C0020
+0X04F5  0049006E
+0X04F9  00630072
+0X04FD  0065006D
+0X0501  0065006E
+0X0505  00740065
+0X0509  00640020
+0X050D  0070006F
+0X0511  00740061
+0X0515  0074006F
+0X0519  0043006F
+0X051D  0075006E
+0X0521  00740020
+0X0525  003D0020
+0X0529  001F001F   316                         DS        "Is Field Active? (true/false): "
+0X052D  00490073
+0X0531  00200046
+0X0535  00690065
+0X0539  006C0064
+0X053D  00200041
+0X0541  00630074
+0X0545  00690076
+0X0549  0065003F
+0X054D  00200028
+Page  10  Test.stm
+
+    LC  Object    Line  Source Line
+------  --------  ----  -------------------------------------------------------------
+0X0551  00740072
+0X0555  00750065
+0X0559  002F0066
+0X055D  0061006C
+0X0561  00730065
+0X0565  0029003A
+0X0569  0020    
+0X056B  000E000E   317                         DS        "Field Active: "
+0X056F  00460069
+0X0573  0065006C
+0X0577  00640020
+0X057B  00410063
+0X057F  00740069
+0X0583  00760065
+0X0587  003A0020
+0X058B  00160016   318                         DS        ", Harvest Successful: "
+0X058F  002C0020
+0X0593  00480061
+0X0597  00720076
+0X059B  00650073
+0X059F  00740020
+0X05A3  00530075
+0X05A7  00630063
+0X05AB  00650073
+0X05AF  00730066
+0X05B3  0075006C
+0X05B7  003A0020
+0X05BB  003E003E   319                         DS        "Thank you for farming with Auroxsus. Keep growing those spuds!"
+0X05BF  00540068
+0X05C3  0061006E
+0X05C7  006B0020
+0X05CB  0079006F
+0X05CF  00750020
+0X05D3  0066006F
+0X05D7  00720020
+0X05DB  00660061
+0X05DF  0072006D
+0X05E3  0069006E
+0X05E7  00670020
+0X05EB  00770069
+0X05EF  00740068
+0X05F3  00200041
+0X05F7  00750072
+0X05FB  006F0078
+0X05FF  00730075
+0X0603  0073002E
+0X0607  0020004B
+0X060B  00650065
+0X060F  00700020
+0X0613  00670072
+0X0617  006F0077
+0X061B  0069006E
+0X061F  00670020
+0X0623  00740068
+0X0627  006F0073
+0X062B  00650020
+Page  11  Test.stm
+
+    LC  Object    Line  Source Line
+------  --------  ----  -------------------------------------------------------------
+0X062F  00730070
+0X0633  00750064
+0X0637  00730021
+0X063B  00100010   320                         DS        "Run-time error #"
+0X063F  00520075
+0X0643  006E002D
+0X0647  00740069
+0X064B  006D0065
+0X064F  00200065
+0X0653  00720072
+0X0657  006F0072
+0X065B  00200023
+0X065F  000C000C   321                         DS        " near line #"
+0X0663  0020006E
+0X0667  00650061
+0X066B  00720020
+0X066F  006C0069
+0X0673  006E0065
+0X0677  00200023
+0X067B             322  ;------------------------------------------------------------
+0X067B             323  ; Heap space for dynamic memory allocation (to support future SPL syntax)
+0X067B             324  ;------------------------------------------------------------
+0X067B             325  HEAPBASE               EQU       *
+0X067B             326  HEAPSIZE               EQU       0B0010000000000000   ; 8K bytes = 4K words
+0X067B             327  ;------------------------------------------------------------
+0X067B             328  ; Run-time stack
+0X067B             329  ;------------------------------------------------------------
+0X067B             330  RUNTIMESTACK           EQU       0XFFFE
+
+
+  PC   SP TOS0 TOS1 TOS2 mnemonic  information
+---- ---- ---- ---- ---- --------- ----------------------------------------------
+0000 FFFE                 JMP       0X0003
+0003 FFFE                 PUSH      #memory[EA = 0X0005] = 0XFFFE
+0007 FFFC FFFE            POPSP     SP = 0XFFFE
+0008 FFFE                 PUSHA     memory[EA = 0X0215]
+000C FFFC 0215            POPSB     SB = 0X0215
+000D FFFE                 PUSH      #memory[EA = 0X000F] = 0X067B
+0011 FFFC 067B            PUSH      #memory[EA = 0X0013] = 0X2000
+-------------------------------------------------------------
+FREE nodes list
+   0X067B:0X267A(0X1FFC)
+-------------------------------------------------------------
+0015 FFFA 2000 067B       SVC       #90 initialize heap, heapBase = 0X067B, heapSize = 0X2000 words
+0018 FFFE                 CALL      0X002C return to 0X001B
+002C FFFC 001B            PUSHA     SB( 40) memory[EA = 0X0265]
+0030 FFFA 0265 001B       SVC       #51 write string
+0033 FFFC 001B            PUSH      SB(  3) memory[EA = 0X021B] = 0X0002
+0037 FFFA 0002 001B       SVC       #11 write integer
+Surplus = 2
+003A FFFC 001B            SVC       #42 write ENDL
+003D FFFC 001B            PUSHA     SB( 52) memory[EA = 0X027D]
+0041 FFFA 027D 001B       SVC       #51 write string
+0044 FFFC 001B            PUSH      SB(  4) memory[EA = 0X021D] = 0XFFFF
+0048 FFFA FFFF 001B       SVC       #31 write boolean 0XFFFF
+Are the potato's still good? T
+004B FFFC 001B            SVC       #42 write ENDL
+004E FFFC 001B            PUSHA     SB( 83) memory[EA = 0X02BB]
+0052 FFFA 02BB 001B       SVC       #51 write string
+0055 FFFC 001B            PUSH      SB( 37) memory[EA = 0X025F] = 0X0003
+0059 FFFA 0003 001B       SVC       #11 write integer
+Current Surplus = 3
+005C FFFC 001B            SVC       #42 write ENDL
+005F FFFC 001B            PUSHA     SB(103) memory[EA = 0X02E3]
+0063 FFFA 02E3 001B       SVC       #51 write string
+0066 FFFC 001B            PUSH      SB( 38) memory[EA = 0X0261] = 0X0000
+006A FFFA 0000 001B       SVC       #31 write boolean 0X0000
+Is Weather Favorable? F
+006D FFFC 001B            SVC       #42 write ENDL
+0070 FFFC 001B            PUSHA     SB(127) memory[EA = 0X0313]
+0074 FFFA 0313 001B       SVC       #51 write string
+0077 FFFC 001B            PUSHA     SB(  1) memory[EA = 0X0217]
+Enter today's harvest from field 1: 12
+007B FFFA 0217 001B       SVC       #10 read integer 0X000C
+007E FFF8 000C 0217  001B POP       @SP(  1) memory[EA = 0X0217 = memory[0XFFFC]] = 0X000C
+0082 FFFA 0217 001B       DISCARD   #1 words from top-of-stack
+0085 FFFC 001B            PUSHA     SB(165) memory[EA = 0X035F]
+0089 FFFA 035F 001B       SVC       #51 write string
+008C FFFC 001B            PUSHA     SB(  2) memory[EA = 0X0219]
+Enter today's harvest from field 2: 21
+0090 FFFA 0219 001B       SVC       #10 read integer 0X0015
+0093 FFF8 0015 0219  001B POP       @SP(  1) memory[EA = 0X0219 = memory[0XFFFC]] = 0X0015
+0097 FFFA 0219 001B       DISCARD   #1 words from top-of-stack
+009A FFFC 001B            PUSHA     SB( 33) memory[EA = 0X0257]
+009E FFFA 0257 001B       PUSH      SB(  0) memory[EA = 0X0215] = 0X0000
+00A2 FFF8 0000 0257  001B PUSH      SB(  1) memory[EA = 0X0217] = 0X000C
+00A6 FFF6 000C 0000  0257 ADDI      0X000C = 0X0000 + 0X000C
+00A7 FFF8 000C 0257  001B PUSH      SB(  2) memory[EA = 0X0219] = 0X0015
+00AB FFF6 0015 000C  0257 ADDI      0X0021 = 0X000C + 0X0015
+00AC FFF8 0021 0257  001B PUSH      SB( 37) memory[EA = 0X025F] = 0X0003
+00B0 FFF6 0003 0021  0257 ADDI      0X0024 = 0X0021 + 0X0003
+00B1 FFF8 0024 0257  001B MAKEDUP   duplicate 0X0024
+00B2 FFF6 0024 0024  0257 POP       @SP(  2) memory[EA = 0X0257 = memory[0XFFFC]] = 0X0024
+00B6 FFF8 0024 0257  001B SWAP      0X0257 <--> 0X0024
+00B7 FFF8 0257 0024  001B DISCARD   #1 words from top-of-stack
+00BA FFFA 0024 001B       DISCARD   #1 words from top-of-stack
+00BD FFFC 001B            PUSHA     SB(203) memory[EA = 0X03AB]
+00C1 FFFA 03AB 001B       SVC       #51 write string
+00C4 FFFC 001B            PUSH      SB( 33) memory[EA = 0X0257] = 0X0024
+00C8 FFFA 0024 001B       SVC       #11 write integer
+Total Harvest = 36
+00CB FFFC 001B            SVC       #42 write ENDL
+00CE FFFC 001B            PUSHA     SB(221) memory[EA = 0X03CF]
+00D2 FFFA 03CF 001B       SVC       #51 write string
+00D5 FFFC 001B            PUSHA     SB( 39) memory[EA = 0X0263]
+Did you eat one? (true) T
+00D9 FFFA 0263 001B       SVC       #30 read boolean 0XFFFF
+00DC FFF8 FFFF 0263  001B POP       @SP(  1) memory[EA = 0X0263 = memory[0XFFFC]] = 0XFFFF
+00E0 FFFA 0263 001B       DISCARD   #1 words from top-of-stack
+00E3 FFFC 001B            PUSHA     SB(247) memory[EA = 0X0403]
+00E7 FFFA 0403 001B       SVC       #51 write string
+00EA FFFC 001B            PUSH      SB(  0) memory[EA = 0X0215] = 0X0000
+00EE FFFA 0000 001B       SVC       #11 write integer
+00F1 FFFC 001B            PUSHA     SB(272) memory[EA = 0X0435]
+00F5 FFFA 0435 001B       SVC       #51 write string
+00F8 FFFC 001B            PUSHA     SB(  0) memory[EA = 0X0215]
+00FC FFFA 0215 001B       PUSH      @SP(  0) memory[EA = 0X0215 = memory[0XFFFC]] = 0X0000
+0100 FFF8 0000 0215  001B PUSH      #memory[EA = 0X0102] = 0X0001
+0104 FFF6 0001 0000  0215 SUBI      0XFFFF = 0X0000 - 0X0001
+0105 FFF8 FFFF 0215  001B POP       @SP(  1) memory[EA = 0X0215 = memory[0XFFFC]] = 0XFFFF
+0109 FFFA 0215 001B       PUSH      @SP(  0) memory[EA = 0X0215 = memory[0XFFFC]] = 0XFFFF
+010D FFF8 FFFF 0215  001B SWAP      0X0215 <--> 0XFFFF
+010E FFF8 0215 FFFF  001B DISCARD   #1 words from top-of-stack
+0111 FFFA FFFF 001B       SVC       #11 write integer
+Updated potato count = 0, Decremented potatoCount = -1
+0114 FFFC 001B            SVC       #42 write ENDL
+0117 FFFC 001B            PUSHA     SB(302) memory[EA = 0X0471]
+011B FFFA 0471 001B       SVC       #51 write string
+011E FFFC 001B            PUSHA     SB( 39) memory[EA = 0X0263]
+Are you telling the truth? (false) f
+0122 FFFA 0263 001B       SVC       #30 read boolean 0X0000
+0125 FFF8 0000 0263  001B POP       @SP(  1) memory[EA = 0X0263 = memory[0XFFFC]] = 0X0000
+0129 FFFA 0263 001B       DISCARD   #1 words from top-of-stack
+012C FFFC 001B            PUSHA     SB(339) memory[EA = 0X04BB]
+0130 FFFA 04BB 001B       SVC       #51 write string
+0133 FFFC 001B            PUSH      SB(  0) memory[EA = 0X0215] = 0XFFFF
+0137 FFFA FFFF 001B       SVC       #11 write integer
+013A FFFC 001B            PUSHA     SB(364) memory[EA = 0X04ED]
+013E FFFA 04ED 001B       SVC       #51 write string
+0141 FFFC 001B            PUSHA     SB(  0) memory[EA = 0X0215]
+0145 FFFA 0215 001B       PUSH      @SP(  0) memory[EA = 0X0215 = memory[0XFFFC]] = 0XFFFF
+0149 FFF8 FFFF 0215  001B PUSH      #memory[EA = 0X014B] = 0X0001
+014D FFF6 0001 FFFF  0215 ADDI      0X0000 = 0XFFFF + 0X0001
+014E FFF8 0000 0215  001B POP       @SP(  1) memory[EA = 0X0215 = memory[0XFFFC]] = 0X0000
+0152 FFFA 0215 001B       PUSH      @SP(  0) memory[EA = 0X0215 = memory[0XFFFC]] = 0X0000
+0156 FFF8 0000 0215  001B SWAP      0X0215 <--> 0X0000
+0157 FFF8 0215 0000  001B DISCARD   #1 words from top-of-stack
+015A FFFA 0000 001B       SVC       #11 write integer
+Current potato count = -1, Incremented potatoCount = 0
+015D FFFC 001B            SVC       #42 write ENDL
+0160 FFFC 001B            PUSHA     SB(394) memory[EA = 0X0529]
+0164 FFFA 0529 001B       SVC       #51 write string
+0167 FFFC 001B            PUSHA     SB( 35) memory[EA = 0X025B]
+Is Field Active? (true/false): T
+016B FFFA 025B 001B       SVC       #30 read boolean 0XFFFF
+016E FFF8 FFFF 025B  001B POP       @SP(  1) memory[EA = 0X025B = memory[0XFFFC]] = 0XFFFF
+0172 FFFA 025B 001B       DISCARD   #1 words from top-of-stack
+0175 FFFC 001B            PUSHA     SB( 36) memory[EA = 0X025D]
+0179 FFFA 025D 001B       PUSH      SB( 35) memory[EA = 0X025B] = 0XFFFF
+017D FFF8 FFFF 025D  001B NOT       F = NOT T
+017E FFF8 0000 025D  001B PUSH      SB(  4) memory[EA = 0X021D] = 0XFFFF
+0182 FFF6 FFFF 0000  025D PUSH      SB( 38) memory[EA = 0X0261] = 0X0000
+0186 FFF4 0000 FFFF  0000 XOR       T = T XOR F
+0187 FFF6 FFFF 0000  025D OR        T = F OR T
+0188 FFF8 FFFF 025D  001B MAKEDUP   duplicate 0XFFFF
+0189 FFF6 FFFF FFFF  025D POP       @SP(  2) memory[EA = 0X025D = memory[0XFFFC]] = 0XFFFF
+018D FFF8 FFFF 025D  001B SWAP      0X025D <--> 0XFFFF
+018E FFF8 025D FFFF  001B DISCARD   #1 words from top-of-stack
+0191 FFFA FFFF 001B       DISCARD   #1 words from top-of-stack
+0194 FFFC 001B            PUSHA     SB(427) memory[EA = 0X056B]
+0198 FFFA 056B 001B       SVC       #51 write string
+019B FFFC 001B            PUSH      SB( 35) memory[EA = 0X025B] = 0XFFFF
+019F FFFA FFFF 001B       SVC       #31 write boolean 0XFFFF
+01A2 FFFC 001B            PUSHA     SB(443) memory[EA = 0X058B]
+01A6 FFFA 058B 001B       SVC       #51 write string
+01A9 FFFC 001B            PUSH      SB( 36) memory[EA = 0X025D] = 0XFFFF
+01AD FFFA FFFF 001B       SVC       #31 write boolean 0XFFFF
+Field Active: T, Harvest Successful: T
+01B0 FFFC 001B            SVC       #42 write ENDL
+01B3 FFFC 001B            PUSHA     SB(467) memory[EA = 0X05BB]
+01B7 FFFA 05BB 001B       SVC       #51 write string
+Thank you for farming with Auroxsus. Keep growing those spuds!
+01BA FFFC 001B            SVC       #42 write ENDL
+01BD FFFC 001B            RETURN    to 0X001B
+001B FFFE                 PUSHA     SB(  5) memory[EA = 0X021F]
+001F FFFC 021F            SVC       #51 write string
+Normal program termination
+0022 FFFE                 SVC       #42 write ENDL
+0025 FFFE                 PUSH      #memory[EA = 0X0027] = 0X0000
+0029 FFFC 0000            SVC       #1 terminate program with status 0, SP = 0XFFFE
+

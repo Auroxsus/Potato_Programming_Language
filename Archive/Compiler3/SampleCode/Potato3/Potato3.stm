@@ -1,0 +1,305 @@
+;--------------------------------------------------------------
+; Potato3.stm
+;--------------------------------------------------------------
+; SVC numbers
+SVC_DONOTHING          EQU       0D0                  ; force context switch
+SVC_TERMINATE          EQU       0D1
+SVC_READ_INTEGER       EQU       0D10
+SVC_WRITE_INTEGER      EQU       0D11
+SVC_READ_FLOAT         EQU       0D20
+SVC_WRITE_FLOAT        EQU       0D21
+SVC_READ_BOOLEAN       EQU       0D30
+SVC_WRITE_BOOLEAN      EQU       0D31
+SVC_READ_CHARACTER     EQU       0D40
+SVC_WRITE_CHARACTER    EQU       0D41
+SVC_WRITE_ENDL         EQU       0D42
+SVC_READ_STRING        EQU       0D50
+SVC_WRITE_STRING       EQU       0D51
+SVC_INITIALIZE_HEAP    EQU       0D90
+SVC_ALLOCATE_BLOCK     EQU       0D91
+SVC_DEALLOCATE_BLOCK   EQU       0D92
+
+                       ORG       0X0000
+
+                       JMP       PROGRAMMAIN
+;    1 ||------------------------------------------------------------
+;    2 || Auroxsus
+;    3 || Description: demonstrates the use of variables, constants, 
+;    4 || and basic arithmetic and logical operations with symbol syntax
+;    5 || Potato3.p
+;    6 ||------------------------------------------------------------
+;    7 
+;    8 || global variables
+;    9 spudling x1; 
+;   10 spudling x2 : x3;
+;   11 
+;   12 || constants
+;   13 spud spudling c1 = 2;  
+;   14 spud tater c2 = true;
+;   15 
+;   16 crisp mainCrisp () {
+;   17    || local variables
+; **** =========
+; **** PROGRAM module (  16)
+; **** =========
+PROGRAMMAIN            EQU       *
+                       PUSH      #RUNTIMESTACK        ; set SP
+                       POPSP     
+                       PUSHA     STATICDATA           ; set SB
+                       POPSB     
+                       PUSH      #HEAPBASE            ; initialize heap
+                       PUSH      #HEAPSIZE
+                       SVC       #SVC_INITIALIZE_HEAP
+                       CALL      PROGRAMBODY0010
+                       PUSHA     SB:0D5
+                       SVC       #SVC_WRITE_STRING
+                       SVC       #SVC_WRITE_ENDL
+                       PUSH      #0D0                 ; terminate with status = 0
+                       SVC       #SVC_TERMINATE
+PROGRAMBODY0010        EQU       *
+;   18    spudling sum : x4;
+;   19    tater b1 : b2 = true;
+;   20    spud spudling c3 = 3; 
+;   21    spud tater c4 = false;
+;   22    
+;   23    || print constants
+;   24    bite "c1 = ", c1, endl;
+; **** PRINT statement (  24)
+                       PUSHA     SB:0D39
+                       SVC       #SVC_WRITE_STRING
+;   25    bite "c2 = ", c2, endl;
+                       PUSH      SB:0D3
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  25)
+                       PUSHA     SB:0D46
+                       SVC       #SVC_WRITE_STRING
+;   26    bite "c3 = ", c3, endl;
+                       PUSH      SB:0D4
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  26)
+                       PUSHA     SB:0D53
+                       SVC       #SVC_WRITE_STRING
+;   27    bite "c4 = ", c4, endl;
+                       PUSH      SB:0D37
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  27)
+                       PUSHA     SB:0D60
+                       SVC       #SVC_WRITE_STRING
+;   28 
+;   29     
+                       PUSH      SB:0D38
+                       SVC       #SVC_WRITE_BOOLEAN
+;   30    |[ sample static semantic error
+;   31    c1 = 2; || assignment attempt to a constant
+;   32    spudling x1; || unable to name local a global name
+;   33    uncomment and try! ]|
+;   34     
+;   35    x1 = 0;
+                       SVC       #SVC_WRITE_ENDL
+;   36    unearth "x1? " x1; || prompt user for unput
+; **** assignment statement (  35)
+                       PUSHA     SB:0D0
+                       PUSH      #0D0
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+; **** INPUT statement (  36)
+                       PUSHA     SB:0D67
+                       SVC       #SVC_WRITE_STRING
+;   37    unearth x2;
+                       PUSHA     SB:0D0
+;   38    sum = x1 + x2 + c1;
+                       SVC       #SVC_READ_INTEGER
+                       POP       @SP:0D1
+                       DISCARD   #0D1
+; **** INPUT statement (  37)
+                       PUSHA     SB:0D1
+                       SVC       #SVC_READ_INTEGER
+                       POP       @SP:0D1
+                       DISCARD   #0D1
+; **** assignment statement (  38)
+                       PUSHA     SB:0D33
+                       PUSH      SB:0D0
+;   39    bite "x1 + x2 + c1 = ", sum, endl;
+                       PUSH      SB:0D1
+                       ADDI      
+                       PUSH      SB:0D3
+                       ADDI      
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+; **** PRINT statement (  39)
+                       PUSHA     SB:0D73
+                       SVC       #SVC_WRITE_STRING
+;   40    
+                       PUSH      SB:0D33
+                       SVC       #SVC_WRITE_INTEGER
+;   41    || increment and decrement operators   
+;   42    bite "x1 = ", x1, ", ++x1 = ", ++x1, endl;
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  42)
+                       PUSHA     SB:0D90
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      SB:0D0
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D97
+                       SVC       #SVC_WRITE_STRING
+;   43    bite "x1 = ", x1, ", --x1 = ", --x1, endl;
+                       PUSHA     SB:0D0
+                       PUSH      @SP:0D0
+                       PUSH      #0D1
+                       ADDI      
+                       POP       @SP:0D1
+                       PUSH      @SP:0D0
+                       SWAP      
+                       DISCARD   #0D1
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  43)
+                       PUSHA     SB:0D108
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      SB:0D0
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D115
+                       SVC       #SVC_WRITE_STRING
+;   44    
+                       PUSHA     SB:0D0
+                       PUSH      @SP:0D0
+                       PUSH      #0D1
+                       SUBI      
+                       POP       @SP:0D1
+                       PUSH      @SP:0D0
+                       SWAP      
+                       DISCARD   #0D1
+                       SVC       #SVC_WRITE_INTEGER
+;   45    unearth "b1? " b1;
+                       SVC       #SVC_WRITE_ENDL
+;   46    b2 = !b1 \\ (c2 +\ c4);
+; **** INPUT statement (  45)
+                       PUSHA     SB:0D126
+                       SVC       #SVC_WRITE_STRING
+                       PUSHA     SB:0D35
+                       SVC       #SVC_READ_BOOLEAN
+                       POP       @SP:0D1
+                       DISCARD   #0D1
+; **** assignment statement (  46)
+                       PUSHA     SB:0D36
+                       PUSH      SB:0D35
+                       NOT       
+;   47    bite "b1 = ", b1, ", b2 = ", b2, endl;
+                       PUSH      SB:0D4
+                       PUSH      SB:0D38
+                       XOR       
+                       OR        
+                       MAKEDUP   
+                       POP       @SP:0D2
+                       SWAP      
+                       DISCARD   #0D1
+                       DISCARD   #0D1
+; **** PRINT statement (  47)
+                       PUSHA     SB:0D132
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      SB:0D35
+                       SVC       #SVC_WRITE_BOOLEAN
+                       PUSHA     SB:0D139
+                       SVC       #SVC_WRITE_STRING
+;   48 
+;   49 
+                       PUSH      SB:0D36
+;   50 }
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+                       RETURN    
+; **** =========
+; **** END (  50)
+; **** =========
+;--------------------------------------------------------------
+; Common subroutines
+;--------------------------------------------------------------
+CHRIsInRange           EQU       *                    ; CHR,LB,UB,RA
+                       PUSH      SP:0D2               ; CHR,LB,UB,RA,LB
+                       PUSH      SP:0D4               ; CHR,LB,UB,RA,LB,CHR
+                       CMPI                           ; CHR,LB,UB,RA (set LEG)
+                       JMPG      F0030                ; CHR,LB,UB,RA
+                       PUSH      SP:0D3               ; CHR,LB,UB,RA,CHR
+                       PUSH      SP:0D2               ; CHR,LB,UB,RA,CHR,UB
+                       CMPI                           ; CHR,LB,UB,RA (set LEG)
+                       JMPG      F0030                ; CHR,LB,UB,RA
+T0020                  EQU       *                    ; CHR,LB,UB,RA
+                       SWAP                           ; CHR,LB,RA,UB
+                       DISCARD   #0D1                 ; CHR,LB,RA
+                       SWAP                           ; CHR,RA,LB
+                       DISCARD   #0D1                 ; CHR,RA
+                       PUSH      #0XFFFF              ; CHR,RA,true
+                       SWAP                           ; CHR,true,RA
+                       JMP       E0040                ; CHR,true,RA
+F0030                  EQU       *                    ; CHR,LB,UB,RA
+                       SWAP                           ; CHR,LB,RA,UB
+                       DISCARD   #0D1                 ; CHR,LB,RA
+                       SWAP                           ; CHR,RA,LB
+                       DISCARD   #0D1                 ; CHR,RA
+                       PUSH      #0X0000              ; CHR,RA,false
+                       SWAP                           ; CHR,false,RA
+E0040                  EQU       *                    ; CHR,true-or-false,RA
+                       RETURN                         ; CHR,true-or-false,RA
+;------------------------------------------------------------
+; Issue "Run-time error #X..X near line #X..X" to handle run-time errors
+;------------------------------------------------------------
+HANDLERUNTIMEERROR     EQU       *
+                       SVC       #SVC_WRITE_ENDL
+                       PUSHA     SB:0D148
+                       SVC       #SVC_WRITE_STRING
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D166
+                       SVC       #SVC_WRITE_STRING
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+                       PUSH      #0D1
+                       SVC       #SVC_TERMINATE
+;------------------------------------------------------------
+; Static allocation of global data and PROGRAM module data
+;------------------------------------------------------------
+STATICDATA             EQU       *
+                       RW        0D1                  ; x1
+                       RW        0D1                  ; x2
+                       RW        0D1                  ; x3
+                       DW        0D2                  ; c1
+                       DW        true                 ; c2
+                       DS        "Normal program termination"
+                       RW        0D1                  ; sum
+                       RW        0D1                  ; x4
+                       RW        0D1                  ; b1
+                       RW        0D1                  ; b2
+                       DW        0D3                  ; c3
+                       DW        false                ; c4
+                       DS        "c1 = "
+                       DS        "c2 = "
+                       DS        "c3 = "
+                       DS        "c4 = "
+                       DS        "x1? "
+                       DS        "x1 + x2 + c1 = "
+                       DS        "x1 = "
+                       DS        ", ++x1 = "
+                       DS        "x1 = "
+                       DS        ", --x1 = "
+                       DS        "b1? "
+                       DS        "b1 = "
+                       DS        ", b2 = "
+                       DS        "Run-time error #"
+                       DS        " near line #"
+;------------------------------------------------------------
+; Heap space for dynamic memory allocation (to support future SPL syntax)
+;------------------------------------------------------------
+HEAPBASE               EQU       *
+HEAPSIZE               EQU       0B0010000000000000   ; 8K bytes = 4K words
+;------------------------------------------------------------
+; Run-time stack
+;------------------------------------------------------------
+RUNTIMESTACK           EQU       0XFFFE

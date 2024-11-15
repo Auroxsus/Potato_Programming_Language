@@ -1,0 +1,133 @@
+ "Potato3.p" Thu Nov  7 18:50:25 2024 Page 1
+Line Source Line
+---- -------------------------------------------------------------------------------
+   1 ||------------------------------------------------------------
+   2 || Auroxsus
+   3 || Description: demonstrates the use of variables, constants, 
+   4 || and basic arithmetic and logical operations with symbol syntax
+   5 || Potato3.p
+   6 ||------------------------------------------------------------
+   7 
+   8 || global variables
+   9 spudling x1; 
+  10 spudling x2 : x3;
+Did not find identifier "x1"
+Added identifier "x1" at index = 1, reference = SB:0D0, identifier type = GLOBAL_VARIABLE, data type = INTEGER, dimensions = 0
+  11 
+  12 || constants
+Did not find identifier "x2"
+Added identifier "x2" at index = 2, reference = SB:0D1, identifier type = GLOBAL_VARIABLE, data type = INTEGER, dimensions = 0
+  13 spud spudling c1 = 2;  
+Did not find identifier "x3"
+Added identifier "x3" at index = 3, reference = SB:0D2, identifier type = GLOBAL_VARIABLE, data type = INTEGER, dimensions = 0
+  14 spud tater c2 = true;
+Did not find identifier "c1"
+Added identifier "c1" at index = 4, reference = SB:0D3, identifier type = GLOBAL_CONSTANT, data type = INTEGER, dimensions = 0
+  15 
+  16 crisp mainCrisp () {
+Did not find identifier "c2"
+Added identifier "c2" at index = 5, reference = SB:0D4, identifier type = GLOBAL_CONSTANT, data type = BOOLEAN, dimensions = 0
+===================================================================================================
+Contents of identifier table after compilation of global data definitions
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x1
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               x2
+  3     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D2               x3
+  4     0 INTEGER            0 GLOBAL_CONSTANT            SB:0D3               c1
+  5     0 BOOLEAN            0 GLOBAL_CONSTANT            SB:0D4               c2
+===================================================================================================
+  17    || local variables
+Begin nested scope #1, identifier table index = 5
+  18    spudling sum : x4;
+  19    tater b1 : b2 = true;
+Did not find identifier "sum"
+Added identifier "sum" at index = 6, reference = SB:0D33, identifier type = PROGRAMMODULE_VARIABLE, data type = INTEGER, dimensions = 0
+Did not find identifier "x4"
+Added identifier "x4" at index = 7, reference = SB:0D34, identifier type = PROGRAMMODULE_VARIABLE, data type = INTEGER, dimensions = 0
+Did not find identifier "b1"
+Added identifier "b1" at index = 8, reference = SB:0D35, identifier type = PROGRAMMODULE_VARIABLE, data type = BOOLEAN, dimensions = 0
+  20    spud spudling c3 = 3; 
+Did not find identifier "b2"
+Added identifier "b2" at index = 9, reference = SB:0D36, identifier type = PROGRAMMODULE_VARIABLE, data type = BOOLEAN, dimensions = 0
+  21    spud tater c4 = false;
+Did not find identifier "c3"
+Added identifier "c3" at index = 10, reference = SB:0D37, identifier type = PROGRAMMODULE_CONSTANT, data type = INTEGER, dimensions = 0
+  22    
+  23    || print constants
+  24    bite "c1 = ", c1, endl;
+Did not find identifier "c4"
+Added identifier "c4" at index = 11, reference = SB:0D38, identifier type = PROGRAMMODULE_CONSTANT, data type = BOOLEAN, dimensions = 0
+  25    bite "c2 = ", c2, endl;
+Found identifier "c1" at index = 4 (not in current scope)
+  26    bite "c3 = ", c3, endl;
+ "Potato3.p" Thu Nov  7 18:50:25 2024 Page 2
+Line Source Line
+---- -------------------------------------------------------------------------------
+Found identifier "c2" at index = 5 (not in current scope)
+  27    bite "c4 = ", c4, endl;
+Found identifier "c3" at index = 10 (is in current scope)
+  28 
+  29     
+Found identifier "c4" at index = 11 (is in current scope)
+  30    |[ sample static semantic error
+  31    c1 = 2; || assignment attempt to a constant
+  32    spudling x1; || unable to name local a global name
+  33    uncomment and try! ]|
+  34     
+  35    x1 = 0;
+  36    unearth "x1? " x1; || prompt user for unput
+Found identifier "x1" at index = 1 (not in current scope)
+  37    unearth x2;
+Found identifier "x1" at index = 1 (not in current scope)
+  38    sum = x1 + x2 + c1;
+Found identifier "x2" at index = 2 (not in current scope)
+Found identifier "sum" at index = 6 (is in current scope)
+Found identifier "x1" at index = 1 (not in current scope)
+  39    bite "x1 + x2 + c1 = ", sum, endl;
+Found identifier "x2" at index = 2 (not in current scope)
+Found identifier "c1" at index = 4 (not in current scope)
+  40    
+Found identifier "sum" at index = 6 (is in current scope)
+  41    || increment and decrement operators   
+  42    bite "x1 = ", x1, ", ++x1 = ", ++x1, endl;
+Found identifier "x1" at index = 1 (not in current scope)
+  43    bite "x1 = ", x1, ", --x1 = ", --x1, endl;
+Found identifier "x1" at index = 1 (not in current scope)
+Found identifier "x1" at index = 1 (not in current scope)
+  44    
+Found identifier "x1" at index = 1 (not in current scope)
+  45    unearth "b1? " b1;
+  46    b2 = !b1 \\ (c2 +\ c4);
+Found identifier "b1" at index = 8 (is in current scope)
+Found identifier "b2" at index = 9 (is in current scope)
+Found identifier "b1" at index = 8 (is in current scope)
+  47    bite "b1 = ", b1, ", b2 = ", b2, endl;
+Found identifier "c2" at index = 5 (not in current scope)
+Found identifier "c4" at index = 11 (is in current scope)
+Found identifier "b1" at index = 8 (is in current scope)
+  48 
+  49 
+Found identifier "b2" at index = 9 (is in current scope)
+  50 }
+===================================================================================================
+Contents of identifier table at end of compilation of PROGRAM module definition
+  # Scope Data type Dimensions Type                       Reference            Lexeme
+--- ----- --------- ---------- -------------------------- -------------------- --------------------
+  1     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D0               x1
+  2     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D1               x2
+  3     0 INTEGER            0 GLOBAL_VARIABLE            SB:0D2               x3
+  4     0 INTEGER            0 GLOBAL_CONSTANT            SB:0D3               c1
+  5     0 BOOLEAN            0 GLOBAL_CONSTANT            SB:0D4               c2
+  6     1 INTEGER            0 PROGRAMMODULE_VARIABLE     SB:0D33              sum
+  7     1 INTEGER            0 PROGRAMMODULE_VARIABLE     SB:0D34              x4
+  8     1 BOOLEAN            0 PROGRAMMODULE_VARIABLE     SB:0D35              b1
+  9     1 BOOLEAN            0 PROGRAMMODULE_VARIABLE     SB:0D36              b2
+ 10     1 INTEGER            0 PROGRAMMODULE_CONSTANT     SB:0D37              c3
+ "Potato3.p" Thu Nov  7 18:50:25 2024 Page 3
+Line Source Line
+---- -------------------------------------------------------------------------------
+ 11     1 BOOLEAN            0 PROGRAMMODULE_CONSTANT     SB:0D38              c4
+===================================================================================================
+End nested scope #1, identifier table index now = 5
+******* POTATO was cooked thoroughly

@@ -1,0 +1,851 @@
+;--------------------------------------------------------------
+; Potato2.stm
+;--------------------------------------------------------------
+; SVC numbers
+SVC_DONOTHING          EQU       0D0                  ; force context switch
+SVC_TERMINATE          EQU       0D1
+SVC_READ_INTEGER       EQU       0D10
+SVC_WRITE_INTEGER      EQU       0D11
+SVC_READ_FLOAT         EQU       0D20
+SVC_WRITE_FLOAT        EQU       0D21
+SVC_READ_BOOLEAN       EQU       0D30
+SVC_WRITE_BOOLEAN      EQU       0D31
+SVC_READ_CHARACTER     EQU       0D40
+SVC_WRITE_CHARACTER    EQU       0D41
+SVC_WRITE_ENDL         EQU       0D42
+SVC_READ_STRING        EQU       0D50
+SVC_WRITE_STRING       EQU       0D51
+SVC_INITIALIZE_HEAP    EQU       0D90
+SVC_ALLOCATE_BLOCK     EQU       0D91
+SVC_DEALLOCATE_BLOCK   EQU       0D92
+
+                       ORG       0X0000
+
+                       JMP       PROGRAMMAIN
+;    1 ||------------------------------------------------------------
+;    2 || Auroxsus
+;    3 || Description: sample operator statements
+;    4 || Potato2.p
+;    5 ||------------------------------------------------------------
+;    6 
+;    7 crisp mainCrisp () {
+;    8 |[----------------------||
+; **** =========
+; **** PROGRAM module (   7)
+; **** =========
+PROGRAMMAIN            EQU       *
+                       PUSH      #RUNTIMESTACK        ; set SP
+                       POPSP     
+                       PUSHA     STATICDATA           ; set SB
+                       POPSB     
+                       PUSH      #HEAPBASE            ; initialize heap
+                       PUSH      #HEAPSIZE
+                       SVC       #SVC_INITIALIZE_HEAP
+                       CALL      PROGRAMBODY0010
+                       PUSHA     SB:0D0
+                       SVC       #SVC_WRITE_STRING
+                       SVC       #SVC_WRITE_ENDL
+                       PUSH      #0D0                 ; terminate with status = 0
+                       SVC       #SVC_TERMINATE
+PROGRAMBODY0010        EQU       *
+;    9 || Arithmetic Operators ||
+;   10 ||----------------------]|
+;   11 
+;   12    bite "1          = "              , 1                  , endl;
+; **** PRINT statement (  12)
+                       PUSHA     SB:0D28
+                       SVC       #SVC_WRITE_STRING
+;   13    bite "+2         = "              , +2                 , endl;
+                       PUSH      #0D1
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  13)
+                       PUSHA     SB:0D43
+                       SVC       #SVC_WRITE_STRING
+;   14    bite "mash 2     = "              , mash 2             , endl;
+                       PUSH      #0D2
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  14)
+                       PUSHA     SB:0D58
+                       SVC       #SVC_WRITE_STRING
+;   15    bite "-3         = "              , -3                 , endl;
+                       PUSH      #0D2
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  15)
+                       PUSHA     SB:0D73
+                       SVC       #SVC_WRITE_STRING
+;   16    bite "peel 3     = "              , peel 3             , endl;
+                       PUSH      #0D3
+                       NEGI      
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  16)
+                       PUSHA     SB:0D88
+                       SVC       #SVC_WRITE_STRING
+;   17    bite "ABS 2      = "              , ABS 2              , endl;
+                       PUSH      #0D3
+                       NEGI      
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  17)
+                       PUSHA     SB:0D103
+                       SVC       #SVC_WRITE_STRING
+;   18    bite "ABS(-2)    = "              , ABS(-3)            , endl;
+                       PUSH      #0D2
+                       SETNZPI   
+                       JMPNN     E0020
+                       NEGI      
+E0020                  EQU       *
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  18)
+                       PUSHA     SB:0D118
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D3
+;   19    bite "4 + 5      = "              , 4 + 5              , endl;
+                       NEGI      
+                       SETNZPI   
+                       JMPNN     E0030
+                       NEGI      
+E0030                  EQU       *
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  19)
+                       PUSHA     SB:0D133
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D4
+;   20    bite "4 mash 5   = "              , 4 mash 5           , endl;
+                       PUSH      #0D5
+                       ADDI      
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  20)
+                       PUSHA     SB:0D148
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D4
+;   21    bite "8 - 3      = "              , 8 - 3              , endl;
+                       PUSH      #0D5
+                       ADDI      
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  21)
+                       PUSHA     SB:0D163
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D8
+;   22    bite "8 peel 3   = "              , 8 peel 3           , endl;
+                       PUSH      #0D3
+                       SUBI      
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  22)
+                       PUSHA     SB:0D178
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D8
+;   23    bite "6 * 2      = "              , 6 * 7              , endl;
+                       PUSH      #0D3
+                       SUBI      
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  23)
+                       PUSHA     SB:0D193
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D6
+;   24    bite "6 fry 2    = "              , 6 fry 7            , endl;
+                       PUSH      #0D7
+                       MULI      
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  24)
+                       PUSHA     SB:0D208
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D6
+;   25    bite "10 / 2     = "              , 10 / 2             , endl;
+                       PUSH      #0D7
+                       MULI      
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  25)
+                       PUSHA     SB:0D223
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D10
+;   26    bite "10 slice 2 = "              , 10 slice 2         , endl;
+                       PUSH      #0D2
+                       DIVI      
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  26)
+                       PUSHA     SB:0D238
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D10
+;   27    bite "7 % 3      = "              , 7 % 3              , endl;
+                       PUSH      #0D2
+                       DIVI      
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  27)
+                       PUSHA     SB:0D253
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D7
+;   28    bite "7 mod 3    = "              , 7 mod 3            , endl;
+                       PUSH      #0D3
+                       REMI      
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  28)
+                       PUSHA     SB:0D268
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D7
+;   29    bite "2 ^ 3      = "              , 2 ^ 3              , endl;
+                       PUSH      #0D3
+                       REMI      
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  29)
+                       PUSHA     SB:0D283
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D2
+;   30    bite "2 pow 3    = "              , 2 pow 3            , endl;
+                       PUSH      #0D3
+                       POWI      
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  30)
+                       PUSHA     SB:0D298
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D2
+;   31 
+;   32 |[----------------------||
+                       PUSH      #0D3
+                       POWI      
+                       SVC       #SVC_WRITE_INTEGER
+;   33 || Comparison Operators ||
+;   34 ||----------------------]|
+;   35 
+;   36    bite "4 == 6                = "  , 4 == 6             , endl;
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  36)
+                       PUSHA     SB:0D313
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D4
+;   37    bite "4 spudMatch 6         = "  , 4 spudMatch 6      , endl;
+                       PUSH      #0D6
+                       CMPI      
+                       JMPE      T0040
+                       PUSH      #0X0000
+                       JMP       E0050
+T0040                  PUSH      #0XFFFF
+E0050                  EQU       *
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  37)
+                       PUSHA     SB:0D339
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D4
+;   38    bite "4 != 6                = "  , 4 != 6             , endl;
+                       PUSH      #0D6
+                       CMPI      
+                       JMPE      T0060
+                       PUSH      #0X0000
+                       JMP       E0070
+T0060                  PUSH      #0XFFFF
+E0070                  EQU       *
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  38)
+                       PUSHA     SB:0D365
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D4
+;   39    bite "4 <> 6                = "  , 4 <> 6             , endl;
+                       PUSH      #0D6
+                       CMPI      
+                       JMPNE     T0080
+                       PUSH      #0X0000
+                       JMP       E0090
+T0080                  PUSH      #0XFFFF
+E0090                  EQU       *
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  39)
+                       PUSHA     SB:0D391
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D4
+;   40    bite "4 mashApart 6         = "  , 4 mashApart 6      , endl;
+                       PUSH      #0D6
+                       CMPI      
+                       JMPNE     T0100
+                       PUSH      #0X0000
+                       JMP       E0110
+T0100                  PUSH      #0XFFFF
+E0110                  EQU       *
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  40)
+                       PUSHA     SB:0D417
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D4
+;   41    bite "4 < 6                 = "  , 4 < 6              , endl;
+                       PUSH      #0D6
+                       CMPI      
+                       JMPNE     T0120
+                       PUSH      #0X0000
+                       JMP       E0130
+T0120                  PUSH      #0XFFFF
+E0130                  EQU       *
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  41)
+                       PUSHA     SB:0D443
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D4
+;   42    bite "4 smallerSpud 6       = "  , 4 smallerSpud 6    , endl;
+                       PUSH      #0D6
+                       CMPI      
+                       JMPL      T0140
+                       PUSH      #0X0000
+                       JMP       E0150
+T0140                  PUSH      #0XFFFF
+E0150                  EQU       *
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  42)
+                       PUSHA     SB:0D469
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D4
+;   43    bite "4 > 6                 = "  , 4 > 6              , endl;
+                       PUSH      #0D6
+                       CMPI      
+                       JMPL      T0160
+                       PUSH      #0X0000
+                       JMP       E0170
+T0160                  PUSH      #0XFFFF
+E0170                  EQU       *
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  43)
+                       PUSHA     SB:0D495
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D4
+;   44    bite "4 biggerSpud 6        = "  , 4 biggerSpud 6     , endl;
+                       PUSH      #0D6
+                       CMPI      
+                       JMPG      T0180
+                       PUSH      #0X0000
+                       JMP       E0190
+T0180                  PUSH      #0XFFFF
+E0190                  EQU       *
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  44)
+                       PUSHA     SB:0D521
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D4
+;   45    bite "4 <= 6                = "  , 4 <= 6             , endl;
+                       PUSH      #0D6
+                       CMPI      
+                       JMPG      T0200
+                       PUSH      #0X0000
+                       JMP       E0210
+T0200                  PUSH      #0XFFFF
+E0210                  EQU       *
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  45)
+                       PUSHA     SB:0D547
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D4
+;   46    bite "4 notBiggerSpud 6     = "  , 4 notBiggerSpud 6  , endl;
+                       PUSH      #0D6
+                       CMPI      
+                       JMPLE     T0220
+                       PUSH      #0X0000
+                       JMP       E0230
+T0220                  PUSH      #0XFFFF
+E0230                  EQU       *
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  46)
+                       PUSHA     SB:0D573
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D4
+;   47    bite "4 >= 6                = "  , 4 >= 6             , endl;
+                       PUSH      #0D6
+                       CMPI      
+                       JMPLE     T0240
+                       PUSH      #0X0000
+                       JMP       E0250
+T0240                  PUSH      #0XFFFF
+E0250                  EQU       *
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  47)
+                       PUSHA     SB:0D599
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D4
+;   48    bite "4 notSmallerSpud 6    = "  , 4 notSmallerSpud 6 , endl;
+                       PUSH      #0D6
+                       CMPI      
+                       JMPGE     T0260
+                       PUSH      #0X0000
+                       JMP       E0270
+T0260                  PUSH      #0XFFFF
+E0270                  EQU       *
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  48)
+                       PUSHA     SB:0D625
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0D4
+;   49 
+;   50 |[----------------------||
+                       PUSH      #0D6
+                       CMPI      
+                       JMPGE     T0280
+                       PUSH      #0X0000
+                       JMP       E0290
+T0280                  PUSH      #0XFFFF
+E0290                  EQU       *
+                       SVC       #SVC_WRITE_BOOLEAN
+;   51 || Logical Operators    ||
+;   52 ||----------------------]|
+;   53 
+;   54    bite "true && true          = "  , true && true       , endl;
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  54)
+                       PUSHA     SB:0D651
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0XFFFF
+;   55    bite "true prep true        = "  , true prep true     , endl;
+                       PUSH      #0XFFFF
+                       AND       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  55)
+                       PUSHA     SB:0D677
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0XFFFF
+;   56    bite "true && false         = "  , true && false      , endl;
+                       PUSH      #0XFFFF
+                       AND       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  56)
+                       PUSHA     SB:0D703
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0XFFFF
+;   57    bite "true prep false       = "  , true prep false    , endl;
+                       PUSH      #0X0000
+                       AND       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  57)
+                       PUSHA     SB:0D729
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0XFFFF
+;   58    bite "false && false        = "  , false && false     , endl;
+                       PUSH      #0X0000
+                       AND       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  58)
+                       PUSHA     SB:0D755
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0X0000
+;   59    bite "false prep false      = "  , false prep false   , endl;
+                       PUSH      #0X0000
+                       AND       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  59)
+                       PUSHA     SB:0D781
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0X0000
+;   60 
+;   61    bite "true \\\\ true          = " , true \\ true       , endl;
+                       PUSH      #0X0000
+                       AND       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  61)
+                       PUSHA     SB:0D807
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0XFFFF
+;   62    bite "true mix true         = "   , true mix true      , endl;
+                       PUSH      #0XFFFF
+                       OR        
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  62)
+                       PUSHA     SB:0D835
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0XFFFF
+;   63    bite "true \\\\ false         = " , true \\ false      , endl;
+                       PUSH      #0XFFFF
+                       OR        
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  63)
+                       PUSHA     SB:0D861
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0XFFFF
+;   64    bite "true mix false        = "   , true mix false     , endl;
+                       PUSH      #0X0000
+                       OR        
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  64)
+                       PUSHA     SB:0D889
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0XFFFF
+;   65    bite "false \\\\ false        = " , false \\ false     , endl;
+                       PUSH      #0X0000
+                       OR        
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  65)
+                       PUSHA     SB:0D915
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0X0000
+;   66    bite "false mix false       = "   , false mix false    , endl;
+                       PUSH      #0X0000
+                       OR        
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  66)
+                       PUSHA     SB:0D943
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0X0000
+;   67 
+;   68    bite "false spudStop true   = "   , false spudStop true      , endl;
+                       PUSH      #0X0000
+                       OR        
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  68)
+                       PUSHA     SB:0D969
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0X0000
+;   69    bite "false ~\\ true         = "  , false ~\ true            , endl;
+                       PUSH      #0XFFFF
+                       NOR       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  69)
+                       PUSHA     SB:0D995
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0X0000
+;   70    bite "false spudStop false  = "   , false spudStop false     , endl;
+                       PUSH      #0XFFFF
+                       NOR       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  70)
+                       PUSHA     SB:0D1022
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0X0000
+;   71    bite "false ~\\ false        = "  , false ~\ false           , endl;
+                       PUSH      #0X0000
+                       NOR       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  71)
+                       PUSHA     SB:0D1048
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0X0000
+;   72 
+;   73    bite "true eitherSpud true  = "   , true eitherSpud true     , endl;
+                       PUSH      #0X0000
+                       NOR       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  73)
+                       PUSHA     SB:0D1075
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0XFFFF
+;   74    bite "true +\\ true          = "  , true +\ true             , endl;
+                       PUSH      #0XFFFF
+                       XOR       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  74)
+                       PUSHA     SB:0D1101
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0XFFFF
+;   75    bite "true eitherSpud false = "   , true eitherSpud false    , endl;
+                       PUSH      #0XFFFF
+                       XOR       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  75)
+                       PUSHA     SB:0D1128
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0XFFFF
+;   76    bite "true +\\ false         = "  , true +\ false            , endl;
+                       PUSH      #0X0000
+                       XOR       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  76)
+                       PUSHA     SB:0D1154
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0XFFFF
+;   77    bite "false eitherSpud false= "   , false eitherSpud false   , endl;
+                       PUSH      #0X0000
+                       XOR       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  77)
+                       PUSHA     SB:0D1181
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0X0000
+;   78    bite "false +\\ false        = "  , false +\ false           , endl;
+                       PUSH      #0X0000
+                       XOR       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  78)
+                       PUSHA     SB:0D1207
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0X0000
+;   79 
+;   80    bite "false mashless true   = "  , false mashless true      , endl;
+                       PUSH      #0X0000
+                       XOR       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  80)
+                       PUSHA     SB:0D1234
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0X0000
+;   81    bite "false ~& true         = "  , false ~& true            , endl;
+                       PUSH      #0XFFFF
+                       NAND      
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  81)
+                       PUSHA     SB:0D1260
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0X0000
+;   82    bite "false mashless false  = "  , false mashless false     , endl;
+                       PUSH      #0XFFFF
+                       NAND      
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  82)
+                       PUSHA     SB:0D1286
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0X0000
+;   83    bite "false ~& false        = "  , false ~& false           , endl;
+                       PUSH      #0X0000
+                       NAND      
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  83)
+                       PUSHA     SB:0D1312
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0X0000
+;   84    bite "true mashless true    = "  , true mashless true       , endl;
+                       PUSH      #0X0000
+                       NAND      
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  84)
+                       PUSHA     SB:0D1338
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0XFFFF
+;   85    bite "true ~& true          = "  , true ~& true             , endl;
+                       PUSH      #0XFFFF
+                       NAND      
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  85)
+                       PUSHA     SB:0D1364
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0XFFFF
+;   86    bite "true mashless false   = "  , true mashless false      , endl;
+                       PUSH      #0XFFFF
+                       NAND      
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  86)
+                       PUSHA     SB:0D1390
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0XFFFF
+;   87    bite "true ~& false         = "  , true ~& false            , endl;
+                       PUSH      #0X0000
+                       NAND      
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  87)
+                       PUSHA     SB:0D1416
+                       SVC       #SVC_WRITE_STRING
+                       PUSH      #0XFFFF
+;   88 
+;   89    bite "!true                 = "  , !true                    , endl;
+                       PUSH      #0X0000
+                       NAND      
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  89)
+                       PUSHA     SB:0D1442
+                       SVC       #SVC_WRITE_STRING
+;   90    bite "raw true              = "  , raw true                 , endl;
+                       PUSH      #0XFFFF
+                       NOT       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  90)
+                       PUSHA     SB:0D1468
+                       SVC       #SVC_WRITE_STRING
+;   91    bite "!false                = "  , !false                   , endl;
+                       PUSH      #0XFFFF
+                       NOT       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  91)
+                       PUSHA     SB:0D1494
+                       SVC       #SVC_WRITE_STRING
+;   92    bite "raw false             = "  , raw false                , endl;
+                       PUSH      #0X0000
+                       NOT       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+; **** PRINT statement (  92)
+                       PUSHA     SB:0D1520
+                       SVC       #SVC_WRITE_STRING
+;   93 
+;   94 }
+                       PUSH      #0X0000
+                       NOT       
+                       SVC       #SVC_WRITE_BOOLEAN
+                       SVC       #SVC_WRITE_ENDL
+                       RETURN    
+; **** =========
+; **** END (  94)
+; **** =========
+;--------------------------------------------------------------
+; Common subroutines
+;--------------------------------------------------------------
+CHRIsInRange           EQU       *                    ; CHR,LB,UB,RA
+                       PUSH      SP:0D2               ; CHR,LB,UB,RA,LB
+                       PUSH      SP:0D4               ; CHR,LB,UB,RA,LB,CHR
+                       CMPI                           ; CHR,LB,UB,RA (set LEG)
+                       JMPG      F0310                ; CHR,LB,UB,RA
+                       PUSH      SP:0D3               ; CHR,LB,UB,RA,CHR
+                       PUSH      SP:0D2               ; CHR,LB,UB,RA,CHR,UB
+                       CMPI                           ; CHR,LB,UB,RA (set LEG)
+                       JMPG      F0310                ; CHR,LB,UB,RA
+T0300                  EQU       *                    ; CHR,LB,UB,RA
+                       SWAP                           ; CHR,LB,RA,UB
+                       DISCARD   #0D1                 ; CHR,LB,RA
+                       SWAP                           ; CHR,RA,LB
+                       DISCARD   #0D1                 ; CHR,RA
+                       PUSH      #0XFFFF              ; CHR,RA,true
+                       SWAP                           ; CHR,true,RA
+                       JMP       E0320                ; CHR,true,RA
+F0310                  EQU       *                    ; CHR,LB,UB,RA
+                       SWAP                           ; CHR,LB,RA,UB
+                       DISCARD   #0D1                 ; CHR,LB,RA
+                       SWAP                           ; CHR,RA,LB
+                       DISCARD   #0D1                 ; CHR,RA
+                       PUSH      #0X0000              ; CHR,RA,false
+                       SWAP                           ; CHR,false,RA
+E0320                  EQU       *                    ; CHR,true-or-false,RA
+                       RETURN                         ; CHR,true-or-false,RA
+;------------------------------------------------------------
+; Issue "Run-time error #X..X near line #X..X" to handle run-time errors
+;------------------------------------------------------------
+HANDLERUNTIMEERROR     EQU       *
+                       SVC       #SVC_WRITE_ENDL
+                       PUSHA     SB:0D1546
+                       SVC       #SVC_WRITE_STRING
+                       SVC       #SVC_WRITE_INTEGER
+                       PUSHA     SB:0D1564
+                       SVC       #SVC_WRITE_STRING
+                       SVC       #SVC_WRITE_INTEGER
+                       SVC       #SVC_WRITE_ENDL
+                       PUSH      #0D1
+                       SVC       #SVC_TERMINATE
+;------------------------------------------------------------
+; Static allocation of global data and PROGRAM module data
+;------------------------------------------------------------
+STATICDATA             EQU       *
+                       DS        "Normal program termination"
+                       DS        "1          = "
+                       DS        "+2         = "
+                       DS        "mash 2     = "
+                       DS        "-3         = "
+                       DS        "peel 3     = "
+                       DS        "ABS 2      = "
+                       DS        "ABS(-2)    = "
+                       DS        "4 + 5      = "
+                       DS        "4 mash 5   = "
+                       DS        "8 - 3      = "
+                       DS        "8 peel 3   = "
+                       DS        "6 * 2      = "
+                       DS        "6 fry 2    = "
+                       DS        "10 / 2     = "
+                       DS        "10 slice 2 = "
+                       DS        "7 % 3      = "
+                       DS        "7 mod 3    = "
+                       DS        "2 ^ 3      = "
+                       DS        "2 pow 3    = "
+                       DS        "4 == 6                = "
+                       DS        "4 spudMatch 6         = "
+                       DS        "4 != 6                = "
+                       DS        "4 <> 6                = "
+                       DS        "4 mashApart 6         = "
+                       DS        "4 < 6                 = "
+                       DS        "4 smallerSpud 6       = "
+                       DS        "4 > 6                 = "
+                       DS        "4 biggerSpud 6        = "
+                       DS        "4 <= 6                = "
+                       DS        "4 notBiggerSpud 6     = "
+                       DS        "4 >= 6                = "
+                       DS        "4 notSmallerSpud 6    = "
+                       DS        "true && true          = "
+                       DS        "true prep true        = "
+                       DS        "true && false         = "
+                       DS        "true prep false       = "
+                       DS        "false && false        = "
+                       DS        "false prep false      = "
+                       DS        "true \\\\ true          = "
+                       DS        "true mix true         = "
+                       DS        "true \\\\ false         = "
+                       DS        "true mix false        = "
+                       DS        "false \\\\ false        = "
+                       DS        "false mix false       = "
+                       DS        "false spudStop true   = "
+                       DS        "false ~\\ true         = "
+                       DS        "false spudStop false  = "
+                       DS        "false ~\\ false        = "
+                       DS        "true eitherSpud true  = "
+                       DS        "true +\\ true          = "
+                       DS        "true eitherSpud false = "
+                       DS        "true +\\ false         = "
+                       DS        "false eitherSpud false= "
+                       DS        "false +\\ false        = "
+                       DS        "false mashless true   = "
+                       DS        "false ~& true         = "
+                       DS        "false mashless false  = "
+                       DS        "false ~& false        = "
+                       DS        "true mashless true    = "
+                       DS        "true ~& true          = "
+                       DS        "true mashless false   = "
+                       DS        "true ~& false         = "
+                       DS        "!true                 = "
+                       DS        "raw true              = "
+                       DS        "!false                = "
+                       DS        "raw false             = "
+                       DS        "Run-time error #"
+                       DS        " near line #"
+;------------------------------------------------------------
+; Heap space for dynamic memory allocation (to support future SPL syntax)
+;------------------------------------------------------------
+HEAPBASE               EQU       *
+HEAPSIZE               EQU       0B0010000000000000   ; 8K bytes = 4K words
+;------------------------------------------------------------
+; Run-time stack
+;------------------------------------------------------------
+RUNTIMESTACK           EQU       0XFFFE
