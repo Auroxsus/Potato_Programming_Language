@@ -37,10 +37,11 @@ crisp mainCrisp() {
     }
     
     || Test Case 5: Variable Updates in Condition
-      bite endl, "Test Case 9: Condition Always False", endl;
+      bite endl, "Test Case 5: Variable Updates in Condition", endl;
    season (i = 1: j = 10; i < j; i = i + 2 : j = j - 1) {
        bite "i: ", i, " j: ", j, endl;
    }
+   
     || Test Case 6: Variable Updates in Condition
     bite endl, "Test Case 6: Variable Updates in Condition", endl;
     season (i = 1: j = 10; i < j; i = i + 2) {
