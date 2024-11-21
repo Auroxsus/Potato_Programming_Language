@@ -1,6 +1,6 @@
 ||------------------------------------------------------------
 || Auroxsus
-|| Description: sample print statments
+|| Description: print testing
 || Potato1.p
 ||------------------------------------------------------------
 crisp mainCrisp () {
