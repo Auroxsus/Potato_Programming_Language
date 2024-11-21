@@ -2166,7 +2166,7 @@ void ParseFactor(TOKEN tokens[], DATATYPE &datatype)
 				
 				break;
 			case PLUS:
-				PLUS operation (no action required)
+				// PLUS operation (no action required)
 				break;
 			case MINUS:
 				code.EmitFormattedLine("", "NEGI");
