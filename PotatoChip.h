@@ -16,7 +16,7 @@ const int MAXIMUMIDENTIFIERS      = 500;
 
 enum DATATYPE { NOTYPE,INTTYPE,BOOLTYPE,FLTTYPE,CHRTYPE };
 
-enum IDENTIFIERSCOPE { GLOBALSCOPE,PROGRAMMODULESCOPE,SUBPROGRAMMODULESCOPE };
+enum IDENTIFIERSCOPE { GLOBALSCOPE,PROGRAMMODULESCOPE,SUBPROGRAMMODULESCOPE, ANYSCOPE };
 
 enum IDENTIFIERTYPE
 {
@@ -77,14 +77,18 @@ class LISTER
 };
 
 // Constructor & Deconstructor
+//-----------------------------------------------------------
 LISTER::LISTER(const int LINESPERPAGE): LINESPERPAGE(LINESPERPAGE)
+//-----------------------------------------------------------
 {
 	pageNumber = 0;
 	linesOnPage = 0;
 }
 
 // Clean Up: Closes the file, if it is open and flushes away any pending output
+//-----------------------------------------------------------
 LISTER::~LISTER()
+//-----------------------------------------------------------
 {
 	if ( LIST.is_open() ) 
 	{
@@ -94,7 +98,9 @@ LISTER::~LISTER()
 }
 
 // Opens the output file and sets up the initial page header
+//-----------------------------------------------------------
 void LISTER::OpenFile(const char sourceFileName[])
+//-----------------------------------------------------------
 {
 	char fullFileName[80+1];
 
@@ -109,7 +115,9 @@ void LISTER::OpenFile(const char sourceFileName[])
 }
 
 // Lists a source code line, including the line number. Starts a new page if the current page is full
+//-----------------------------------------------------------
 void LISTER::ListSourceLine(int sourceLineNumber,const char sourceLine[])
+//-----------------------------------------------------------
 {
 	if ( linesOnPage >= LINESPERPAGE )
 	{
@@ -121,7 +129,9 @@ void LISTER::ListSourceLine(int sourceLineNumber,const char sourceLine[])
 }
 
 // Lists an informational line. Also starts a new page if needed.
+//-----------------------------------------------------------
 void LISTER::ListInformationLine(const char information[])
+//-----------------------------------------------------------
 {
 	if ( linesOnPage >= LINESPERPAGE )
 	{
@@ -133,7 +143,9 @@ void LISTER::ListInformationLine(const char information[])
 }
 
 // Outputs the header for a new page, including the source file name, date, time, and page number
+//-----------------------------------------------------------
 char* LISTER::asctime(const struct tm *timeptr)
+//-----------------------------------------------------------
 {
 	static const char wday_name[][4] = {
 		"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
@@ -155,7 +167,9 @@ char* LISTER::asctime(const struct tm *timeptr)
 /*	"Source file name"  DAY MONTH DAY# HR:MIN:SEC YEAR  Page XXXX
 	Line Source Line
 	---- ------------------------------------------------------------------------------- */
+//-----------------------------------------------------------
 void LISTER::ListTopOfPageHeader()
+//-----------------------------------------------------------
 {
 	const char FF = 0X0C; // Form Feed: diregard current page, print at next page
    
@@ -217,10 +231,12 @@ class READER
 	private:
 		void ReadSourceLine();
 };
-
+//-----------------------------------------------------------
 template<int CALLBACKSALLOWED>
 READER<CALLBACKSALLOWED>::READER(const int SOURCELINELENGTH,const int LOOKAHEAD): 
 	SOURCELINELENGTH(SOURCELINELENGTH),LOOKAHEAD(LOOKAHEAD)
+//-----------------------------------------------------------
+
 {
 	sourceLine = new char [ SOURCELINELENGTH+2 ];
 	nextCharacters = new NEXTCHARACTER [ LOOKAHEAD+1 ];
@@ -228,17 +244,20 @@ READER<CALLBACKSALLOWED>::READER(const int SOURCELINELENGTH,const int LOOKAHEAD)
 	atEOP = false;
 	numberCallbacks = 0;
 }
-
+//-----------------------------------------------------------
 template<int CALLBACKSALLOWED>
 READER<CALLBACKSALLOWED>::~READER()
+//-----------------------------------------------------------
 {
 	delete [] sourceLine;
 	delete [] nextCharacters;
 	if ( SOURCE.is_open() ) SOURCE.close();
 }
 
+//-----------------------------------------------------------
 template<int CALLBACKSALLOWED>
 void READER<CALLBACKSALLOWED>::OpenFile(const char sourceFileName[])
+//-----------------------------------------------------------
 {
 	char fullFileName[80+1];
 
@@ -259,14 +278,18 @@ void READER<CALLBACKSALLOWED>::OpenFile(const char sourceFileName[])
 		GetNextCharacter();
 }
 
+//-----------------------------------------------------------
 template<int CALLBACKSALLOWED>
 void READER<CALLBACKSALLOWED>::SetLister(LISTER *lister)
+//-----------------------------------------------------------
 {
 	this->lister = lister;
 }
 
+//-----------------------------------------------------------
 template<int CALLBACKSALLOWED>
 NEXTCHARACTER READER<CALLBACKSALLOWED>::GetNextCharacter()
+//-----------------------------------------------------------
 {
 	char character;
 
@@ -340,8 +363,10 @@ NEXTCHARACTER READER<CALLBACKSALLOWED>::GetNextCharacter()
 	return( nextCharacters[0] );
 }
 
+//-----------------------------------------------------------
 template<int CALLBACKSALLOWED>
 NEXTCHARACTER READER<CALLBACKSALLOWED>::GetLookAheadCharacter(int index)
+//-----------------------------------------------------------
 {
 	// Index in [ 0,LOOKAHEAD ] where index = 0 means last GetNextCharacter() returned
 	if ( (0 <= index) && (index <= LOOKAHEAD) )
@@ -350,9 +375,11 @@ NEXTCHARACTER READER<CALLBACKSALLOWED>::GetLookAheadCharacter(int index)
 		throw( POTATOEXCEPTION("GetLookAheadCharacter() index out-of-range") );
 }
 
+//-----------------------------------------------------------
 template<int CALLBACKSALLOWED>
 void READER<CALLBACKSALLOWED>::AddCallbackFunction(
 	void (*CallbackFunction)(int sourceLineNumber,const char sourceLine[]))
+//-----------------------------------------------------------
 {
 	if ( numberCallbacks <= CALLBACKSALLOWED )
 		CallbackFunctions[++numberCallbacks] = CallbackFunction;
@@ -360,8 +387,10 @@ void READER<CALLBACKSALLOWED>::AddCallbackFunction(
 		throw( POTATOEXCEPTION("Too many callback functions") );
 }
 
+//-----------------------------------------------------------
 template<int CALLBACKSALLOWED>
 void READER<CALLBACKSALLOWED>::ReadSourceLine()
+//-----------------------------------------------------------
 {
 	if ( SOURCE.eof() )
 		atEOP = true;
@@ -419,7 +448,7 @@ class IDENTIFIERTABLE
 	public:
 		IDENTIFIERTABLE(LISTER *lister,int capacity);
 		~IDENTIFIERTABLE();
-		int GetIndex(const char lexeme[],bool &isInTable);
+   int GetIndex(const char lexeme[],bool &isInTable);
 		void AddToTable(const char lexeme[],IDENTIFIERTYPE identifierType,
 					   DATATYPE datatype,const char reference[],int dimensions = 0);
 		void EnterNestedStaticScope();
@@ -459,7 +488,9 @@ class IDENTIFIERTABLE
 		}
 };
 
+//-----------------------------------------------------------
 const char IDENTIFIERTABLE::IDENTIFIERTYPENAMES[][26+1] =
+//-----------------------------------------------------------
 {
 	"GLOBAL_VARIABLE",
 	"GLOBAL_CONSTANT",
@@ -475,7 +506,9 @@ const char IDENTIFIERTABLE::IDENTIFIERTYPENAMES[][26+1] =
 	"FUNCTION_SUBPROGRAMMODULE"
 };
 
+//-----------------------------------------------------------
 const char IDENTIFIERTABLE::DATATYPENAMES[][9+1] =
+//-----------------------------------------------------------
 {
 	"NOTYPE",
 	"INTEGER",
@@ -483,7 +516,9 @@ const char IDENTIFIERTABLE::DATATYPENAMES[][9+1] =
 	"FLOAT"
 };
 
+//-----------------------------------------------------------
 IDENTIFIERTABLE::IDENTIFIERTABLE(LISTER *lister,int capacity)
+//-----------------------------------------------------------
 {
 	this->lister = lister;
 	this->capacity = capacity;
@@ -494,7 +529,9 @@ IDENTIFIERTABLE::IDENTIFIERTABLE(LISTER *lister,int capacity)
 }
 
 // "Guards" the close() function reference
+//-----------------------------------------------------------
 IDENTIFIERTABLE::~IDENTIFIERTABLE()
+//-----------------------------------------------------------
 { 
 	delete [] identifierTable;
 	delete [] scopeTable;
@@ -503,79 +540,91 @@ IDENTIFIERTABLE::~IDENTIFIERTABLE()
 
 /*	Try to find identifier's lexeme in identifier table working from the end of
     the table toward the beginning. */
-int IDENTIFIERTABLE::GetIndex(const char lexeme[],bool &isInTable)
-{
-	char UCLexeme1[SOURCELINELENGTH+1],UCLexeme2[SOURCELINELENGTH];
-	int index;
-	bool isInCurrentScope;
 
-	for (int i = 0; i <= (int) strlen(lexeme); i++)
-		UCLexeme1[i] = toupper(lexeme[i]);
-	isInTable = false;
-	index = identifiers;
-	while ( (index >= 1) && !isInTable )
-	{
-		for (int i = 0; i <= (int) strlen(identifierTable[index].lexeme); i++)
-			UCLexeme2[i] = toupper(identifierTable[index].lexeme[i]);
-		if ( strcmp(UCLexeme1,UCLexeme2) == 0 )
-		{
-			isInTable = true;
-			isInCurrentScope = (identifierTable[index].scope == scopes);
-		}
-		else
-			index -= 1;
-	}
+//-----------------------------------------------------------
+int IDENTIFIERTABLE::GetIndex(const char lexeme[],bool &isInTable)
+//-----------------------------------------------------------
+{
+/*
+   Try to find identifier's lexeme in identifier table working from the end of
+      the table toward the beginning.
+*/
+   char UCLexeme1[SOURCELINELENGTH+1],UCLexeme2[SOURCELINELENGTH];
+   int index;
+   bool isInCurrentScope;
+
+   for (int i = 0; i <= (int) strlen(lexeme); i++)
+      UCLexeme1[i] = toupper(lexeme[i]);
+   isInTable = false;
+   index = identifiers;
+   while ( (index >= 1) && !isInTable )
+   {
+      for (int i = 0; i <= (int) strlen(identifierTable[index].lexeme); i++)
+         UCLexeme2[i] = toupper(identifierTable[index].lexeme[i]);
+      if ( strcmp(UCLexeme1,UCLexeme2) == 0 )
+      {
+         isInTable = true;
+         isInCurrentScope = (identifierTable[index].scope == scopes);
+      }
+      else
+         index -= 1;
+   }
 
 #ifdef TRACEIDENTIFIERTABLE
 {
-	char information[SOURCELINELENGTH+1];
+   char information[SOURCELINELENGTH+1];
 
-	if ( isInTable )
-		sprintf(information,"Found identifier \"%s\" at index = %d (%s)",
-			lexeme,index,((isInCurrentScope) ? "is in current scope" : "not in current scope"));
-	else
-		sprintf(information,"Did not find identifier \"%s\"",lexeme);
-	lister->ListInformationLine(information);
+   if ( isInTable )
+      sprintf(information,"Found identifier \"%s\" at index = %d (%s)",
+         lexeme,index,((isInCurrentScope) ? "is in current scope" : "not in current scope"));
+   else
+      sprintf(information,"Did not find identifier \"%s\"",lexeme);
+   lister->ListInformationLine(information);
 }
 #endif
 
-	return( index );
+   return( index );
 }
 
-/*	Assumes a prior reference to GetIndex() has already guaranteed that the
-    identifier being added is *NOT* in the identifier table  */
+//-----------------------------------------------------------
 void IDENTIFIERTABLE::AddToTable(const char lexeme[],IDENTIFIERTYPE identifierType,
                                  DATATYPE datatype,const char reference[],int dimensions /* = 0*/)
+//-----------------------------------------------------------
 {
-	if ( identifiers > capacity )
-		throw( POTATOEXCEPTION("Identifier table capacity exceeded") );
-	else
-	{
-		identifiers++;
-		identifierTable[identifiers].scope = scopes;
-		strncpy(identifierTable[identifiers].lexeme,lexeme,MAXIMUMLENGTHIDENTIFIER);
-		identifierTable[identifiers].identifierType = identifierType;
-		strcpy(identifierTable[identifiers].reference,reference);
-		identifierTable[identifiers].datatype = datatype;
-		identifierTable[identifiers].dimensions = dimensions;
-	}
+/*	Assumes a prior reference to GetIndex() has already guaranteed that the
+    identifier being added is *NOT* in the identifier table  */
+
+   if ( identifiers > capacity )
+      throw( POTATOEXCEPTION("Identifier table capacity exceeded") );
+   else
+   {
+      identifiers++;
+      identifierTable[identifiers].scope = scopes;
+      strncpy(identifierTable[identifiers].lexeme,lexeme,MAXIMUMLENGTHIDENTIFIER);
+      identifierTable[identifiers].identifierType = identifierType;
+      strcpy(identifierTable[identifiers].reference,reference);
+      identifierTable[identifiers].datatype = datatype;
+      identifierTable[identifiers].dimensions = dimensions;
+   }
 
 #ifdef TRACEIDENTIFIERTABLE
 {
-	char information[SOURCELINELENGTH+1];
+   char information[SOURCELINELENGTH+1];
 
-	sprintf(information,"Added identifier \"%s\" at index = %d, reference = %s, identifier type = %s, data type = %s, dimensions = %d",
-			lexeme,identifiers,identifierTable[identifiers].reference,
-			IDENTIFIERTYPENAMES[identifierTable[identifiers].identifierType],
-			DATATYPENAMES[identifierTable[identifiers].datatype],
-			dimensions);
-	lister->ListInformationLine(information);
+   sprintf(information,"Added identifier \"%s\" at index = %d, reference = %s, identifier type = %s, data type = %s, dimensions = %d",
+         lexeme,identifiers,identifierTable[identifiers].reference,
+         IDENTIFIERTYPENAMES[identifierTable[identifiers].identifierType],
+         DATATYPENAMES[identifierTable[identifiers].datatype],
+         dimensions);
+   lister->ListInformationLine(information);
 }
 #endif
 
 }
 
+//--------------------------------------------------
 void IDENTIFIERTABLE::EnterNestedStaticScope()
+//--------------------------------------------------
 {
 	scopeTable[++scopes] = identifiers;
 
@@ -598,7 +647,9 @@ void IDENTIFIERTABLE::EnterNestedStaticScope()
     
 	*Note* The subprogram module identifier is retained because it is in the
     scope just re-entered. */
+//--------------------------------------------------
 void IDENTIFIERTABLE::ExitNestedStaticScope()
+//--------------------------------------------------
 {
 	identifiers = scopeTable[scopes--];
 	if ( (identifierTable[identifiers].identifierType == PROCEDURE_SUBPROGRAMMODULE) ||
@@ -636,7 +687,9 @@ void IDENTIFIERTABLE::ExitNestedStaticScope()
 	  .     . .                    .                          .                    .
 	  .     . .                    .                          .                    .
 	=================================================================================================== */
+//--------------------------------------------------
 void IDENTIFIERTABLE::DisplayTableContents(const char description[])
+//--------------------------------------------------
 {
 	lister->ListInformationLine
 		("===================================================================================================");
@@ -666,7 +719,9 @@ void IDENTIFIERTABLE::DisplayTableContents(const char description[])
       (1) index represents a subprogram module identifier; and 
       (2) all the subprogram module formal parameters immediately follow the
           subprogram module identifier in identifier table */
+//--------------------------------------------------
 int IDENTIFIERTABLE::GetCountOfFormalParameters(int index)
+//--------------------------------------------------
 {
 	int count;
 
@@ -704,7 +759,9 @@ int IDENTIFIERTABLE::GetCountOfFormalParameters(int index)
       local variables/constants--have storage space accounted for when their
       definitions are parsed. The frame space is then allocated using STM 
       statements emitted as part of the subprogram module prolog code. */
+//===========================================================
 class CODE
+//===========================================================
 {
 private:
 	struct DATARECORD
@@ -735,7 +792,7 @@ public:
 	void EmitBeginningCode(const char sourceFileName[]);
 	void EmitEndingCode();
 	int GetSBOffset();
-	void AddRWToStaticData(int operand,const char comment[],char reference[]);
+   void AddRWToStaticData(int operand,const char comment[],char reference[]);
 	void AddDWToStaticData(const char operand[],const char comment[],char reference[]);
 	void AddDSToStaticData(const char operand[],const char comment[],char reference[]);
 	void EmitStaticData();
@@ -771,7 +828,9 @@ private:
 	void EmitCommonSubroutines();
 };
 
+//-----------------------------------------------------------
 CODE::CODE()
+//-----------------------------------------------------------
 {
 	staticdata.clear();
 	SBOffset = 0;
@@ -781,7 +840,9 @@ CODE::CODE()
 	mixedModeON = false;
 }
 
+//-----------------------------------------------------------
 CODE::~CODE()
+//-----------------------------------------------------------
 {
 	if ( STM.is_open() )
 	{ 
@@ -790,7 +851,9 @@ CODE::~CODE()
 	}
 }
 
+//--------------------------------------------------
 void CODE::OpenFile(const char sourceFileName[])
+//--------------------------------------------------
 {
 	strcpy(codeFileName,sourceFileName);
 	strcat(codeFileName,".stm");
@@ -798,7 +861,9 @@ void CODE::OpenFile(const char sourceFileName[])
 	if ( !STM.is_open() ) throw( POTATOEXCEPTION("Unable to open code file") );
 }
 
+//--------------------------------------------------
 void CODE::EmitBeginningCode(const char sourceFileName[])
+//--------------------------------------------------
 {
 	char line[SOURCELINELENGTH+1];
 
@@ -828,7 +893,9 @@ void CODE::EmitBeginningCode(const char sourceFileName[])
 	EmitFormattedLine(""                    ,"JMP","PROGRAMMAIN");
 }
 
+//--------------------------------------------------
 void CODE::EmitCommonSubroutines()
+//--------------------------------------------------
 {
    EmitUnformattedLine(";--------------------------------------------------------------");
    EmitUnformattedLine("; Common subroutines");
@@ -870,7 +937,9 @@ void CODE::EmitCommonSubroutines()
 	}
 }
 
+//--------------------------------------------------
 void CODE::EmitEndingCode()
+//--------------------------------------------------
 {
    char reference[SOURCELINELENGTH+1];
    
@@ -911,25 +980,33 @@ void CODE::EmitEndingCode()
     EmitFormattedLine("RUNTIMESTACK","EQU","0XFFFE");
 }
 
+//--------------------------------------------------
 int CODE::GetSBOffset()
+//--------------------------------------------------
 {
     return( SBOffset );
 }
 
+//--------------------------------------------------
 void CODE::AddRWToStaticData(int operand,const char comment[],char reference[])
+//--------------------------------------------------
 {
-    DATARECORD r;
-    strcpy(r.mnemonic,"RW");
-    sprintf(r.operand,"0D%d",operand);
-    strcpy(r.comment,comment);
-    staticdata.push_back( r );
-    sprintf(reference,"SB:0D%d",SBOffset);
-    SBOffset += operand;
+   DATARECORD r;
+
+   strcpy(r.mnemonic,"RW");
+   sprintf(r.operand,"0D%d",operand);
+   strcpy(r.comment,comment);
+   staticdata.push_back( r );
+   sprintf(reference,"SB:0D%d",SBOffset);
+   SBOffset += operand;
 }
 
+//--------------------------------------------------
 void CODE::AddDWToStaticData(const char operand[],const char comment[],char reference[])
+//--------------------------------------------------
 {
     DATARECORD r;
+	
     strcpy(r.mnemonic,"DW");
     strcpy(r.operand,operand);
     strcpy(r.comment,comment);
@@ -943,7 +1020,9 @@ void CODE::AddDWToStaticData(const char operand[],const char comment[],char refe
       operand = "abc\" should yield r.operand = "\"abc\""
       operand = abc"xyz should yield r.operand = "abc\"xyz"
 */
+//--------------------------------------------------
 void CODE::AddDSToStaticData(const char operand[],const char comment[],char reference[])
+//--------------------------------------------------
 {
 	DATARECORD r;
 	strcpy(r.mnemonic,"DS");
@@ -954,13 +1033,17 @@ void CODE::AddDSToStaticData(const char operand[],const char comment[],char refe
 	SBOffset += 2 + (int) strlen(operand);
 }
 
+//--------------------------------------------------
 void CODE::EmitStaticData()
+//--------------------------------------------------
 {
 	for(int i = 0; i <= (int) staticdata.size()-1; i++)
 		EmitFormattedLine("",staticdata[i].mnemonic,staticdata[i].operand,staticdata[i].comment);
 }
 
+//--------------------------------------------------
 int CODE::LabelSuffix()
+//--------------------------------------------------
 {
 	labelsuffix += 10;
 	return( labelsuffix );
@@ -969,7 +1052,9 @@ int CODE::LabelSuffix()
 /*			 1         2         3         4         5         6         7         8
 	^1234567890123456789012 ^56789012 ^5678901234567890123 ^6789012345678901234567890 
 	^ is a pre-established tab stop */
+//--------------------------------------------------
 void CODE::EmitFormattedLine(const char label[],const char mnemonic[],const char operand[],const char comment[])
+//--------------------------------------------------
 {
 	char line[110+1];
 
@@ -980,61 +1065,81 @@ void CODE::EmitFormattedLine(const char label[],const char mnemonic[],const char
 	STM << line << endl;
 }
 
+//--------------------------------------------------
 void CODE::EmitUnformattedLine(const char line[])
+//--------------------------------------------------
 {
-	STM << line << endl;
+   STM << line << endl;
 }
 
+//--------------------------------------------------
 void CODE::ResetFrameData()
+//--------------------------------------------------
 {
-	framedata.clear();
-	FBOffset = 0;
+   framedata.clear();
+   FBOffset = 0;
 }
 
+//--------------------------------------------------
 void CODE::IncrementFBOffset(int increment/* = 1*/)
+//--------------------------------------------------
 {
-	this->FBOffset += increment;
+   this->FBOffset += increment;
 }
 
+//--------------------------------------------------
 int CODE::GetFBOffset()
+//--------------------------------------------------
 {
-	return( FBOffset );
+   return( FBOffset );
 }
 
+//--------------------------------------------------
 void CODE::AddInstructionToInitializeFrameData(const char mnemonic[],const char operand[],const char comment[])
+//--------------------------------------------------
 {
-	DATARECORD r;
+   DATARECORD r;
 
-	strcpy(r.mnemonic,mnemonic);
-	strcpy(r.operand,operand);
-	strcpy(r.comment,comment);
-	framedata.push_back( r );
+   strcpy(r.mnemonic,mnemonic);
+   strcpy(r.operand,operand);
+   strcpy(r.comment,comment);
+   framedata.push_back( r );
 }
 
+//--------------------------------------------------
 void CODE::EmitFrameData()
+//--------------------------------------------------
 {
-	for(int i = 0; i <= (int) framedata.size()-1; i++)
-		EmitFormattedLine("",framedata[i].mnemonic,framedata[i].operand,framedata[i].comment);
+   for(int i = 0; i <= (int) framedata.size()-1; i++)
+      EmitFormattedLine("",framedata[i].mnemonic,framedata[i].operand,framedata[i].comment);
 }
 
+//--------------------------------------------------
 void CODE::EnterModuleBody(IDENTIFIERTYPE moduleIdentifierType,int moduleIdentifierIndex)
+//--------------------------------------------------
 {
-	isInModuleBody = true;
-	this->moduleIdentifierType = moduleIdentifierType;
-	this->moduleIdentifierIndex = moduleIdentifierIndex;
+   isInModuleBody = true;
+   this->moduleIdentifierType = moduleIdentifierType;
+   this->moduleIdentifierIndex = moduleIdentifierIndex;
 }
 
+//--------------------------------------------------
 void CODE::ExitModuleBody()
+//--------------------------------------------------
 {
-	isInModuleBody = false;
+   isInModuleBody = false;
 }
 
+//--------------------------------------------------
 bool CODE::IsInModuleBody(IDENTIFIERTYPE moduleIdentifierType)
+//--------------------------------------------------
 {
-	return( isInModuleBody && (this->moduleIdentifierType == moduleIdentifierType) );
+   return( isInModuleBody && (this->moduleIdentifierType == moduleIdentifierType) );
 }
 
+//--------------------------------------------------
 int CODE::GetModuleIdentifierIndex()
+//--------------------------------------------------
 {
-	return( moduleIdentifierIndex );
+   return( moduleIdentifierIndex );
 }
